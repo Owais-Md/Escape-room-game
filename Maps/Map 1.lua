@@ -9,8 +9,8 @@ return {
   height = 7,
   tilewidth = 16,
   tileheight = 16,
-  nextlayerid = 4,
-  nextobjectid = 1,
+  nextlayerid = 8,
+  nextobjectid = 37,
   properties = {},
   tilesets = {
     {
@@ -63,7 +63,7 @@ return {
       encoding = "lua",
       data = {
         74, 74, 74, 74, 74, 74, 74, 74, 74, 74,
-        74, 74, 74, 74, 74, 74, 18, 74, 74, 74,
+        74, 74, 74, 74, 74, 74, 18, 18, 74, 74,
         74, 74, 74, 74, 74, 74, 74, 74, 74, 74,
         74, 74, 74, 74, 74, 74, 74, 74, 74, 74,
         74, 74, 74, 74, 74, 74, 74, 74, 74, 74,
@@ -89,7 +89,7 @@ return {
       properties = {},
       encoding = "lua",
       data = {
-        3, 3, 3, 3, 3, 3, 0, 3, 3, 3,
+        3, 3, 3, 3, 3, 3, 0, 0, 3, 3,
         3, 0, 0, 0, 0, 0, 0, 0, 0, 3,
         3, 0, 0, 0, 0, 0, 0, 0, 0, 3,
         3, 0, 0, 0, 0, 0, 0, 0, 0, 3,
@@ -116,13 +116,133 @@ return {
       properties = {},
       encoding = "lua",
       data = {
-        0, 0, 0, 0, 0, 0, 49, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 49, 2147483697, 0, 0,
         0, 62, 37, 0, 0, 0, 0, 0, 61, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 61, 0, 0, 0, 0, 0, 0, 62, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 7,
+      name = "Game Walls",
+      class = "",
+      visible = false,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 27,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 0,
+          y = 0,
+          width = 48,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 28,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 48,
+          y = 0,
+          width = 48,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 30,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 128,
+          y = 0,
+          width = 32,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 31,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 128,
+          y = 80,
+          width = 32,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 32,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 32,
+          y = 96,
+          width = 96,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 33,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 0,
+          y = 80,
+          width = 32,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 34,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 0,
+          y = 32,
+          width = 16,
+          height = 48,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 35,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 144,
+          y = 32,
+          width = 16,
+          height = 48,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
       }
     }
   }
