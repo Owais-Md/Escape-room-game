@@ -11,15 +11,18 @@ function Player:new()
     
     player.x = love.graphics.getWidth() / 2 - 40
     player.y = love.graphics.getHeight() / 2 - 40
-    player.speed = 5
+    player.width = 16
+    player.height = 16
+    player.speed = 8
+    player.scale = 5
     player.spriteSheet = love.graphics.newImage("Sprites/Lanea Zimmerman's spritesheets/characters.png")
-    player.grid = anim8.newGrid(16, 16, player.spriteSheet:getWidth(), player.spriteSheet:getHeight())
+    player.grid = anim8.newGrid(player.width, player.height, player.spriteSheet:getWidth(), player.spriteSheet:getHeight())
 
     player.animations = {}
-    player.animations.down = anim8.newAnimation(player.grid('4-6', 1), 0.2)
-    player.animations.left = anim8.newAnimation(player.grid('4-6', 2), 0.2)
-    player.animations.right = anim8.newAnimation(player.grid('4-6', 3), 0.2)
-    player.animations.up = anim8.newAnimation(player.grid('4-6', 4), 0.2)
+    player.animations.down = anim8.newAnimation(player.grid('4-6', 1), 1/player.speed)
+    player.animations.left = anim8.newAnimation(player.grid('4-6', 2), 1/player.speed)
+    player.animations.right = anim8.newAnimation(player.grid('4-6', 3), 1/player.speed)
+    player.animations.up = anim8.newAnimation(player.grid('4-6', 4), 1/player.speed)
 
     player.animation_state = player.animations.down
 
@@ -29,25 +32,22 @@ end
 function Player:Update(dt)
     local isMoving = false
 
-    if love.keyboard.isDown("right") then
+    if love.keyboard.isDown("right") or love.keyboard.isDown("kp6") or love.keyboard.isDown("d") then
         self.x = self.x + self.speed
         self.animation_state = self.animations.right
         isMoving = true
-    end
 
-    if love.keyboard.isDown("left") then
+    elseif love.keyboard.isDown("left") or love.keyboard.isDown("kp4") or love.keyboard.isDown("a") then
         player.x = player.x - player.speed
         player.animation_state= player.animations.left
         isMoving = true
-    end
-
-    if love.keyboard.isDown("down") then
+    
+    elseif love.keyboard.isDown("down") or love.keyboard.isDown("kp2") or love.keyboard.isDown("s") then
         player.y = player.y + player.speed
         player.animation_state= player.animations.down
         isMoving = true
-    end
-
-    if love.keyboard.isDown("up") then
+    
+    elseif love.keyboard.isDown("up") or love.keyboard.isDown("kp8") or love.keyboard.isDown("w") then
         player.y = player.y - player.speed
         player.animation_state= player.animations.up
         isMoving = true
@@ -61,7 +61,7 @@ function Player:Update(dt)
 end
 
 function Player:Draw()
-    self.animation_state:draw(self.spriteSheet, self.x, self.y, nil, 5)
+    self.animation_state:draw(self.spriteSheet, self.x - (self.x % (self.scale*self.width/player.speed)), self.y - (self.y % (self.scale*self.height/player.speed)), nil, player.scale)
 end
 
 return Player
