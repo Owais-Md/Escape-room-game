@@ -74,7 +74,9 @@ function Player:Update(dt)
 end
 
 function Player:Draw()
-    self.world:draw()
+    if show_debugging then
+        self.world:draw()
+    end
     self.animation_state:draw(self.spriteSheet, self.x, self.y, nil, self.scale)
 end
 

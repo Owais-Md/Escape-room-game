@@ -3,9 +3,10 @@ local Background = require "Background"
 
 function love.load()
     love.mouse.setVisible(false)
-    _G.scale = 5
-    _G.player = Player:New(scale)
-    _G.background = Background:New(scale, player.world)
+    scale = 5
+    show_debugging = false
+    player = Player:New(scale)
+    background = Background:New(scale, player.world)
 end
 
 function love.update(dt)
@@ -14,5 +15,5 @@ end
 
 function love.draw()
     background:Draw()
-    player:Draw()
+    player:Draw(show_debugging)
 end
