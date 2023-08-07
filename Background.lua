@@ -24,15 +24,17 @@ function Background:drawLayer(layer)
     background.map:drawLayer(layer)
 end
 ]]
-function Background:Draw()love.graphics.push() -- Save the current transformation state
-    love.graphics.scale(5) -- Scale the drawing by a factor of 5
+function Background:Draw()
+    --self.map:draw(0, 0, scale)
+    love.graphics.push() -- Save the current transformation state
+    love.graphics.scale(5)
     for _, layer in ipairs(self.map.layers) do
         if layer.name ~= "Game Walls" then
             self.map:drawLayer(layer)
         end
     end
     love.graphics.pop() -- Restore the previous transformation state
-    --self.map:draw(0, 0, scale)
+
 end
 
 return Background
