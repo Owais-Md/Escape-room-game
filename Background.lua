@@ -3,15 +3,28 @@ local wf = require "libraries.windfield" --FOSS library for game physics
 
 local Background = {}
 
+function gcd( m, n )
+    while n ~= 0 do
+        local q = m
+        m = n
+        n = q % n
+    end
+    return m
+end
+
+function lcm( m, n )
+    return ( m ~= 0 and n ~= 0 ) and m * n / gcd( m, n ) or 0
+end
+
 function Background:New(scale, world)
     local background = {}
     setmetatable(background, self)
     self.__index = self
     --background.map = sti('Maps/Map 1.lua')
-    background.map = require "Room 1-animated"
+    background.map = require "Room 2-animated"
     background.walls = {}
     background.timer = 0
-    background.timelimit = 0.2
+    background.timelimit = 1
     for _,layer in ipairs(background.map.layers) do
         if(layer.name == "Game Walls") then
             for i, obj in pairs(layer.objects)do
@@ -61,6 +74,7 @@ function Background:New(scale, world)
                 animationTile.tileid = animationTile.tileid + background.tilecount
             end
             background.animatedTiles[background.tilecount + tile.id] = tile
+            background.timelimit = lcm(background.timelimit, #tile.animation)
             table.insert(background.animatedTiles, background.tilecount + tile.id, tile)
         end
         background.tilecount = background.tilecount + tileset.tilecount
@@ -69,7 +83,7 @@ function Background:New(scale, world)
 end
 
 function Background:Update(dt, animationSpeed)
-    self.timer = self.timer + animationSpeed*dt
+    self.timer = (self.timer + animationSpeed*dt) % self.timelimit
 end
 
 function Background:Draw()
