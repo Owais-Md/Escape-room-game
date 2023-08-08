@@ -10,7 +10,7 @@ function love.load()
 end
 
 function love.update(dt)
-    background:Update(dt, animationSpeed)
+    background:Update(dt, 5)
     player:Update(dt)
 end
 
