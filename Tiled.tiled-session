@@ -3,9 +3,10 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "Room 1.tmx",
+    "activeFile": "Room 2.tmx",
     "expandedProjectPaths": [
     ],
+    "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
         "": {
             "scaleInEditor": 4
@@ -17,18 +18,34 @@
             "scale": 7.226785714285714,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 80.04941932295527,
-                "y": 56.11069928341982
+                "x": 79.91104521868053,
+                "y": 34.8702742772424
             }
         },
         "Room 1.tmx#basictiles": {
-            "scaleInDock": 2
+            "scaleInDock": 2,
+            "scaleInEditor": 1
         },
         "Room 1.tmx#things": {
-            "scaleInDock": 3
+            "scaleInDock": 3,
+            "scaleInEditor": 5.5
+        },
+        "Room 2.tmx": {
+            "scale": 6.556696428571429,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 80.14706883638593,
+                "y": 55.973309729692936
+            }
+        },
+        "Room 2.tmx#basictiles": {
+            "scaleInDock": 1
+        },
+        "Room 2.tmx#things": {
+            "scaleInDock": 1.5
         }
     },
-    "last.exportedFilePath": "C:/Users/Md.Owais/OneDrive - iiit-b/Lua/Escape-room-game/Tiled",
+    "last.exportedFilePath": "C:/Users/Md.Owais/OneDrive - iiit-b/Lua/Escape-room-game",
     "last.imagePath": "C:/Users/Md.Owais/OneDrive - iiit-b/Lua/Escape-room-game/Sprites/Lanea Zimmerman's spritesheets",
     "map.height": 7,
     "map.lastUsedExportFilter": "Lua files (*.lua)",
@@ -37,10 +54,11 @@
     "map.tileWidth": 16,
     "map.width": 10,
     "openFiles": [
-        "Room 1.tmx"
+        "Room 2.tmx"
     ],
     "project": "Tiled.tiled-project",
     "recentFiles": [
+        "Room 2.tmx",
         "Room 1.tmx"
     ],
     "tileset.embedInMap": true,
