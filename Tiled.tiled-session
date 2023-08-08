@@ -6,28 +6,32 @@
     "activeFile": "Room 1.tmx",
     "expandedProjectPaths": [
     ],
-    "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
+        "": {
+            "scaleInEditor": 4
+        },
+        "#basictiles": {
+            "scaleInEditor": 1
+        },
         "Room 1.tmx": {
             "scale": 7.226785714285714,
-            "selectedLayer": 0,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 101.3590313812701,
-                "y": 50.298986903879424
+                "x": 80.04941932295527,
+                "y": 56.11069928341982
             }
         },
         "Room 1.tmx#basictiles": {
             "scaleInDock": 2
         },
         "Room 1.tmx#things": {
-            "scaleInDock": 2,
-            "scaleInEditor": 4
+            "scaleInDock": 3
         }
     },
     "last.exportedFilePath": "C:/Users/Md.Owais/OneDrive - iiit-b/Lua/Escape-room-game/Tiled",
     "last.imagePath": "C:/Users/Md.Owais/OneDrive - iiit-b/Lua/Escape-room-game/Sprites/Lanea Zimmerman's spritesheets",
     "map.height": 7,
-    "map.lastUsedExportFilter": "All Files (*)",
+    "map.lastUsedExportFilter": "Lua files (*.lua)",
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 16,
     "map.tileWidth": 16,
