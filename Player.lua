@@ -20,7 +20,7 @@ function Player:New(scale)
     player.x = love.graphics.getWidth() / 2 - player.scale*player.width/2
     player.y = love.graphics.getHeight() / 2 - player.scale*player.height/2
     player.world = wf.newWorld(0, 0)
-    player.collider = player.world:newRectangleCollider(player.x, player.y, player.width*player.scale*3/4, player.height*player.scale)
+    player.collider = player.world:newBSGRectangleCollider(player.x, player.y, player.width*player.scale*3/4, player.height*player.scale, 3*player.scale)
     player.collider:setFixedRotation(true)
 
     player.animations = {}
