@@ -1,2 +1,4 @@
 *.vscode
 *.tmx
+*.tiled-project
+*.tiled-session
