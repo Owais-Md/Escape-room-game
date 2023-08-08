@@ -20,7 +20,8 @@
             "scaleInDock": 2
         },
         "Room 1.tmx#things": {
-            "scaleInDock": 2
+            "scaleInDock": 2,
+            "scaleInEditor": 4
         }
     },
     "last.exportedFilePath": "C:/Users/Md.Owais/OneDrive - iiit-b/Lua/Escape-room-game/Tiled",
