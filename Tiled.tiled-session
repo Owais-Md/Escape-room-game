@@ -3,12 +3,13 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "Room 2.tmx",
+    "activeFile": "Room.tmx",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
         "": {
+            "scaleInDock": 1.5,
             "scaleInEditor": 4
         },
         "#basictiles": {
@@ -32,21 +33,48 @@
         },
         "Room 2.tmx": {
             "scale": 6.556696428571429,
-            "selectedLayer": 2,
+            "selectedLayer": 3,
             "viewCenter": {
-                "x": 80.14706883638593,
+                "x": 79.99455300605979,
                 "y": 55.973309729692936
             }
         },
         "Room 2.tmx#basictiles": {
-            "scaleInDock": 1
+            "scaleInDock": 1,
+            "scaleInEditor": 1
         },
         "Room 2.tmx#things": {
-            "scaleInDock": 1.5
+            "scaleInDock": 1.5,
+            "scaleInEditor": 5.5
+        },
+        "Room.tmx": {
+            "scale": 6.556696428571429,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 80.14706883638593,
+                "y": 56.125825560019074
+            }
+        },
+        "Tileset.tmx": {
+            "scale": 5.5,
+            "selectedLayer": -1,
+            "viewCenter": {
+                "x": 75.72727272727273,
+                "y": 46.72727272727273
+            }
+        },
+        "basictiles.tsx": {
+            "scaleInDock": 2,
+            "scaleInEditor": 1
+        },
+        "things.tsx": {
+            "scaleInDock": 1
         }
     },
     "last.exportedFilePath": "C:/Users/Md.Owais/OneDrive - iiit-b/Lua/Escape-room-game",
+    "last.externalTilesetPath": "C:/Users/Md.Owais/OneDrive - iiit-b/Lua/Escape-room-game",
     "last.imagePath": "C:/Users/Md.Owais/OneDrive - iiit-b/Lua/Escape-room-game/Sprites/Lanea Zimmerman's spritesheets",
+    "lastUsedTilesetExportFilter": "Lua files (*.lua)",
     "map.height": 7,
     "map.lastUsedExportFilter": "Lua files (*.lua)",
     "map.lastUsedFormat": "tmx",
@@ -54,14 +82,18 @@
     "map.tileWidth": 16,
     "map.width": 10,
     "openFiles": [
-        "Room 2.tmx"
+        "Room.tmx"
     ],
     "project": "Tiled.tiled-project",
     "recentFiles": [
+        "Room.tmx",
         "Room 2.tmx",
+        "Tileset.tmx",
+        "basictiles.tsx",
         "Room 1.tmx"
     ],
-    "tileset.embedInMap": true,
+    "tileset.embedInMap": false,
+    "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
         "height": 16,
         "width": 16
