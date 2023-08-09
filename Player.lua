@@ -14,7 +14,7 @@ function Player:New(scale)
     player.width = 16
     player.height = 16
     player.scale = scale
-    player.speed = player.scale/5*player.width/2
+    player.speed = player.scale/5*player.width/3
     player.spriteSheet = love.graphics.newImage("Sprites/Lanea Zimmerman's spritesheets/characters.png")
     player.grid = anim8.newGrid(player.width, player.height, player.spriteSheet:getWidth(), player.spriteSheet:getHeight())
     player.x = love.graphics.getWidth() / 2 - player.scale*player.width/2
