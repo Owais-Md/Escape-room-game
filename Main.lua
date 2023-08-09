@@ -5,7 +5,7 @@ function love.load()
     love.mouse.setVisible(false)
     scale = 5
     animationSpeed = 7
-    show_debugging = false
+    show_debugging = true
     player = Player:New(scale)
     roomPath = "Room"
     background = Background:New(roomPath, scale, player.world)
@@ -17,6 +17,6 @@ function love.update(dt)
 end
 
 function love.draw()
-    background:Draw()
+    background:Draw(show_debugging)
     player:Draw(show_debugging)
 end

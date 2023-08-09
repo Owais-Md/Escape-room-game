@@ -13,12 +13,25 @@ function Background:New(path, scale, world)
     background.timer = 0
 
     background.walls = {}
+    background.collisionRegions = {}
+    background.enteredCollider = nil
     for _,layer in ipairs(background.map.layers) do
         if(layer.name == "Game Walls") then
             for i, obj in pairs(layer.objects)do
                 local wall = world:newRectangleCollider(obj.x*scale, obj.y*scale, obj.width*scale, obj.height*scale)
                 wall:setType('static')
                 table.insert(background.walls, wall)
+            end
+        end
+    end
+    for _,layer in ipairs(background.map.layers) do
+        if(layer.name == "Collision Regions") then
+            for i, obj in pairs(layer.objects)do
+                local collisionRegion = world:newRectangleCollider(obj.x*scale, obj.y*scale, obj.width*scale, obj.height*scale)
+                local name = obj.name
+                collisionRegion:setType('static')
+                collisionRegion:setCollisionClass('Detector')
+                table.insert(background.collisionRegions, {object = collisionRegion, name = name})
             end
         end
     end
@@ -33,11 +46,19 @@ end
 
 function Background:Update(dt, animationSpeed)
     self.timer = (self.timer + animationSpeed*dt)
+    for _, collider in ipairs(self.collisionRegions) do
+        if collider.object:enter('Player') then
+            self.enteredCollider = collider
+        end
+    end
+    if self.enteredCollider and self.enteredCollider.object:exit('Player') then
+        self.enteredCollider = nil
+    end
 end
 
-function Background:Draw()
+function Background:Draw(show_debugging)
     for _, layer in ipairs(self.map.layers) do
-        if layer.name ~= "Game Walls" then
+        if layer.type ~= "objectgroup" then
             for y = 0, layer.height - 1 do
                 for x = 0, layer.width - 1 do
                     local index = (x + y * layer.width) + 1
@@ -88,6 +109,9 @@ function Background:Draw()
                 end
             end
         end
+    end
+    if self.enteredCollider ~= nil and show_debugging then
+        love.graphics.print(self.enteredCollider.name)
     end
 end
 

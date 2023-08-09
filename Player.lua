@@ -20,14 +20,17 @@ function Player:New(scale)
     player.x = love.graphics.getWidth() / 2 - player.scale*player.width/2
     player.y = love.graphics.getHeight() / 2 - player.scale*player.height/2
     player.world = wf.newWorld(0, 0)
+    player.world:addCollisionClass('Player')
+    player.world:addCollisionClass('Detector', {ignores = {'Player'}})
     player.collider = player.world:newBSGRectangleCollider(player.x, player.y, player.width*player.scale*3/4, player.height*player.scale, 3*player.scale)
+    player.collider:setCollisionClass('Player')
     player.collider:setFixedRotation(true)
 
     player.animations = {}
-    player.animations.down = anim8.newAnimation(player.grid('4-6', 1), 0.5/player.speed)
-    player.animations.left = anim8.newAnimation(player.grid('4-6', 2), 0.5/player.speed)
-    player.animations.right = anim8.newAnimation(player.grid('4-6', 3), 0.5/player.speed)
-    player.animations.up = anim8.newAnimation(player.grid('4-6', 4), 0.5/player.speed)
+    player.animations.down = anim8.newAnimation(player.grid('4-6', 1), 3/(player.scale*player.speed))
+    player.animations.left = anim8.newAnimation(player.grid('4-6', 2), 3/(player.scale*player.speed))
+    player.animations.right = anim8.newAnimation(player.grid('4-6', 3), 3/(player.scale*player.speed))
+    player.animations.up = anim8.newAnimation(player.grid('4-6', 4), 3/(player.scale*player.speed))
 
     player.animation_state = player.animations.down
 
@@ -43,18 +46,18 @@ function Player:Update(dt)
         vx = self.speed * self.width * self.scale
         self.animation_state = self.animations.right
         isMoving = true
-
-    elseif love.keyboard.isDown("left") or love.keyboard.isDown("kp4") or love.keyboard.isDown("a") then
+    end
+    if love.keyboard.isDown("left") or love.keyboard.isDown("kp4") or love.keyboard.isDown("a") then
         vx = -1 * self.speed * self.width * self.scale
         self.animation_state= self.animations.left
         isMoving = true
-    
-    elseif love.keyboard.isDown("down") or love.keyboard.isDown("kp2") or love.keyboard.isDown("s") then
+    end
+    if love.keyboard.isDown("down") or love.keyboard.isDown("kp2") or love.keyboard.isDown("s") then
         vy = self.speed * self.height * self.scale
         self.animation_state= self.animations.down
         isMoving = true
-    
-    elseif love.keyboard.isDown("up") or love.keyboard.isDown("kp8") or love.keyboard.isDown("w") then
+    end
+    if love.keyboard.isDown("up") or love.keyboard.isDown("kp8") or love.keyboard.isDown("w") then
         vy = -1 * self.speed * self.height * self.scale
         self.animation_state= self.animations.up
         isMoving = true
