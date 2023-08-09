@@ -14,7 +14,7 @@ function Player:New(scale)
     player.width = 16
     player.height = 16
     player.scale = scale
-    player.speed = player.scale/5*player.width/3
+    player.speed = 3*player.scale/4
     player.spriteSheet = love.graphics.newImage("Sprites/Lanea Zimmerman's spritesheets/characters.png")
     player.grid = anim8.newGrid(player.width, player.height, player.spriteSheet:getWidth(), player.spriteSheet:getHeight())
     player.x = love.graphics.getWidth() / 2 - player.scale*player.width/2
@@ -24,10 +24,10 @@ function Player:New(scale)
     player.collider:setFixedRotation(true)
 
     player.animations = {}
-    player.animations.down = anim8.newAnimation(player.grid('4-6', 1), 1/player.speed)
-    player.animations.left = anim8.newAnimation(player.grid('4-6', 2), 1/player.speed)
-    player.animations.right = anim8.newAnimation(player.grid('4-6', 3), 1/player.speed)
-    player.animations.up = anim8.newAnimation(player.grid('4-6', 4), 1/player.speed)
+    player.animations.down = anim8.newAnimation(player.grid('4-6', 1), 0.5/player.speed)
+    player.animations.left = anim8.newAnimation(player.grid('4-6', 2), 0.5/player.speed)
+    player.animations.right = anim8.newAnimation(player.grid('4-6', 3), 0.5/player.speed)
+    player.animations.up = anim8.newAnimation(player.grid('4-6', 4), 0.5/player.speed)
 
     player.animation_state = player.animations.down
 

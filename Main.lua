@@ -4,7 +4,7 @@ local Background = require "Background"
 function love.load()
     love.mouse.setVisible(false)
     scale = 5
-    animationSpeed = 5
+    animationSpeed = 7
     show_debugging = false
     player = Player:New(scale)
     roomPath = "Room"
