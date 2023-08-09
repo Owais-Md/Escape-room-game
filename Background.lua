@@ -1,30 +1,18 @@
 local wf = require "libraries.windfield" --FOSS library for game physics
---local sti = require "libraries/sti" --FOSS library for implementing Tiled
+local tilesetData = require "TilesetDataGenerator"
 
 local Background = {}
 
-function gcd( m, n )
-    while n ~= 0 do
-        local q = m
-        m = n
-        n = q % n
-    end
-    return m
-end
-
-function lcm( m, n )
-    return ( m ~= 0 and n ~= 0 ) and m * n / gcd( m, n ) or 0
-end
-
-function Background:New(scale, world)
+function Background:New(path, scale, world)
     local background = {}
     setmetatable(background, self)
     self.__index = self
-    --background.map = sti('Maps/Map 1.lua')
-    background.map = require "Room 2-animated"
-    background.walls = {}
+    
+    background.map = require(path)
+
     background.timer = 0
-    background.timelimit = 1
+
+    background.walls = {}
     for _,layer in ipairs(background.map.layers) do
         if(layer.name == "Game Walls") then
             for i, obj in pairs(layer.objects)do
@@ -34,56 +22,17 @@ function Background:New(scale, world)
             end
         end
     end
-    background.quads = {}
-    background.tilesetRanges = {}
-    background.images = {}
-    background.tilecount = 0
-    for _, tileset in ipairs(background.map.tilesets) do
-        for y = 0, tileset.imageheight/tileset.tileheight -1 do
-            for x = 0, tileset.imagewidth/tileset.tilewidth -1 do
-                local quad = love.graphics.newQuad(
-                x * tileset.tilewidth,
-                y * tileset.tileheight,
-                tileset.tilewidth,
-                tileset.tileheight,
-                tileset.imagewidth,
-                tileset.imageheight
-                )
-                table.insert(background.quads, quad)
-            end
-        end
-        local tilesetRange = {
-            start = background.tilecount,
-            finish = background.tilecount + tileset.tilecount - 1,
-            name = tileset.name
-        }
-        local image = love.graphics.newImage(tileset.image)
-        table.insert(background.tilesetRanges, tilesetRange)
-        local imageTable = {
-            name = tileset.name,
-            image = image
-        }
-        table.insert(background.images, imageTable)
-        background.tilecount = background.tilecount + tileset.tilecount
-    end
-    background.animatedTiles = {}
-    background.tilecount = 0
-    for _,tileset in ipairs(background.map.tilesets) do
-        for _,tile in ipairs(tileset.tiles)do
-            for _,animationTile in ipairs(tile.animation) do
-                animationTile.tileid = animationTile.tileid + background.tilecount
-            end
-            background.animatedTiles[background.tilecount + tile.id] = tile
-            background.timelimit = lcm(background.timelimit, #tile.animation)
-            table.insert(background.animatedTiles, background.tilecount + tile.id, tile)
-        end
-        background.tilecount = background.tilecount + tileset.tilecount
-    end
+    
+    background.quads = tilesetData.quads
+    background.tilesetRanges = tilesetData.tilesetRanges
+    background.animatedTiles = tilesetData.animatedTiles
+    background.timelimit = tilesetData.timeLimit
+    background.images = tilesetData.images
     return background
 end
 
 function Background:Update(dt, animationSpeed)
-    self.timer = (self.timer + animationSpeed*dt) % self.timelimit
+    self.timer = (self.timer + animationSpeed*dt)
 end
 
 function Background:Draw()
@@ -93,6 +42,18 @@ function Background:Draw()
                 for x = 0, layer.width - 1 do
                     local index = (x + y * layer.width) + 1
                     local tid = layer.data[index]
+                    flipped_horizontal = bit.band(0x80000000, tid)
+                    flipped_vertical = bit.band(0x40000000, tid)
+                    x_offset, y_offset, x_scale, y_scale = 0, 0, 1, 1
+                    if flipped_vertical ~= 0 then
+                        y_offset = 1
+                        x_scale = -1
+                    end
+                    if flipped_horizontal ~= 0 then
+                        x_offset = 1
+                        y_scale = -1
+                    end
+                    tid = tid + bit.band(0x80000000, tid) - bit.band(0x40000000, tid)
                     if tid ~= 0 then
                         if self.animatedTiles[tid - 1] ~= nil then
                             local anim = self.animatedTiles[tid - 1].animation
@@ -114,10 +75,13 @@ function Background:Draw()
                         love.graphics.push()
                         love.graphics.scale(scale)
                         love.graphics.draw(
-                            image,
+                            love.graphics.newImage(image),
                             quad,
-                            x*self.map.tilewidth,
-                            y*self.map.tileheight
+                            (x + x_offset)*self.map.tilewidth,
+                            (y + y_offset)*self.map.tileheight,
+                            0,
+                            y_scale,
+                            x_scale
                         )
                         love.graphics.pop()
                     end
