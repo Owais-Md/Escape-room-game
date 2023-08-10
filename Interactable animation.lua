@@ -1,5 +1,5 @@
 local Image = love.graphics.newImage("Sprites/Lanea Zimmerman's spritesheets/things.png")
-local imageWidth = Image:getWdith()
+local imageWidth = Image:getWidth()
 local imageHeight = Image:getHeight()
 local tileWidth = 16
 local tileHeight = 16
@@ -25,70 +25,72 @@ local quadsForAnimation = {
     }
 }
 
-Animation = {}
+local Animation = {}
 
-function Animation:NewAnimation(beginClosed, flipped_horizontal, flipped_vertical, Animationspeed, name)
-    Animation.closed = beginClosed
-    Animation.mid_animation = false
-    Animation.flipped_horizontal = flipped_horizontal
-    Animation.flipped_vertical = flipped_vertical
-    Animation.Animationspeed = Animationspeed
-    Animation.quads = {}
-    Animation.frame = 0
-    if Animation.closed == false then
-        Animation.frame = #Animation.quads - 1
+function Animation:NewObject(beginClosed, flipped_horizontal, flipped_vertical, Animationspeed, name)
+    local animation = {}
+    setmetatable(animation, self)
+    self.__index = self
+
+    animation.tileWidth = 16
+    animation.tileHeight = 16
+    animation.imagePath = "Sprites/Lanea Zimmerman's spritesheets/things.png"
+
+    animation.closed = beginClosed
+    animation.mid_animation = false
+    animation.flipped_horizontal = flipped_horizontal
+    animation.flipped_vertical = flipped_vertical
+    animation.Animationspeed = animationspeed
+    animation.quads = {}
+    animation.frame = 0
+    if animation.closed == false then
+        animation.frame = #animation.quads - 1
     end
-    Animation.timer = 0
-    for _,quads in quadsForAnimation do
+    animation.timer = 0
+    for _,quads in ipairs(quadsForAnimation) do
         if quads.name == name then
             for _, cuard in ipairs(quads.cuards) do
-                table.insert(Animation.quads, love.graphics.newQuad(cuard.x*tileWidth, cuard.y*tileHeight, tileWidth, tileHeight, imageWidth, imageHeight))
+                table.insert(animation.quads, love.graphics.newQuad(cuard.x*tileWidth, cuard.y*tileHeight, tileWidth, tileHeight, imageWidth, imageHeight))
             end
         end
     end
-    Animation.x_offset, Animation.y_offset, Animation.x_scale, Animation.y_scale = 0, 0, 1, 1
-    if Animation.flipped_horizontal ~= 0 then
-        Animation.x_offset = 1
-        Animation.x_scale = -1
+    animation.x_offset, animation.y_offset, animation.x_scale, animation.y_scale = 0, 0, 1, 1
+    if animation.flipped_horizontal then
+        animation.x_offset = 1
+        animation.x_scale = -1
     end
-    if Animation.flipped_vertical ~= 0 then
-        Animation.y_offset = 1
-        Animation.y_scale = -1
+    if animation.flipped_vertical then
+        animation.y_offset = 1
+        animation.y_scale = -1
     end
+
+    return animation
 end
 
 function Animation:Open(dt)
     if self.closed then
+        self.mid_animation = true
         if self.frame ~= 3 then
             self.timer = self.timer + dt*self.Animationspeed
             self.frame = (self.timer + 1) % #self.quads
         else
             self.closed = false
+            self.mid_animation = false
         end
     end
 end
 
 function Animation:Close(dt)
-    if self.closed then
-        if self.frame ~= 3 then
-            self.timer = self.timer + dt*Animationspeed
+    if self.closed == false then
+        self.mid_animation = false
+        if self.frame ~= 0 then
+            self.timer = self.timer - dt*Animationspeed
             self.frame = (self.timer + 1) % #self.quads
         else
-            self.closed = false
+            self.closed = true
+            self.mid_animation = true
         end
     end
-end
-
-function Animation:Draw(image, x, y)
-    love.graphics.draw(
-        Image,
-        self.quads[self.frame + 1],
-        (x + self.x_offset)*self.map.tilewidth,
-        (y + self.y_offset)*self.map.tileheight,
-        0,
-        self.x_scale,
-        self.y_scale
-    )
 end
 
 return Animation

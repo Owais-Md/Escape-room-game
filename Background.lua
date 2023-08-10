@@ -1,5 +1,6 @@
 local wf = require "libraries.windfield" --FOSS library for game physics
 local tilesetData = require "TilesetDataGenerator"
+local inOb = require "Interactable animation"
 
 local Background = {}
 
@@ -16,6 +17,7 @@ function Background:New(path, scale, world)
     background.walls = {}
     background.movingWalls = {}
     background.collisionRegions = {}
+    background.interactableObjects = {}
     background.enteredCollider = nil
     for _,layer in ipairs(background.map.layers) do
         if(layer.type == "objectgroup") then
@@ -25,19 +27,24 @@ function Background:New(path, scale, world)
                     wall:setType('static')
                     wall:setCollisionClass('Wall')
                     table.insert(background.walls, wall)
-                end
-                if obj.type == "Detect" then
+                elseif obj.type == "Detect" then
                     local collisionRegion = world:newRectangleCollider(obj.x*scale, obj.y*scale, obj.width*scale, obj.height*scale)
                     local name = obj.name
                     collisionRegion:setType('static')
                     collisionRegion:setCollisionClass('Detector')
                     table.insert(background.collisionRegions, {object = collisionRegion, name = name})
-                end
-                if obj.type == "Moving-wall" then
+                elseif obj.type == "Moving-wall" then
                     local wall = world:newRectangleCollider(obj.x*scale, obj.y*scale, obj.width*scale, obj.height*scale)
                     wall:setType('static')
                     wall:setCollisionClass('Wall')
                     table.insert(background.movingWalls, {collider = wall, name = obj.name})
+                elseif obj.type == "Draw" then
+                    beginClosed = true
+                    flipped_horizontal = true
+                    flipped_vertical = false
+                    animationSpeed = 5
+                    local interactableObject = inOb:NewObject(beginClosed, flipped_horizontal, flipped_vertical, animationSpeed, obj.name)
+                    table.insert(background.interactableObjects, {object = interactableObject, name = obj.name})
                 end
             end
         end
@@ -74,6 +81,8 @@ function Background:Update(dt, animationSpeed)
 end
 
 function Background:Draw(show_debugging)
+    love.graphics.push()
+    love.graphics.scale(self.scale)
     for _, layer in ipairs(self.map.layers) do
         if layer.type ~= "objectgroup" then
             for y = 0, layer.height - 1 do
@@ -110,8 +119,6 @@ function Background:Draw(show_debugging)
                                 image = imageset.image
                             end
                         end
-                        love.graphics.push()
-                        love.graphics.scale(scale)
                         love.graphics.draw(
                             love.graphics.newImage(image),
                             quad,
@@ -121,12 +128,32 @@ function Background:Draw(show_debugging)
                             x_scale,
                             y_scale
                         )
-                        love.graphics.pop()
+                    end
+                end
+            end
+        else
+            for _, obj in ipairs(layer.objects) do
+                if obj.type == "Draw" then
+                    for _, interactableObject in ipairs(self.interactableObjects) do
+                        if obj.name == interactableObject.name then
+                            object = interactableObject.object
+                            Image = love.graphics.newImage(object.imagePath)
+                            love.graphics.draw(
+                                Image,
+                                object.quads[object.frame + 1],
+                                obj.x + object.x_offset*object.tileWidth,
+                                obj.y + object.y_offset*object.tileHeight,
+                                0,
+                                object.x_scale,
+                                object.y_scale
+                            )
+                        end
                     end
                 end
             end
         end
     end
+    love.graphics.pop()
     if self.enteredCollider and show_debugging then
         love.graphics.print(self.enteredCollider.name)
     end
