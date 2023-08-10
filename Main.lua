@@ -17,6 +17,9 @@ function love.update(dt)
 end
 
 function love.draw()
+    love.graphics.push()
+    love.graphics.scale(love.graphics.getWidth()/800, love.graphics.getHeight()/560)
     background:Draw(show_debugging)
     player:Draw(show_debugging)
+    love.graphics.pop()
 end
