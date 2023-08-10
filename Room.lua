@@ -9,8 +9,8 @@ return {
   height = 7,
   tilewidth = 16,
   tileheight = 16,
-  nextlayerid = 7,
-  nextobjectid = 29,
+  nextlayerid = 10,
+  nextobjectid = 40,
   properties = {},
   tilesets = {
     {
@@ -34,7 +34,7 @@ return {
       id = 1,
       name = "Floor",
       class = "",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -61,7 +61,7 @@ return {
       id = 3,
       name = "Torch Animation",
       class = "",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -88,7 +88,7 @@ return {
       id = 4,
       name = "Fireplace Animation",
       class = "",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -107,39 +107,12 @@ return {
       }
     },
     {
-      type = "tilelayer",
-      x = 0,
-      y = 0,
-      width = 10,
-      height = 7,
-      id = 5,
-      name = "Door",
-      class = "",
-      visible = true,
-      opacity = 1,
-      offsetx = 0,
-      offsety = 0,
-      parallaxx = 1,
-      parallaxy = 1,
-      properties = {},
-      encoding = "lua",
-      data = {
-        0, 0, 0, 0, 0, 0, 2147483697, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-      }
-    },
-    {
       type = "objectgroup",
       draworder = "topdown",
       id = 2,
       name = "Game Walls",
       class = "",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -150,12 +123,12 @@ return {
         {
           id = 1,
           name = "",
-          type = "",
+          type = "Wall",
           shape = "rectangle",
           x = 0,
           y = 0,
           width = 16,
-          height = 112,
+          height = 96,
           rotation = 0,
           visible = true,
           properties = {}
@@ -163,11 +136,11 @@ return {
         {
           id = 2,
           name = "",
-          type = "",
+          type = "Wall",
           shape = "rectangle",
-          x = 16,
+          x = 0,
           y = 96,
-          width = 144,
+          width = 160,
           height = 16,
           rotation = 0,
           visible = true,
@@ -176,7 +149,7 @@ return {
         {
           id = 3,
           name = "",
-          type = "",
+          type = "Wall",
           shape = "rectangle",
           x = 144,
           y = 0,
@@ -189,7 +162,7 @@ return {
         {
           id = 4,
           name = "",
-          type = "",
+          type = "Wall",
           shape = "rectangle",
           x = 120,
           y = 0,
@@ -202,7 +175,7 @@ return {
         {
           id = 5,
           name = "",
-          type = "",
+          type = "Wall",
           shape = "rectangle",
           x = 16,
           y = 0,
@@ -215,7 +188,7 @@ return {
         {
           id = 6,
           name = "",
-          type = "",
+          type = "Wall",
           shape = "rectangle",
           x = 88,
           y = 0,
@@ -228,7 +201,7 @@ return {
         {
           id = 7,
           name = "",
-          type = "",
+          type = "Wall",
           shape = "rectangle",
           x = 116,
           y = 0,
@@ -239,27 +212,14 @@ return {
           properties = {}
         },
         {
-          id = 8,
+          id = 9,
           name = "",
-          type = "",
+          type = "Wall",
           shape = "rectangle",
           x = 92,
           y = 0,
-          width = 24,
-          height = 4,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 9,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 92,
-          y = 4,
           width = 4,
-          height = 4,
+          height = 8,
           rotation = 0,
           visible = true,
           properties = {}
@@ -267,12 +227,12 @@ return {
         {
           id = 10,
           name = "",
-          type = "",
+          type = "Wall",
           shape = "rectangle",
           x = 112,
-          y = 4,
+          y = 0,
           width = 4,
-          height = 4,
+          height = 8,
           rotation = 0,
           visible = true,
           properties = {}
@@ -280,7 +240,7 @@ return {
         {
           id = 11,
           name = "",
-          type = "",
+          type = "Wall",
           shape = "rectangle",
           x = 20,
           y = 16,
@@ -293,7 +253,7 @@ return {
         {
           id = 12,
           name = "",
-          type = "",
+          type = "Wall",
           shape = "rectangle",
           x = 132,
           y = 16,
@@ -306,7 +266,7 @@ return {
         {
           id = 13,
           name = "",
-          type = "",
+          type = "Wall",
           shape = "rectangle",
           x = 132,
           y = 80,
@@ -319,12 +279,54 @@ return {
         {
           id = 14,
           name = "",
-          type = "",
+          type = "Wall",
           shape = "rectangle",
           x = 20,
           y = 80,
           width = 8,
           height = 8,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 38,
+          name = "",
+          type = "Wall",
+          shape = "rectangle",
+          x = 96,
+          y = -4,
+          width = 16,
+          height = 4,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 7,
+      name = "Door",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 30,
+          name = "Door",
+          type = "Door-Draw",
+          shape = "rectangle",
+          x = 96,
+          y = 0,
+          width = 16,
+          height = 16,
           rotation = 0,
           visible = true,
           properties = {}
@@ -337,7 +339,7 @@ return {
       id = 6,
       name = "Collision Regions",
       class = "",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -348,12 +350,12 @@ return {
         {
           id = 15,
           name = "Door",
-          type = "",
+          type = "Detect",
           shape = "rectangle",
           x = 96,
-          y = 4,
+          y = 0,
           width = 16,
-          height = 4,
+          height = 12,
           rotation = 0,
           visible = true,
           properties = {}
@@ -361,7 +363,7 @@ return {
         {
           id = 21,
           name = "Furnace",
-          type = "",
+          type = "Detect",
           shape = "rectangle",
           x = 64,
           y = 16,
@@ -374,7 +376,7 @@ return {
         {
           id = 23,
           name = "Torch 1",
-          type = "",
+          type = "Detect",
           shape = "rectangle",
           x = 16,
           y = 16,
@@ -387,7 +389,7 @@ return {
         {
           id = 24,
           name = "Torch 2",
-          type = "",
+          type = "Detect",
           shape = "rectangle",
           x = 128,
           y = 16,
@@ -400,7 +402,7 @@ return {
         {
           id = 25,
           name = "Torch 4",
-          type = "",
+          type = "Detect",
           shape = "rectangle",
           x = 128,
           y = 80,
@@ -413,7 +415,7 @@ return {
         {
           id = 26,
           name = "Torch 3",
-          type = "",
+          type = "Detect",
           shape = "rectangle",
           x = 16,
           y = 80,
@@ -422,6 +424,52 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
+        },
+        {
+          id = 35,
+          name = "Door-teleport",
+          type = "Detect",
+          shape = "rectangle",
+          x = 96,
+          y = -4,
+          width = 16,
+          height = 4,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 9,
+      name = "Moving Walls",
+      class = "",
+      visible = false,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {
+        ["Door-open"] = false
+      },
+      objects = {
+        {
+          id = 36,
+          name = "Door",
+          type = "Moving-wall",
+          shape = "rectangle",
+          x = 96,
+          y = 0,
+          width = 16,
+          height = 8,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["Door-open"] = false
+          }
         }
       }
     }

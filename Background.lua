@@ -11,10 +11,13 @@ function Background:New(path, scale, world)
     background.map = require(path)
 
     background.timer = 0
+    background.scale = scale
 
     background.walls = {}
+    background.movingWalls = {}
     background.collisionRegions = {}
     background.enteredCollider = nil
+    --[[
     for _,layer in ipairs(background.map.layers) do
         if(layer.name == "Game Walls") then
             for i, obj in pairs(layer.objects)do
@@ -32,6 +35,31 @@ function Background:New(path, scale, world)
                 collisionRegion:setType('static')
                 collisionRegion:setCollisionClass('Detector')
                 table.insert(background.collisionRegions, {object = collisionRegion, name = name})
+            end
+        end
+    end]]
+    for _,layer in ipairs(background.map.layers) do
+        if(layer.type == "objectgroup") then
+            for i, obj in pairs(layer.objects)do
+                if obj.type == "Wall" then
+                    local wall = world:newRectangleCollider(obj.x*scale, obj.y*scale, obj.width*scale, obj.height*scale)
+                    wall:setType('static')
+                    wall:setCollisionClass('Wall')
+                    table.insert(background.walls, wall)
+                end
+                if obj.type == "Detect" then
+                    local collisionRegion = world:newRectangleCollider(obj.x*scale, obj.y*scale, obj.width*scale, obj.height*scale)
+                    local name = obj.name
+                    collisionRegion:setType('static')
+                    collisionRegion:setCollisionClass('Detector')
+                    table.insert(background.collisionRegions, {object = collisionRegion, name = name})
+                end
+                if obj.type == "Moving-wall" then
+                    local wall = world:newRectangleCollider(obj.x*scale, obj.y*scale, obj.width*scale, obj.height*scale)
+                    wall:setType('static')
+                    wall:setCollisionClass('Wall')
+                    table.insert(background.movingWalls, {collider = wall, name = obj.name})
+                end
             end
         end
     end
@@ -53,6 +81,16 @@ function Background:Update(dt, animationSpeed)
     end
     if self.enteredCollider and self.enteredCollider.object:exit('Player') then
         self.enteredCollider = nil
+    end
+    if self.enteredCollider and self.enteredCollider.object:stay('Player') then
+        for _, movingWall in ipairs(self.movingWalls) do
+            if movingWall.name == self.enteredCollider.name and love.keyboard.isDown('o') then
+                movingWall.collider:setCollisionClass('Open Wall')
+            end
+            if movingWall.name == self.enteredCollider.name and love.keyboard.isDown('c') then
+                movingWall.collider:setCollisionClass('Wall')
+            end
+        end
     end
 end
 
@@ -110,7 +148,7 @@ function Background:Draw(show_debugging)
             end
         end
     end
-    if self.enteredCollider ~= nil and show_debugging then
+    if self.enteredCollider and show_debugging then
         love.graphics.print(self.enteredCollider.name)
     end
 end

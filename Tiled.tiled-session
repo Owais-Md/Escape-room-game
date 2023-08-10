@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "Dialog Box.tmx",
+    "activeFile": "Room.tmx",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -19,8 +19,16 @@
             "scale": 5.5,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 82.0909090909091,
-                "y": 47.81818181818182
+                "x": 80.0909090909091,
+                "y": 56.00000000000001
+            }
+        },
+        "Option Box.tmx": {
+            "scale": 5.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 79.72727272727273,
+                "y": 56.00000000000001
             }
         },
         "Room 1.tmx": {
@@ -56,11 +64,17 @@
             "scaleInEditor": 5.5
         },
         "Room.tmx": {
+            "expandedObjectLayers": [
+                2,
+                9,
+                7,
+                6
+            ],
             "scale": 6.556696428571429,
-            "selectedLayer": 5,
+            "selectedLayer": 4,
             "viewCenter": {
                 "x": 79.99455300605979,
-                "y": 56.125825560019074
+                "y": 38.586505072513106
             }
         },
         "Tileset.tmx": {
@@ -73,7 +87,11 @@
         },
         "basictiles.tsx": {
             "scaleInDock": 2,
-            "scaleInEditor": 1
+            "scaleInEditor": 5.5
+        },
+        "characters.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 11
         },
         "things.tsx": {
             "scaleInDock": 1.5
@@ -91,15 +109,19 @@
     "map.width": 10,
     "openFiles": [
         "Room.tmx",
-        "Dialog Box.tmx"
+        "Dialog Box.tmx",
+        "Option Box.tmx"
     ],
     "project": "Tiled.tiled-project",
+    "property.type": "bool",
     "recentFiles": [
-        "Room.tmx",
+        "basictiles.tsx",
+        "Option Box.tmx",
         "Dialog Box.tmx",
+        "Room.tmx",
+        "characters.tsx",
         "Room 2.tmx",
         "Tileset.tmx",
-        "basictiles.tsx",
         "Room 1.tmx"
     ],
     "tileset.embedInMap": false,

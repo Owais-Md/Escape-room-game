@@ -21,7 +21,9 @@ function Player:New(scale)
     player.y = love.graphics.getHeight() / 2 - player.scale*player.height/2
     player.world = wf.newWorld(0, 0)
     player.world:addCollisionClass('Player')
+    player.world:addCollisionClass('Wall')
     player.world:addCollisionClass('Detector', {ignores = {'Player'}})
+    player.world:addCollisionClass('Open Wall', {ignores = {'Player'}})
     player.collider = player.world:newBSGRectangleCollider(player.x, player.y, player.width*player.scale*3/4, player.height*player.scale, 3*player.scale)
     player.collider:setCollisionClass('Player')
     player.collider:setFixedRotation(true)
@@ -33,34 +35,40 @@ function Player:New(scale)
     player.animations.up = anim8.newAnimation(player.grid('4-6', 4), 3/(player.scale*player.speed))
 
     player.animation_state = player.animations.down
+    player.looking = "down"
+    player.isMoving = false
 
     return player
 end
 
 function Player:Update(dt)
-    local isMoving = false
+    player.isMoving = false
 
     vx, vy = 0, 0
 
     if love.keyboard.isDown("right") or love.keyboard.isDown("kp6") or love.keyboard.isDown("d") then
         vx = self.speed * self.width * self.scale
         self.animation_state = self.animations.right
-        isMoving = true
+        player.looking = "right"
+        player.isMoving = true
     end
     if love.keyboard.isDown("left") or love.keyboard.isDown("kp4") or love.keyboard.isDown("a") then
         vx = -1 * self.speed * self.width * self.scale
         self.animation_state= self.animations.left
-        isMoving = true
+        player.looking = "left"
+        player.isMoving = true
     end
     if love.keyboard.isDown("down") or love.keyboard.isDown("kp2") or love.keyboard.isDown("s") then
         vy = self.speed * self.height * self.scale
         self.animation_state= self.animations.down
-        isMoving = true
+        player.looking = "down"
+        player.isMoving = true
     end
     if love.keyboard.isDown("up") or love.keyboard.isDown("kp8") or love.keyboard.isDown("w") then
         vy = -1 * self.speed * self.height * self.scale
         self.animation_state= self.animations.up
-        isMoving = true
+        player.looking = "up"
+        player.isMoving = true
     end
 
     self.collider:setLinearVelocity(vx,vy)
@@ -68,7 +76,7 @@ function Player:Update(dt)
     self.x = self.collider:getX() - self.scale*self.width/2
     self.y = self.collider:getY() - self.scale*self.height/2
 
-    if isMoving == false then
+    if player.isMoving == false then
         self.animation_state:gotoFrame(2)
     end
 
