@@ -27,7 +27,7 @@
             "scale": 5.5,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 79.72727272727273,
+                "x": 80.0909090909091,
                 "y": 56.00000000000001
             }
         },
@@ -65,16 +65,16 @@
         },
         "Room.tmx": {
             "expandedObjectLayers": [
+                6,
                 2,
-                9,
                 7,
-                6
+                9
             ],
             "scale": 6.556696428571429,
-            "selectedLayer": 4,
+            "selectedLayer": 1,
             "viewCenter": {
                 "x": 79.99455300605979,
-                "y": 38.586505072513106
+                "y": 55.21073057806223
             }
         },
         "Tileset.tmx": {
@@ -94,7 +94,8 @@
             "scaleInEditor": 11
         },
         "things.tsx": {
-            "scaleInDock": 1.5
+            "scaleInDock": 1.5,
+            "scaleInEditor": 5.5
         }
     },
     "last.exportedFilePath": "C:/Users/Md.Owais/OneDrive - iiit-b/Lua/Escape-room-game",
@@ -110,15 +111,17 @@
     "openFiles": [
         "Room.tmx",
         "Dialog Box.tmx",
-        "Option Box.tmx"
+        "Option Box.tmx",
+        "things.tsx"
     ],
     "project": "Tiled.tiled-project",
     "property.type": "bool",
     "recentFiles": [
-        "basictiles.tsx",
+        "things.tsx",
         "Option Box.tmx",
         "Dialog Box.tmx",
         "Room.tmx",
+        "basictiles.tsx",
         "characters.tsx",
         "Room 2.tmx",
         "Tileset.tmx",

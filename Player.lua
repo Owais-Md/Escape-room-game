@@ -42,33 +42,33 @@ function Player:New(scale)
 end
 
 function Player:Update(dt)
-    player.isMoving = false
+    self.isMoving = false
 
     vx, vy = 0, 0
 
     if love.keyboard.isDown("right") or love.keyboard.isDown("kp6") or love.keyboard.isDown("d") then
         vx = self.speed * self.width * self.scale
         self.animation_state = self.animations.right
-        player.looking = "right"
-        player.isMoving = true
+        self.looking = "right"
+        self.isMoving = true
     end
     if love.keyboard.isDown("left") or love.keyboard.isDown("kp4") or love.keyboard.isDown("a") then
         vx = -1 * self.speed * self.width * self.scale
         self.animation_state= self.animations.left
-        player.looking = "left"
-        player.isMoving = true
+        self.looking = "left"
+        self.isMoving = true
     end
     if love.keyboard.isDown("down") or love.keyboard.isDown("kp2") or love.keyboard.isDown("s") then
         vy = self.speed * self.height * self.scale
         self.animation_state= self.animations.down
-        player.looking = "down"
-        player.isMoving = true
+        self.looking = "down"
+        self.isMoving = true
     end
     if love.keyboard.isDown("up") or love.keyboard.isDown("kp8") or love.keyboard.isDown("w") then
         vy = -1 * self.speed * self.height * self.scale
         self.animation_state= self.animations.up
-        player.looking = "up"
-        player.isMoving = true
+        self.looking = "up"
+        self.isMoving = true
     end
 
     self.collider:setLinearVelocity(vx,vy)
@@ -76,12 +76,12 @@ function Player:Update(dt)
     self.x = self.collider:getX() - self.scale*self.width/2
     self.y = self.collider:getY() - self.scale*self.height/2
 
-    if player.isMoving == false then
+    if self.isMoving == false then
         self.animation_state:gotoFrame(2)
     end
 
     self.animation_state:update(dt)
-    player.world:update(dt)
+    self.world:update(dt)
 end
 
 function Player:Draw()

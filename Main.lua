@@ -7,7 +7,7 @@ function love.load()
     animationSpeed = 7
     show_debugging = true
     player = Player:New(scale)
-    roomPath = "Room"
+    roomPath = "Room 1"
     background = Background:New(roomPath, scale, player.world)
 end
 
