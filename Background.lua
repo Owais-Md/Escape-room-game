@@ -40,7 +40,7 @@ function Background:New(path, world)
                     local wall = world:newRectangleCollider(obj.x*background.scale, obj.y*background.scale, obj.width*background.scale, obj.height*background.scale)
                     wall:setType('static')
                     wall:setCollisionClass('Wall')
-                    table.insert(background.movingWalls, {collider = wall, name = obj.name})
+                    table.insert(background.movingWalls, {collider = wall, name = obj.name, class = "Wall"})
                 elseif obj.type == "Draw" then
                     beginClosed = true
                     flipped_horizontal = true
@@ -88,26 +88,35 @@ function Background:Update(dt, animationSpeed)
     if self.enteredCollider then
         for _, interactableObject in ipairs(self.interactableObjects) do
             if  interactableObject.name == self.enteredCollider.name then
-                self.activeObject = interactableObject.object
+                self.activeObject = interactableObject
             end
         end
     end
     if self.activeObject then
-        if love.keyboard.isDown("o") or self.activeObject.isOpening then
-            self.activeObject:Open(dt)
-        elseif love.keyboard.isDown("c") or self.activeObject.isClosing then
-            self.activeObject:Close(dt)
+        if love.keyboard.isDown("o") or self.activeObject.object.isOpening then
+            self.activeObject.object:Open(dt)
+        elseif love.keyboard.isDown("c") or self.activeObject.object.isClosing then
+            self.activeObject.object:Close(dt)
         end
-        if self.activeObject.isClosed then
+        self.flag = 1
+        if self.activeObject.object.isClosed then
+            self.flag = 2
             for _, movingWall in ipairs(self.movingWalls) do
-                if movingWall.name == self.activeObject.name then
-                    movingWall:setCollisionClass('Wall')
+                if self.activeObject.name == movingWall.name then
+                    if movingWall.class ~= "Wall" then
+                        movingWall.collider:setCollisionClass('Wall')
+                        movingWall.class = "Wall"
+                    end
                 end
             end
         else
+            self.flag = 3
             for _, movingWall in ipairs(self.movingWalls) do
-                if movingWall.name == self.activeObject.name then
-                    movingWall:setCollisionClass('Open Wall')
+                if self.activeObject.name == movingWall.name then
+                    if movingWall.class ~= "Open Wall" then
+                        movingWall.collider:setCollisionClass('Open Wall')
+                        movingWall.class = "Open Wall"
+                    end
                 end
             end
         end
@@ -189,16 +198,19 @@ function Background:Draw(show_debugging)
         end
     end
     love.graphics.pop()
-    if self.enteredCollider and show_debugging then
-        love.graphics.print(self.enteredCollider.name..self.flag)
-        if self.activeObject ~= nil then
-            love.graphics.print("\n"..self.activeObject.frame)
-            if self.activeObject.isClosed then
-                love.graphics.print("\n\nClosed")
-            else
-                love.graphics.print("\n\nOpened")
-            end
+    if show_debugging then
+        if self.enteredCollider then
+            love.graphics.print(self.enteredCollider.name)
         end
+        if self.activeObject ~= nil then
+            if self.activeObject.isClosed then
+                love.graphics.print("\nClosed")
+            else
+                love.graphics.print("\nOpened")
+            end
+            love.graphics.print("\n\n"..self.flag..self.activeObject.name)
+        end
+        love.graphics.print("\n\n\n"..self.movingWalls[1].class)
     end
 end
 
