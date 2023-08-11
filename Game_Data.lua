@@ -1,17 +1,19 @@
 local TableIO = require "TableIO"
 
 Game = {
-    Room_1 = {
-        Room_path = "Room 1",
-        Door = "closed",
-        Door_teleport = "Room 2",
-        Closed = true
-    },
-    Room_2 = {
-        Room_path = "Room 2",
-        Door = "closed",
-        Door_teleport = "Room 1",
-        Closed = false
+    Rooms_data = {
+        {
+            name = "Room 1",
+            Room_path = "Room 1",
+            Door_teleport = "Room 2",
+            Closed = true
+        },
+        {
+            name = "Room 2",
+            Room_path = "Room 2",
+            Door_teleport = "Room 1",
+            Closed = false
+        }
     }
 }
 

@@ -3,7 +3,7 @@ local wf = require "libraries.windfield" --FOSS library for game physics
 
 local Player = {}
 
-function Player:New(scale)
+function Player:New()
     local player = {}
     setmetatable(player, self)
     self.__index = self
@@ -13,7 +13,7 @@ function Player:New(scale)
     
     player.width = 16
     player.height = 16
-    player.scale = scale
+    player.scale = 5
     player.speed = 3*player.scale/4
     player.spriteSheet = love.graphics.newImage("Sprites/Lanea Zimmerman's spritesheets/characters.png")
     player.grid = anim8.newGrid(player.width, player.height, player.spriteSheet:getWidth(), player.spriteSheet:getHeight())
@@ -29,10 +29,11 @@ function Player:New(scale)
     player.collider:setFixedRotation(true)
 
     player.animations = {}
-    player.animations.down = anim8.newAnimation(player.grid('4-6', 1), 3/(player.scale*player.speed))
-    player.animations.left = anim8.newAnimation(player.grid('4-6', 2), 3/(player.scale*player.speed))
-    player.animations.right = anim8.newAnimation(player.grid('4-6', 3), 3/(player.scale*player.speed))
-    player.animations.up = anim8.newAnimation(player.grid('4-6', 4), 3/(player.scale*player.speed))
+    player.animationSpeed = 3/(player.scale*player.speed)
+    player.animations.down = anim8.newAnimation(player.grid('4-6', 1), {player.animationSpeed, 0.1, player.animationSpeed})
+    player.animations.left = anim8.newAnimation(player.grid('4-6', 2), {player.animationSpeed, 0.1, player.animationSpeed})
+    player.animations.right = anim8.newAnimation(player.grid('4-6', 3), {player.animationSpeed, 0.1, player.animationSpeed})
+    player.animations.up = anim8.newAnimation(player.grid('4-6', 4), {player.animationSpeed, 0.1, player.animationSpeed})
 
     player.animation_state = player.animations.down
     player.looking = "down"

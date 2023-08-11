@@ -27,7 +27,7 @@ local quadsForAnimation = {
 
 local Animation = {}
 
-function Animation:NewObject(beginClosed, flipped_horizontal, flipped_vertical, Animationspeed, name)
+function Animation:NewObject(beginClosed, flipped_horizontal, flipped_vertical, animationSpeed, name)
     local animation = {}
     setmetatable(animation, self)
     self.__index = self
@@ -36,14 +36,15 @@ function Animation:NewObject(beginClosed, flipped_horizontal, flipped_vertical, 
     animation.tileHeight = 16
     animation.imagePath = "Sprites/Lanea Zimmerman's spritesheets/things.png"
 
-    animation.closed = beginClosed
-    animation.mid_animation = false
+    animation.isClosed = beginClosed
+    animation.isOpening = false
+    animation.isClosing = false
     animation.flipped_horizontal = flipped_horizontal
     animation.flipped_vertical = flipped_vertical
-    animation.Animationspeed = animationspeed
+    animation.animationSpeed = animationSpeed
     animation.quads = {}
     animation.frame = 0
-    if animation.closed == false then
+    if animation.isClosed == false then
         animation.frame = #animation.quads - 1
     end
     animation.timer = 0
@@ -68,27 +69,27 @@ function Animation:NewObject(beginClosed, flipped_horizontal, flipped_vertical, 
 end
 
 function Animation:Open(dt)
-    if self.closed then
-        self.mid_animation = true
+    if self.isClosed then
+        self.isOpening = true
         if self.frame ~= 3 then
-            self.timer = self.timer + dt*self.Animationspeed
-            self.frame = (self.timer + 1) % #self.quads
+            self.timer = self.timer + dt*self.animationSpeed
+            self.frame = self.timer - self.timer % 1
         else
-            self.closed = false
-            self.mid_animation = false
+            self.isClosed = false
+            self.isOpening = false
         end
     end
 end
 
 function Animation:Close(dt)
-    if self.closed == false then
-        self.mid_animation = false
+    if self.isClosed == false then
+        self.isClosing = true
         if self.frame ~= 0 then
-            self.timer = self.timer - dt*Animationspeed
-            self.frame = (self.timer + 1) % #self.quads
+            self.timer = self.timer - dt*animationSpeed
+            self.frame = self.timer - self.timer % 1
         else
-            self.closed = true
-            self.mid_animation = true
+            self.isClosed = true
+            self.isClosing = false
         end
     end
 end

@@ -3,17 +3,28 @@ local Background = require "Background"
 
 function love.load()
     love.mouse.setVisible(false)
-    scale = 5
-    animationSpeed = 7
+    animationSpeed = 5
     show_debugging = true
-    player = Player:New(scale)
+    player = Player:New()
     roomPath = "Room 1"
-    background = Background:New(roomPath, scale, player.world)
+    background = Background:New(roomPath, player.world)
+    playerActive = true
+end
+
+function love.keypressed(key)
+    if key == "escape" then
+        playerActive = not playerActive
+    end
+    if key == "f1" then
+        show_debugging = not show_debugging
+    end
 end
 
 function love.update(dt)
-    background:Update(dt, animationSpeed)
-    player:Update(dt)
+    if playerActive then
+        background:Update(dt, animationSpeed)
+        player:Update(dt)
+    end
 end
 
 function love.draw()

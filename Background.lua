@@ -4,7 +4,7 @@ local inOb = require "Interactable animation"
 
 local Background = {}
 
-function Background:New(path, scale, world)
+function Background:New(path, world)
     local background = {}
     setmetatable(background, self)
     self.__index = self
@@ -12,29 +12,32 @@ function Background:New(path, scale, world)
     background.map = require(path)
 
     background.timer = 0
-    background.scale = scale
+    background.scale = 5
 
     background.walls = {}
     background.movingWalls = {}
     background.collisionRegions = {}
     background.interactableObjects = {}
+    background.activeObject = nil
+    background.enteredColliders = {}
     background.enteredCollider = nil
+    background.flag = 0
     for _,layer in ipairs(background.map.layers) do
         if(layer.type == "objectgroup") then
             for i, obj in pairs(layer.objects)do
                 if obj.type == "Wall" then
-                    local wall = world:newRectangleCollider(obj.x*scale, obj.y*scale, obj.width*scale, obj.height*scale)
+                    local wall = world:newRectangleCollider(obj.x*background.scale, obj.y*background.scale, obj.width*background.scale, obj.height*background.scale)
                     wall:setType('static')
                     wall:setCollisionClass('Wall')
                     table.insert(background.walls, wall)
                 elseif obj.type == "Detect" then
-                    local collisionRegion = world:newRectangleCollider(obj.x*scale, obj.y*scale, obj.width*scale, obj.height*scale)
+                    local collisionRegion = world:newRectangleCollider(obj.x*background.scale, obj.y*background.scale, obj.width*background.scale, obj.height*background.scale)
                     local name = obj.name
                     collisionRegion:setType('static')
                     collisionRegion:setCollisionClass('Detector')
                     table.insert(background.collisionRegions, {object = collisionRegion, name = name})
                 elseif obj.type == "Moving-wall" then
-                    local wall = world:newRectangleCollider(obj.x*scale, obj.y*scale, obj.width*scale, obj.height*scale)
+                    local wall = world:newRectangleCollider(obj.x*background.scale, obj.y*background.scale, obj.width*background.scale, obj.height*background.scale)
                     wall:setType('static')
                     wall:setCollisionClass('Wall')
                     table.insert(background.movingWalls, {collider = wall, name = obj.name})
@@ -42,7 +45,7 @@ function Background:New(path, scale, world)
                     beginClosed = true
                     flipped_horizontal = true
                     flipped_vertical = false
-                    animationSpeed = 5
+                    animationSpeed = 15
                     local interactableObject = inOb:NewObject(beginClosed, flipped_horizontal, flipped_vertical, animationSpeed, obj.name)
                     table.insert(background.interactableObjects, {object = interactableObject, name = obj.name})
                 end
@@ -62,19 +65,50 @@ function Background:Update(dt, animationSpeed)
     self.timer = (self.timer + animationSpeed*dt)
     for _, collider in ipairs(self.collisionRegions) do
         if collider.object:enter('Player') then
-            self.enteredCollider = collider
+            table.insert(self.enteredColliders, 1, collider)
+            self.enteredCollider = self.enteredColliders[1]
         end
     end
-    if self.enteredCollider and self.enteredCollider.object:exit('Player') then
-        self.enteredCollider = nil
-    end
-    if self.enteredCollider and self.enteredCollider.object:stay('Player') then
-        for _, movingWall in ipairs(self.movingWalls) do
-            if movingWall.name == self.enteredCollider.name and love.keyboard.isDown('o') then
-                movingWall.collider:setCollisionClass('Open Wall')
+    for _,enteredCollider in ipairs(self.enteredColliders) do
+        if enteredCollider.object:exit('Player') then
+            for _,colliderToDelete in ipairs(self.enteredColliders) do
+                if enteredCollider.name == colliderToDelete.name then
+                    table.remove(self.enteredColliders, _)
+                    break
+                end
             end
-            if movingWall.name == self.enteredCollider.name and love.keyboard.isDown('c') then
-                movingWall.collider:setCollisionClass('Wall')
+            if #self.enteredColliders ~= 0 then
+                self.enteredCollider = self.enteredColliders[1]
+            else
+                self.enteredCollider = nil
+                self.activeObject = nil
+            end
+        end
+    end
+    if self.enteredCollider then
+        for _, interactableObject in ipairs(self.interactableObjects) do
+            if  interactableObject.name == self.enteredCollider.name then
+                self.activeObject = interactableObject.object
+            end
+        end
+    end
+    if self.activeObject then
+        if love.keyboard.isDown("o") or self.activeObject.isOpening then
+            self.activeObject:Open(dt)
+        elseif love.keyboard.isDown("c") or self.activeObject.isClosing then
+            self.activeObject:Close(dt)
+        end
+        if self.activeObject.isClosed then
+            for _, movingWall in ipairs(self.movingWalls) do
+                if movingWall.name == self.activeObject.name then
+                    movingWall:setCollisionClass('Wall')
+                end
+            end
+        else
+            for _, movingWall in ipairs(self.movingWalls) do
+                if movingWall.name == self.activeObject.name then
+                    movingWall:setCollisionClass('Open Wall')
+                end
             end
         end
     end
@@ -138,9 +172,10 @@ function Background:Draw(show_debugging)
                         if obj.name == interactableObject.name then
                             object = interactableObject.object
                             Image = love.graphics.newImage(object.imagePath)
+                            quad = object.quads[object.frame + 1]
                             love.graphics.draw(
                                 Image,
-                                object.quads[object.frame + 1],
+                                quad,
                                 obj.x + object.x_offset*object.tileWidth,
                                 obj.y + object.y_offset*object.tileHeight,
                                 0,
@@ -155,7 +190,15 @@ function Background:Draw(show_debugging)
     end
     love.graphics.pop()
     if self.enteredCollider and show_debugging then
-        love.graphics.print(self.enteredCollider.name)
+        love.graphics.print(self.enteredCollider.name..self.flag)
+        if self.activeObject ~= nil then
+            love.graphics.print("\n"..self.activeObject.frame)
+            if self.activeObject.isClosed then
+                love.graphics.print("\n\nClosed")
+            else
+                love.graphics.print("\n\nOpened")
+            end
+        end
     end
 end
 
