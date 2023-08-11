@@ -1,7 +1,10 @@
 local TableIO = require "TableIO"
 
 Game = {
-    Rooms_data = {
+    Settings = {
+        
+    },
+    Room_data = {
         {
             name = "Room 1",
             Room_path = "Room 1",

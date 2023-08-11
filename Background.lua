@@ -2,6 +2,14 @@ local wf = require "libraries.windfield" --FOSS library for game physics
 local tilesetData = require "TilesetDataGenerator"
 local inOb = require "Interactable animation"
 
+local Images = {}
+
+for _, tilesetRange in ipairs(tilesetData.tilesetRanges) do
+    local imagePath = tilesetRange.imagePath
+    local newImage = love.graphics.newImage(imagePath)
+    table.insert(Images, {path = imagePath, image = newImage})
+end
+
 local Background = {}
 
 function Background:New(path, world)
@@ -21,7 +29,6 @@ function Background:New(path, world)
     background.activeObject = nil
     background.enteredColliders = {}
     background.enteredCollider = nil
-    background.flag = 0
     for _,layer in ipairs(background.map.layers) do
         if(layer.type == "objectgroup") then
             for i, obj in pairs(layer.objects)do
@@ -57,12 +64,11 @@ function Background:New(path, world)
     background.tilesetRanges = tilesetData.tilesetRanges
     background.animatedTiles = tilesetData.animatedTiles
     background.timelimit = tilesetData.timeLimit
-    background.images = tilesetData.images
     return background
 end
 
-function Background:Update(dt, animationSpeed)
-    self.timer = (self.timer + animationSpeed*dt)
+function Background:Update(dt, speed)
+    self.timer = (self.timer + speed*dt)
     for _, collider in ipairs(self.collisionRegions) do
         if collider.object:enter('Player') then
             table.insert(self.enteredColliders, 1, collider)
@@ -98,9 +104,7 @@ function Background:Update(dt, animationSpeed)
         elseif love.keyboard.isDown("c") or self.activeObject.object.isClosing then
             self.activeObject.object:Close(dt)
         end
-        self.flag = 1
         if self.activeObject.object.isClosed then
-            self.flag = 2
             for _, movingWall in ipairs(self.movingWalls) do
                 if self.activeObject.name == movingWall.name then
                     if movingWall.class ~= "Wall" then
@@ -110,7 +114,6 @@ function Background:Update(dt, animationSpeed)
                 end
             end
         else
-            self.flag = 3
             for _, movingWall in ipairs(self.movingWalls) do
                 if self.activeObject.name == movingWall.name then
                     if movingWall.class ~= "Open Wall" then
@@ -150,20 +153,21 @@ function Background:Draw(show_debugging)
                             local i = (self.timer - self.timer%1) % #anim
                             tid = anim[i + 1].tileid + 1
                         end
-                        for i,tileset in ipairs(self.tilesetRanges) do
-                            if tid>=tileset.start and tid<tileset.finish then
-                                tilesetname = tileset.name
+                        local quad = self.quads[tid]
+                        local imagePath
+                        for i,tilesetRange in ipairs(self.tilesetRanges) do
+                            if tid>=tilesetRange.start and tid<tilesetRange.finish then
+                                imagePath = tilesetRange.imagePath
                             end
                         end
-                        local quad = self.quads[tid]
-                        local image
-                        for _, imageset in ipairs(self.images) do
-                            if imageset.name == tilesetname then
-                                image = imageset.image
+                        local imageToDrawFrom
+                        for _, imageSet in ipairs(Images) do
+                            if imageSet.path == imagePath then
+                                imageToDrawFrom = imageSet.image
                             end
                         end
                         love.graphics.draw(
-                            love.graphics.newImage(image),
+                            imageToDrawFrom,
                             quad,
                             (x + x_offset)*self.map.tilewidth,
                             (y + y_offset)*self.map.tileheight,
@@ -180,10 +184,15 @@ function Background:Draw(show_debugging)
                     for _, interactableObject in ipairs(self.interactableObjects) do
                         if obj.name == interactableObject.name then
                             object = interactableObject.object
-                            Image = love.graphics.newImage(object.imagePath)
+                            local imageToDrawFrom
+                            for _, imageSet in ipairs(Images) do
+                                if imageSet.path == object.imagePath then
+                                    imageToDrawFrom = imageSet.image
+                                end
+                            end
                             quad = object.quads[object.frame + 1]
                             love.graphics.draw(
-                                Image,
+                                imageToDrawFrom,
                                 quad,
                                 obj.x + object.x_offset*object.tileWidth,
                                 obj.y + object.y_offset*object.tileHeight,
@@ -202,15 +211,9 @@ function Background:Draw(show_debugging)
         if self.enteredCollider then
             love.graphics.print(self.enteredCollider.name)
         end
-        if self.activeObject ~= nil then
-            if self.activeObject.isClosed then
-                love.graphics.print("\nClosed")
-            else
-                love.graphics.print("\nOpened")
-            end
-            love.graphics.print("\n\n"..self.flag..self.activeObject.name)
+        if self.activeObject then
+            love.graphics.print("\n"..self.activeObject.name)
         end
-        love.graphics.print("\n\n\n"..self.movingWalls[1].class)
     end
 end
 

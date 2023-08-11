@@ -18,7 +18,6 @@ end
 
 Data = {
     quads = {},
-    images = {},
     tilesetRanges = {},
     animatedTiles = {},
     timeLimit = 1
@@ -51,14 +50,9 @@ for _,path in ipairs(pathsToTilesets) do
     tilesetRange = {
         start = tileCount,
         finish = tileCount + tileset.tilecount - 1,
-        name = tileset.name
-    }
-    imageTable = {
-        name = tileset.name,
-        image = tileset.image
+        imagePath = tileset.image
     }
     table.insert(Data.tilesetRanges, tilesetRange)
-    table.insert(Data.images, imageTable)
     tileCount = tileCount + tileset.tilecount
 end
 

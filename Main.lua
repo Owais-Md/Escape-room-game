@@ -1,9 +1,10 @@
+love.graphics.setDefaultFilter("nearest","nearest")
 local Player = require "Player"
 local Background = require "Background"
 
 function love.load()
     love.mouse.setVisible(false)
-    animationSpeed = 5
+    speed = 8
     show_debugging = true
     player = Player:New()
     roomPath = "Room 1"
@@ -22,7 +23,7 @@ end
 
 function love.update(dt)
     if playerActive then
-        background:Update(dt, animationSpeed)
+        background:Update(dt, speed)
         player:Update(dt)
     end
 end
