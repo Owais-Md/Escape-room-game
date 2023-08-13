@@ -72,23 +72,20 @@ function Background:Update(dt, speed)
     for _, collider in ipairs(self.collisionRegions) do
         if collider.object:enter('Player') then
             table.insert(self.enteredColliders, 1, collider)
-            self.enteredCollider = self.enteredColliders[1]
         end
     end
+    local Table = {}
     for _,enteredCollider in ipairs(self.enteredColliders) do
-        if enteredCollider.object:exit('Player') then
-            for _,colliderToDelete in ipairs(self.enteredColliders) do
-                if enteredCollider.name == colliderToDelete.name then
-                    table.remove(self.enteredColliders, _)
-                end
-            end
+        if not enteredCollider.object:exit('Player') then
+            table.insert(Table, enteredCollider)
         end
-        if #self.enteredColliders ~= 0 then
-            self.enteredCollider = self.enteredColliders[1]
-        else
-            self.enteredCollider = nil
-            self.activeObject = nil
-        end
+    end
+    self.enteredColliders = Table
+    if #self.enteredColliders ~= 0 then
+        self.enteredCollider = self.enteredColliders[1]
+    else
+        self.enteredCollider = nil
+        self.activeObject = nil
     end
     if self.enteredCollider then
         for _, interactableObject in ipairs(self.interactableObjects) do

@@ -65,16 +65,16 @@
         },
         "Room.tmx": {
             "expandedObjectLayers": [
-                9,
-                6,
                 7,
-                2
+                9,
+                2,
+                6
             ],
             "scale": 6.556696428571429,
-            "selectedLayer": 0,
+            "selectedLayer": 5,
             "viewCenter": {
                 "x": 79.99455300605979,
-                "y": 40.721726697079056
+                "y": 38.433989242186975
             }
         },
         "Tileset.tmx": {

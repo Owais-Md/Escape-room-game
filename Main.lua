@@ -22,7 +22,7 @@ function love.keypressed(key)
 end
 
 function love.update(dt)
-    background:Update(dt, speed)
+    background:Update(dt, speed, player.x, player.y, player.width, player.height)
     if playerActive then
         player:Update(dt)
     end
