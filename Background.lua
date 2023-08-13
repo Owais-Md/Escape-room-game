@@ -80,15 +80,14 @@ function Background:Update(dt, speed)
             for _,colliderToDelete in ipairs(self.enteredColliders) do
                 if enteredCollider.name == colliderToDelete.name then
                     table.remove(self.enteredColliders, _)
-                    break
                 end
             end
-            if #self.enteredColliders ~= 0 then
-                self.enteredCollider = self.enteredColliders[1]
-            else
-                self.enteredCollider = nil
-                self.activeObject = nil
-            end
+        end
+        if #self.enteredColliders ~= 0 then
+            self.enteredCollider = self.enteredColliders[1]
+        else
+            self.enteredCollider = nil
+            self.activeObject = nil
         end
     end
     if self.enteredCollider then

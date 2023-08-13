@@ -5,7 +5,7 @@ local Background = require "Background"
 function love.load()
     love.mouse.setVisible(false)
     speed = 8
-    show_debugging = true
+    show_debugging = false
     player = Player:New()
     roomPath = "Room 1"
     background = Background:New(roomPath, player.world)
@@ -16,14 +16,14 @@ function love.keypressed(key)
     if key == "escape" then
         playerActive = not playerActive
     end
-    if key == "f1" then
+    if key == "f10" then
         show_debugging = not show_debugging
     end
 end
 
 function love.update(dt)
+    background:Update(dt, speed)
     if playerActive then
-        background:Update(dt, speed)
         player:Update(dt)
     end
 end

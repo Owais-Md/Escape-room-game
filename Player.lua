@@ -52,20 +52,17 @@ function Player:Update(dt)
         self.animation_state = self.animations.right
         self.looking = "right"
         self.isMoving = true
-    end
-    if love.keyboard.isDown("left") or love.keyboard.isDown("kp4") or love.keyboard.isDown("a") then
+    elseif love.keyboard.isDown("left") or love.keyboard.isDown("kp4") or love.keyboard.isDown("a") then
         vx = -1 * self.speed * self.width * self.scale
         self.animation_state= self.animations.left
         self.looking = "left"
         self.isMoving = true
-    end
-    if love.keyboard.isDown("down") or love.keyboard.isDown("kp2") or love.keyboard.isDown("s") then
+    elseif love.keyboard.isDown("down") or love.keyboard.isDown("kp2") or love.keyboard.isDown("s") then
         vy = self.speed * self.height * self.scale
         self.animation_state= self.animations.down
         self.looking = "down"
         self.isMoving = true
-    end
-    if love.keyboard.isDown("up") or love.keyboard.isDown("kp8") or love.keyboard.isDown("w") then
+    elseif love.keyboard.isDown("up") or love.keyboard.isDown("kp8") or love.keyboard.isDown("w") then
         vy = -1 * self.speed * self.height * self.scale
         self.animation_state= self.animations.up
         self.looking = "up"

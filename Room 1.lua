@@ -10,7 +10,7 @@ return {
   tilewidth = 16,
   tileheight = 16,
   nextlayerid = 11,
-  nextobjectid = 44,
+  nextobjectid = 52,
   properties = {},
   tilesets = {
     {
@@ -44,12 +44,12 @@ return {
       encoding = "lua",
       data = {
         3, 3, 3, 3, 0, 3, 18, 3, 3, 3,
-        3, 74, 74, 74, 74, 74, 18, 74, 74, 3,
-        3, 74, 74, 74, 74, 74, 74, 74, 74, 3,
-        3, 74, 74, 74, 74, 74, 74, 74, 74, 3,
-        3, 74, 74, 74, 74, 74, 74, 74, 74, 3,
-        3, 74, 74, 74, 74, 74, 74, 74, 74, 3,
-        3, 3, 3, 3, 3, 3, 3, 3, 3, 3
+        4, 74, 74, 74, 74, 74, 18, 74, 74, 4,
+        4, 74, 74, 74, 74, 74, 74, 74, 74, 4,
+        3, 74, 74, 74, 74, 74, 74, 74, 74, 4,
+        4, 74, 74, 74, 74, 74, 74, 74, 74, 4,
+        4, 74, 74, 74, 74, 74, 74, 74, 74, 4,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1
       }
     },
     {
@@ -112,7 +112,7 @@ return {
       id = 7,
       name = "Door",
       class = "",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -141,7 +141,7 @@ return {
       id = 10,
       name = "Chest",
       class = "",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -197,9 +197,9 @@ return {
           type = "Detect",
           shape = "rectangle",
           x = 64,
-          y = 16,
+          y = 0,
           width = 16,
-          height = 4,
+          height = 20,
           rotation = 0,
           visible = true,
           properties = {}
@@ -258,7 +258,7 @@ return {
         },
         {
           id = 35,
-          name = "Door-teleport",
+          name = "Door 1-teleport",
           type = "Detect",
           shape = "rectangle",
           x = 96,
@@ -281,6 +281,84 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
+        },
+        {
+          id = 44,
+          name = "WierdWall",
+          type = "Detect",
+          shape = "rectangle",
+          x = 0,
+          y = 48,
+          width = 16,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 45,
+          name = "Wall",
+          type = "Detect",
+          shape = "rectangle",
+          x = 80,
+          y = 0,
+          width = 16,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 46,
+          name = "Wall",
+          type = "Detect",
+          shape = "rectangle",
+          x = 16,
+          y = 0,
+          width = 48,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 47,
+          name = "Wall",
+          type = "Detect",
+          shape = "rectangle",
+          x = 0,
+          y = 0,
+          width = 16,
+          height = 48,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 48,
+          name = "Wall",
+          type = "Detect",
+          shape = "rectangle",
+          x = 0,
+          y = 64,
+          width = 16,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 49,
+          name = "Wall",
+          type = "Detect",
+          shape = "rectangle",
+          x = 0,
+          y = 96,
+          width = 160,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     },
@@ -290,7 +368,7 @@ return {
       id = 2,
       name = "Game Walls",
       class = "",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -489,6 +567,32 @@ return {
           y = 20,
           width = 8,
           height = 8,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 50,
+          name = "Wall",
+          type = "Detect",
+          shape = "rectangle",
+          x = 144,
+          y = 0,
+          width = 16,
+          height = 96,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 51,
+          name = "Wall",
+          type = "Detect",
+          shape = "rectangle",
+          x = 112,
+          y = 0,
+          width = 32,
+          height = 16,
           rotation = 0,
           visible = true,
           properties = {}
