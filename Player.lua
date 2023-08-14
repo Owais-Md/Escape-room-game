@@ -1,3 +1,5 @@
+--need to add selectable sprites
+
 local anim8 = require 'libraries/anim8'
 local wf = require "libraries.windfield" --FOSS library for game physics
 

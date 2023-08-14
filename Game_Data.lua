@@ -22,11 +22,15 @@ Game = {
         }
     },
     Dialog = {
-        Wall = "The wall appears to be made of stone",
-        WierdWall = "This wall appears to be different from the other walls",
-        Chest = {
+        wall = "The wall appears to be made of stone",
+        wierdWall = "This wall appears to be different from the other walls",
+        chest = {
             ifLocked = "The chest appears to be locked",
             ifUnlocked = "The chest is not locked, press o to open and c to close the chest"
+        },
+        door = {
+            ifLocked = "The door appears to be locked",
+            ifUnlocked = "The door is unlocked, press o to open and c to close the door"
         }
     }
 }

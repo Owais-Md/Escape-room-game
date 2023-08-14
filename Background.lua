@@ -1,3 +1,6 @@
+--need to make a teleport function that moves player to next room depending on the active teleport object
+--need to add isOn to furnace
+
 local wf = require "libraries.windfield" --FOSS library for game physics
 local tilesetData = require "TilesetDataGenerator"
 local inOb = require "Interactable animation"
@@ -32,23 +35,23 @@ function Background:New(path, world)
     for _,layer in ipairs(background.map.layers) do
         if(layer.type == "objectgroup") then
             for i, obj in pairs(layer.objects)do
-                if obj.type == "Wall" then
+                if obj.type == "wall" then
                     local wall = world:newRectangleCollider(obj.x*background.scale, obj.y*background.scale, obj.width*background.scale, obj.height*background.scale)
                     wall:setType('static')
                     wall:setCollisionClass('Wall')
                     table.insert(background.walls, wall)
-                elseif obj.type == "Detect" then
+                elseif obj.type == "detect" then
                     local collisionRegion = world:newRectangleCollider(obj.x*background.scale, obj.y*background.scale, obj.width*background.scale, obj.height*background.scale)
                     local name = obj.name
                     collisionRegion:setType('static')
                     collisionRegion:setCollisionClass('Detector')
                     table.insert(background.collisionRegions, {object = collisionRegion, name = name})
-                elseif obj.type == "Moving-wall" then
+                elseif obj.type == "movingWall" then
                     local wall = world:newRectangleCollider(obj.x*background.scale, obj.y*background.scale, obj.width*background.scale, obj.height*background.scale)
                     wall:setType('static')
                     wall:setCollisionClass('Wall')
                     table.insert(background.movingWalls, {collider = wall, name = obj.name, class = "Wall"})
-                elseif obj.type == "Draw" then
+                elseif obj.type == "draw" then
                     beginClosed = true
                     flipped_horizontal = true
                     flipped_vertical = false

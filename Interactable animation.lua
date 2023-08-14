@@ -1,3 +1,5 @@
+--need to add isLocked and implement inside Background.lua
+
 local Image = love.graphics.newImage("Sprites/Lanea Zimmerman's spritesheets/things.png")
 local imageWidth = Image:getWidth()
 local imageHeight = Image:getHeight()

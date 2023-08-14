@@ -9,7 +9,11 @@ function dialog.PrintDialog(text)
 
 end
 
-function dialog.findDialog(enteredCollider, interactableObject)
+function dialog.FindDialog(enteredCollider)
+    
+end
+
+function dialog.FindAndPrintDialog(enteredCollider, interactableObject)
     if love.keyboard.isDown("x") then
         if interactableObject then
 
