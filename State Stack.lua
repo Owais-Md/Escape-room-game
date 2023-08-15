@@ -1,0 +1,1 @@
+--Makes stateStack such that only top of stack can update elements in the game, but all of the states in the state stack get rendered

@@ -9,11 +9,61 @@ TileSetData = require "TilesetDataGenerator"
 imageToDrawFrom = love.graphics.newImage(ImageData.image)
 quads = TileSetData.quads
 scale = 5
+font = love.graphics.newFont(32)
+love.graphics.setFont(font)
+letterlimit = 32
 
-function PrintDialog()
+local dialog = {}
+
+function dialog:getDialogBox()
+    local object = {}
+    setmetatable(object, self)
+    self.__index = self
+    object.text = ""
+    object.textTable = {}
+    object.currentLine = 1
+    return object
+end
+
+function dialog:UpdateLine(key)
+    if key == "down" and #self.textTable>2 then
+        self.currentLine = math.min(self.currentLine + 1, #self.textTable - 1)
+    elseif love.keyboard.isDown("up") then
+        self.currentLine = math.max(self.currentLine - 1, 1)
+    end
+end
+
+function dialog:pushDialog(text)
+    self.text = text
+    counter = 0
+    newline = ""
+    for word in text:gmatch("%S+") do
+        if #word + counter < letterlimit then
+            if newline == "" then
+                newline = word
+            else
+                newline = newline .." ".. word
+            end
+            counter = counter + #word
+        else
+            counter = #word
+            table.insert(self.textTable, newline)
+            newline = word
+        end
+    end
+    if counter ~= 0 then
+        table.insert(self.textTable, newline)
+    end
+end
+
+function dialog:clearDialog()
+    self.text = ""
+    self.textTable = {}
+end
+
+function dialog:PrintDialog()
     love.graphics.push()
     love.graphics.scale(scale)
-    text = "The chest is not locked, press o to open and c to close the chest"
     width = DialogBox.width
     height = DialogBox.height
     tilewidth = DialogBox.tilewidth
@@ -24,7 +74,7 @@ function PrintDialog()
                 local index = (x + y * layer.width) + 1
                 local tid = layer.data[index]
                 if tid ~= 0 then
-                    local quad = quads[tid] -- did not make the quads yet.. ouch
+                    local quad = quads[tid]
                     love.graphics.draw(
                         imageToDrawFrom,
                         quad,
@@ -36,9 +86,8 @@ function PrintDialog()
         end
     end
     love.graphics.pop()
-    local font = love.graphics.newFont(30)
-    love.graphics.setFont(font)
-    love.graphics.print(text, tilewidth*scale, 4.2*tileheight*scale)
+    love.graphics.print(self.textTable[self.currentLine], 1.2*tilewidth*scale, 4.3*tileheight*scale)
+    love.graphics.print(self.textTable[self.currentLine+1], 1.2*tilewidth*scale, 5.05*tileheight*scale)
 end
 
-return PrintDialog
+return dialog

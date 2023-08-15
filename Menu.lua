@@ -1,0 +1,1 @@
+--has savegame, loadgame from game, choose sprites, ,customization?, cheats?, credits?

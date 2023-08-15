@@ -5,12 +5,12 @@ local wf = require "libraries.windfield" --FOSS library for game physics
 local tilesetData = require "TilesetDataGenerator"
 local inOb = require "Interactable animation"
 
-local Images = {}
+local imageSets = {}
 
 for _, tilesetRange in ipairs(tilesetData.tilesetRanges) do
     local imagePath = tilesetRange.imagePath
     local newImage = love.graphics.newImage(imagePath)
-    table.insert(Images, {path = imagePath, image = newImage})
+    table.insert(imageSets, {path = imagePath, image = newImage})
 end
 
 local Background = {}
@@ -71,7 +71,7 @@ function Background:New(path, world)
 end
 
 function Background:Update(dt, speed)
-    self.timer = (self.timer + speed*dt)
+    self.timer = (self.timer + speed*dt) % self.timelimit
     for _, collider in ipairs(self.collisionRegions) do
         if collider.object:enter('Player') then
             table.insert(self.enteredColliders, 1, collider)
@@ -130,6 +130,7 @@ function Background:Draw(show_debugging)
     love.graphics.scale(self.scale)
     for _, layer in ipairs(self.map.layers) do
         if layer.type ~= "objectgroup" then
+            --layer, self.map.tilewidth, self.map.tileheight, self.animatedTiles, self.quads, self.tilesetRanges, self.timer
             for y = 0, layer.height - 1 do
                 for x = 0, layer.width - 1 do
                     local index = (x + y * layer.width) + 1
@@ -160,7 +161,7 @@ function Background:Draw(show_debugging)
                             end
                         end
                         local imageToDrawFrom
-                        for _, imageSet in ipairs(Images) do
+                        for _, imageSet in ipairs(imageSets) do
                             if imageSet.path == imagePath then
                                 imageToDrawFrom = imageSet.image
                             end
@@ -184,7 +185,7 @@ function Background:Draw(show_debugging)
                         if obj.name == interactableObject.name then
                             object = interactableObject.object
                             local imageToDrawFrom
-                            for _, imageSet in ipairs(Images) do
+                            for _, imageSet in ipairs(imageSets) do
                                 if imageSet.path == object.imagePath then
                                     imageToDrawFrom = imageSet.image
                                 end
