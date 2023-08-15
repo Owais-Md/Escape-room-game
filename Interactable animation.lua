@@ -8,7 +8,7 @@ local tileHeight = 16
 
 local quadsForAnimation = {
     {
-        name = "Door",
+        name = "door",
         cuards = { -- quad cordinates lmao
             {x = 0, y = 0},
             {x = 0, y = 1},
@@ -17,7 +17,7 @@ local quadsForAnimation = {
         }
     },
     {
-        name = "Chest",
+        name = "chest",
         cuards = {
             {x = 6, y = 0},
             {x = 6, y = 1},

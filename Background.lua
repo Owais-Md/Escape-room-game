@@ -84,11 +84,11 @@ function Background:Update(dt, speed)
         end
     end
     self.enteredColliders = Table
+    self.activeObject = nil
     if #self.enteredColliders ~= 0 then
         self.enteredCollider = self.enteredColliders[1]
     else
         self.enteredCollider = nil
-        self.activeObject = nil
     end
     if self.enteredCollider then
         for _, interactableObject in ipairs(self.interactableObjects) do
@@ -179,7 +179,7 @@ function Background:Draw(show_debugging)
             end
         else
             for _, obj in ipairs(layer.objects) do
-                if obj.type == "Draw" then
+                if obj.type == "draw" then
                     for _, interactableObject in ipairs(self.interactableObjects) do
                         if obj.name == interactableObject.name then
                             object = interactableObject.object

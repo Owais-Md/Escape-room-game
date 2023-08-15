@@ -1,6 +1,7 @@
 love.graphics.setDefaultFilter("nearest","nearest")
 local Player = require "Player"
 local Background = require "Background"
+local Dialog = require "Dialog"
 
 function love.load()
     love.mouse.setVisible(false)
@@ -34,4 +35,5 @@ function love.draw()
     background:Draw(show_debugging)
     player:Draw(show_debugging)
     love.graphics.pop()
+    Dialog()
 end

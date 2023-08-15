@@ -1,4 +1,5 @@
 --new folder for progress, settings, cheats option to manually enable properties in progress?
+--uses that enteredCollider/activeObject from background.lua to generate text
 --self.gamedetails.progress = self.gamedetails.progress or load(self.gamedetails.savefile)
 
 local TableIO = require "TableIO"
@@ -35,11 +36,10 @@ Game = {
     }
 }
 
-Game.Room_1.Closed = false
 TableIO.dump(Game.Settings, "settings")
 
-function Game.Room_1:interact(enteredCollider)
-
+function Game.interact(enteredColliders, activeObject)
+    
 end
 
 return Game
