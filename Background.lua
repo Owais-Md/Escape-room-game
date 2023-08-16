@@ -1,11 +1,12 @@
 --need to make a teleport function that moves player to next room depending on the active teleport object
 --need to add isOn to furnace
 
-local wf = require "libraries.windfield" --FOSS library for game physics
 local tilesetData = require "TilesetDataGenerator"
 local inOb = require "Interactable animation"
 
 local imageSets = {}
+
+local Table = {}
 
 for _, tilesetRange in ipairs(tilesetData.tilesetRanges) do
     local imagePath = tilesetRange.imagePath
@@ -15,12 +16,13 @@ end
 
 local Background = {}
 
-function Background:New(path, world)
+function Background:New(path, speed, world, gameObjects)
     local background = {}
     setmetatable(background, self)
     self.__index = self
     
     background.map = require(path)
+    background.gameobjects = gameObjects
 
     background.timer = 0
     background.scale = 5
@@ -32,6 +34,7 @@ function Background:New(path, world)
     background.activeObject = nil
     background.enteredColliders = {}
     background.enteredCollider = nil
+    background.speed = speed
     for _,layer in ipairs(background.map.layers) do
         if(layer.type == "objectgroup") then
             for i, obj in pairs(layer.objects)do
@@ -42,10 +45,9 @@ function Background:New(path, world)
                     table.insert(background.walls, wall)
                 elseif obj.type == "detect" then
                     local collisionRegion = world:newRectangleCollider(obj.x*background.scale, obj.y*background.scale, obj.width*background.scale, obj.height*background.scale)
-                    local name = obj.name
                     collisionRegion:setType('static')
                     collisionRegion:setCollisionClass('Detector')
-                    table.insert(background.collisionRegions, {object = collisionRegion, name = name})
+                    table.insert(background.collisionRegions, {object = collisionRegion, name = obj.name})
                 elseif obj.type == "movingWall" then
                     local wall = world:newRectangleCollider(obj.x*background.scale, obj.y*background.scale, obj.width*background.scale, obj.height*background.scale)
                     wall:setType('static')
@@ -62,22 +64,17 @@ function Background:New(path, world)
             end
         end
     end
-    
-    background.quads = tilesetData.quads
-    background.tilesetRanges = tilesetData.tilesetRanges
-    background.animatedTiles = tilesetData.animatedTiles
-    background.timelimit = tilesetData.timeLimit
     return background
 end
 
-function Background:Update(dt, speed)
-    self.timer = (self.timer + speed*dt) % self.timelimit
+function Background:Update(dt)
+    self.timer = (self.timer + self.speed*dt) % tilesetData.timeLimit
     for _, collider in ipairs(self.collisionRegions) do
         if collider.object:enter('Player') then
             table.insert(self.enteredColliders, 1, collider)
         end
     end
-    local Table = {}
+    Table = {}
     for _,enteredCollider in ipairs(self.enteredColliders) do
         if not enteredCollider.object:exit('Player') then
             table.insert(Table, enteredCollider)
@@ -97,6 +94,7 @@ function Background:Update(dt, speed)
             end
         end
     end
+    gameObjects:Update(self.enteredColliders, self.activeObject)
     if self.activeObject then
         if love.keyboard.isDown("o") or self.activeObject.object.isOpening then
             self.activeObject.object:Open(dt)
@@ -130,7 +128,7 @@ function Background:Draw(show_debugging)
     love.graphics.scale(self.scale)
     for _, layer in ipairs(self.map.layers) do
         if layer.type ~= "objectgroup" then
-            --layer, self.map.tilewidth, self.map.tileheight, self.animatedTiles, self.quads, self.tilesetRanges, self.timer
+            --layer, self.map.tilewidth, self.map.tileheight, tilesetData.animatedTiles, tilesetData.quads, tilesetData.tilesetRanges, self.timer
             for y = 0, layer.height - 1 do
                 for x = 0, layer.width - 1 do
                     local index = (x + y * layer.width) + 1
@@ -148,14 +146,14 @@ function Background:Draw(show_debugging)
                     end
                     tid = tid + bit.band(0x80000000, tid) - bit.band(0x40000000, tid)
                     if tid ~= 0 then
-                        if self.animatedTiles[tid - 1] ~= nil then
-                            local anim = self.animatedTiles[tid - 1].animation
+                        if tilesetData.animatedTiles[tid - 1] ~= nil then
+                            local anim = tilesetData.animatedTiles[tid - 1].animation
                             local i = (self.timer - self.timer%1) % #anim
                             tid = anim[i + 1].tileid + 1
                         end
-                        local quad = self.quads[tid]
+                        local quad = tilesetData.quads[tid]
                         local imagePath
-                        for i,tilesetRange in ipairs(self.tilesetRanges) do
+                        for i,tilesetRange in ipairs(tilesetData.tilesetRanges) do
                             if tid>=tilesetRange.start and tid<tilesetRange.finish then
                                 imagePath = tilesetRange.imagePath
                             end
@@ -208,11 +206,16 @@ function Background:Draw(show_debugging)
     end
     love.graphics.pop()
     if show_debugging then
-        if self.enteredCollider then
-            love.graphics.print(self.enteredCollider.name)
-        end
         if self.activeObject then
-            love.graphics.print("\n"..self.activeObject.name)
+            love.graphics.print("activeObject:"..self.activeObject.name)
+        end
+        if self.enteredCollider then
+            love.graphics.print("\nenteredColliders:")
+            t = "\n\n                           "
+            for _, enteredCollider in ipairs(self.enteredColliders) do
+                love.graphics.print(t..enteredCollider.name)
+                t = "\n"..t
+            end
         end
     end
 end

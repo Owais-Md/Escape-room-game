@@ -1,8 +1,10 @@
 --new folder for progress, settings, cheats option to manually enable properties in progress?
 --uses that enteredCollider/activeObject from background.lua to generate text
---self.gamedetails.progress = self.gamedetails.progress or load(self.gamedetails.savefile)
+--self.gamedetails.progress = load(self.gamedetails.savefile) or self.gamedetails.progress
 
 local TableIO = require "TableIO"
+local stateStack = require "State Stack"
+local Dialog = require "Dialog"
 
 Game = {
     Settings = {
@@ -36,10 +38,34 @@ Game = {
     }
 }
 
-TableIO.dump(Game.Settings, "settings")
+--TableIO.dump(Game.Settings, "settings")
 
-function Game.interact(enteredColliders, activeObject)
-    
+function Game:getGameObjects(dialogBox)
+    local game = {}
+    setmetatable(game, self)
+    self.__index = self
+
+    game.enteredColliders = {}
+    game.activeObject = nil
+    game.movingWalls = nil
+    return game
+end
+
+function Game:takeInput(key)
+    if self.activeObject then
+        --Active Object actions
+    end
+    if #self.enteredColliders>0 then
+        dialogBox:clearDialog()
+        for _,enteredCollider in ipairs(self.enteredColliders) do
+            dialogBox:pushDialog(enteredCollider.name..":"..tostring(Game.Dialog[enteredCollider.name]))
+        end
+    end
+end
+
+function Game:Update(enteredColliders, activeObject)
+    self.enteredColliders = enteredColliders
+    self.activeObject = activeObject
 end
 
 return Game

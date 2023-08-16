@@ -1,18 +1,17 @@
 --uses that dialogBox.lua
 --uses those fonts from LaenaZimmerman's spriteSheets
 
-Game = require "Game_Data"
 DialogBox = require "Dialog Box"
 ImageData = require "basictiles"
 TileSetData = require "TilesetDataGenerator"
 
 imageToDrawFrom = love.graphics.newImage(ImageData.image)
 quads = TileSetData.quads
-scale = 5
 font = love.graphics.newFont(32)
 love.graphics.setFont(font)
 letterlimit = 32
 
+local scale = 5
 local dialog = {}
 
 function dialog:getDialogBox()
@@ -30,6 +29,8 @@ function dialog:UpdateLine(key)
         self.currentLine = math.min(self.currentLine + 1, #self.textTable - 1)
     elseif love.keyboard.isDown("up") then
         self.currentLine = math.max(self.currentLine - 1, 1)
+    elseif key == "escape" then
+        self.currentLine = 1
     end
 end
 
@@ -37,7 +38,7 @@ function dialog:pushDialog(text)
     self.text = text
     counter = 0
     newline = ""
-    for word in text:gmatch("%S+") do
+    for word in self.text:gmatch("%S+") do
         if #word + counter < letterlimit then
             if newline == "" then
                 newline = word
@@ -85,9 +86,19 @@ function dialog:PrintDialog()
             end
         end
     end
+    if self.currentLine < #self.textTable - 1 then
+        love.graphics.polygon("fill", {8.6*tilewidth, 5.8*tilewidth, 8.7*tilewidth , 5.9*tilewidth, 8.8*tilewidth, 5.8*tilewidth})
+    end
+    if self.currentLine > 1 then
+        love.graphics.polygon("fill", {8.6*tilewidth, 4.2*tilewidth, 8.7*tilewidth , 4.1*tilewidth, 8.8*tilewidth, 4.2*tilewidth})
+    end
     love.graphics.pop()
-    love.graphics.print(self.textTable[self.currentLine], 1.2*tilewidth*scale, 4.3*tileheight*scale)
-    love.graphics.print(self.textTable[self.currentLine+1], 1.2*tilewidth*scale, 5.05*tileheight*scale)
+    if #self.textTable > 0 then
+        love.graphics.print(self.textTable[self.currentLine], 1.2*tilewidth*scale, 4.3*tileheight*scale)
+    end
+    if self.currentLine < #self.textTable then
+        love.graphics.print(self.textTable[self.currentLine+1], 1.2*tilewidth*scale, 5.05*tileheight*scale)
+    end
 end
 
 return dialog

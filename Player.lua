@@ -1,5 +1,6 @@
 --need to add selectable sprites
 --add that torch highlight thing
+--need to change player.x and player.y on the basis of teleport
 
 local anim8 = require 'libraries/anim8'
 local wf = require "libraries.windfield" --FOSS library for game physics

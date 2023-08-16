@@ -21,7 +21,8 @@ return {
     {
       name = "things",
       firstgid = 121,
-      filename = "things.tsx"
+      filename = "things.tsx",
+      exportfilename = "things.lua"
     }
   },
   layers = {
@@ -97,7 +98,7 @@ return {
       properties = {},
       encoding = "lua",
       data = {
-        0, 0, 0, 0, 202, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 214, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -112,7 +113,7 @@ return {
       id = 2,
       name = "Game Walls",
       class = "",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -128,7 +129,7 @@ return {
           x = 0,
           y = 0,
           width = 16,
-          height = 48,
+          height = 44,
           rotation = 0,
           visible = true,
           properties = {}
@@ -378,7 +379,7 @@ return {
       id = 6,
       name = "Collision Regions",
       class = "",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -496,9 +497,9 @@ return {
           type = "detect",
           shape = "rectangle",
           x = 0,
-          y = 48,
+          y = 44,
           width = 16,
-          height = 16,
+          height = 20,
           rotation = 0,
           visible = true,
           properties = {}
@@ -537,7 +538,7 @@ return {
           x = 0,
           y = 0,
           width = 16,
-          height = 48,
+          height = 44,
           rotation = 0,
           visible = true,
           properties = {}
@@ -633,9 +634,9 @@ return {
           type = "movingWall",
           shape = "rectangle",
           x = 0,
-          y = 48,
+          y = 44,
           width = 16,
-          height = 16,
+          height = 20,
           rotation = 0,
           visible = true,
           properties = {
