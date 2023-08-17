@@ -6,10 +6,11 @@ local Background = require "Background"
 local Dialog = require "Dialog"
 local Menu = require "Menu"
 
+show_debugging = false
+
 function love.load()
     love.mouse.setVisible(false)
     local speed = 8
-    local show_debugging = false
     local roomPath = "Room 1"
     stateStack = StateStack:getStateStack()
     dialogBox = Dialog:getDialogBox()
@@ -20,27 +21,22 @@ function love.load()
     playerActive = true
     dialogBoxActive = false
     menuActive = false
+    stateStack:Push("background", "player")
 end
 
 function love.keypressed(key)
-    gameObjects:takeInput(key)
-    if dialogBoxActive then
-        dialogBox:UpdateLine(key)
-    end
-    if key == "escape" then
-        playerActive = not playerActive
-        dialogBoxActive = not dialogBoxActive
-    end
     if key == "f10" then
         show_debugging = not show_debugging
+    end
+    gameObjects:takeInput(key)
+    if key == "escape" then
+        playerActive = not playerActive
     end
 end
 
 function love.update(dt)
-    background:Update(dt, speed)
-    if playerActive then
-        player:Update(dt)
-    end
+    background:Update(dt)
+    player:Update(dt)
 end
 
 function love.draw()
@@ -50,11 +46,12 @@ function love.draw()
     love.graphics.translate((width-800*scale)/2,(height-560*scale)/2)
     love.graphics.scale(scale)
     love.graphics.push()
-    background:Draw(show_debugging)
-    player:Draw(show_debugging)
-    if dialogBoxActive then
+    background:Draw()
+    player:Draw()
+    if stateStack:Top() == "dialogBox" then
         dialogBox:PrintDialog()
     end
     love.graphics.pop()
     -- love.graphics.print(love.timer.getFPS())
+    -- love.graphics.print(stateStack:Top())
 end

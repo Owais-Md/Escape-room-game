@@ -3,7 +3,6 @@
 --self.gamedetails.progress = load(self.gamedetails.savefile) or self.gamedetails.progress
 
 local TableIO = require "TableIO"
-local stateStack = require "State Stack"
 
 local Game = {
     Progress = {
@@ -26,14 +25,14 @@ local Game = {
         }
     },
     Dialog = {
-        wall = "The wall appears to be made of stone",
-        wierdWall = "This wall appears to be different from the other walls",
-        chestLocked = "The chest appears to be locked",
-        chestUnlocked = "The chest is not locked, press o to open and c to close the chest",
-        doorLocked = "The door appears to be locked",
-        doorUnlocked = "The door is unlocked, press o to open and c to close the door",
-        torch = "The torch is bright and warm",
-        fireplace = "The fireplace makes the room feel cozy"
+        wall = "The wall appears to be made of stone.",
+        wierdWall = "This wall appears to be different from the other walls.",
+        chestLocked = "The chest appears to be locked.",
+        chestUnlocked = "The chest is not locked, press o to open and c to close the chest.",
+        doorLocked = "The door appears to be locked.",
+        doorUnlocked = "The door is unlocked, press o to open and c to close the door.",
+        torch = "The torch is bright and warm.",
+        fireplace = "The fireplace makes the room feel cozy. If not for this fireplace, the room would probably be pretty cold."
     }
 }
 
@@ -59,10 +58,24 @@ function Game:getGameObjects()
 end
 
 function Game:getProgressText()
-    return "Gotta Enter Correct Text"
+    -- if self.enteredCollider.name == "chest" then
+        
+    -- else
+        return "Gotta Enter Correct Text"
+--     end
 end
 
 function Game:takeInput(key)
+    if key == "x" then
+        if stateStack:Top() == "player" then
+            stateStack:Push("dialogBox")
+        elseif stateStack:Top() == "dialogBox" then
+            stateStack:Pop()
+        end
+    end
+    if stateStack:Top() == "dialogBox" then
+        dialogBox:UpdateLine(key)
+    end
     dialogBox:clearDialog()
     if self.activeObject then
         --Active Object actions

@@ -9,16 +9,24 @@ function StateStack:getStateStack()
     return stateStack
 end
 
-function StateStack:push(state)
-    table.insert(self, state)
+function StateStack:Push(...)
+    for _, state in ipairs({...}) do
+        table.insert(self, state)
+    end
 end
 
-function  StateStack:top()
-    return self[#self]
+function  StateStack:Top()
+    if #self > 0 then
+        return self[#self]
+    else
+        return nil
+    end
 end
 
-function StateStack:pop()
-    table.remove(self, #self)
+function StateStack:Pop()
+    if #self > 0 then
+        table.remove(self, #self)
+    end
 end
 
 return StateStack

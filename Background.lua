@@ -124,7 +124,7 @@ function Background:Update(dt)
     end
 end
 
-function Background:Draw(show_debugging)
+function Background:Draw()
     love.graphics.push()
     love.graphics.scale(self.scale)
     for _, layer in ipairs(self.map.layers) do
