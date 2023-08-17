@@ -6,27 +6,37 @@ local TableIO = require "TableIO"
 
 local Game = {
     Progress = {
-        roomName = "Room_1"
+        currentRoomName = "Room_1",
+        interactableObjects = {
+            Room_1 = {
+                chest = {
+                    beginClosed = true,
+                    flipped_horizontal = false,
+                    flipped_vertical = false,
+                    isLocked = false
+                },
+                door = {
+                    beginClosed = true,
+                    flipped_horizontal = false,
+                    flipped_vertical = false,
+                    isLocked = false
+                },
+                wierdWall = {
+                    beginClosed = true,
+                    isLocked = true,
+                    dialog = "This wall appears to be different from the other walls.",
+                }
+            },
+            Room_2 = {
+
+            }
+        }
     },
     Settings = {
         
     },
-    Room_data = {
-        Room_1 = {
-            Room_path = "Room 1",
-            Door_teleport = "Room 2",
-            Closed = true
-        },
-        Room_2 = {
-            name = "Room 2",
-            Room_path = "Room 2",
-            Door_teleport = "Room 1",
-            Closed = false
-        }
-    },
     Dialog = {
         wall = "The wall appears to be made of stone.",
-        wierdWall = "This wall appears to be different from the other walls.",
         chestLocked = "The chest appears to be locked.",
         chestUnlocked = "The chest is not locked, press o to open and c to close the chest.",
         doorLocked = "The door appears to be locked.",
@@ -66,18 +76,8 @@ function Game:getProgressText()
 end
 
 function Game:takeInput(key)
-    if key == "x" then
-        if stateStack:Top() == "player" then
-            stateStack:Push("dialogBox")
-        elseif stateStack:Top() == "dialogBox" then
-            stateStack:Pop()
-        end
-    end
-    if stateStack:Top() == "dialogBox" then
-        dialogBox:UpdateLine(key)
-    end
-    dialogBox:clearDialog()
-    if self.activeObject then
+    dialogBox:clearDialog() -- add some form of condition to clearing dialog so that extra text can be pushed inside the dialog box for instruction?
+    if self.activeObject then -- need to handle gameObject (interactable objects') functions from here
         --Active Object actions
     end
     if self.enteredCollider then
@@ -85,7 +85,17 @@ function Game:takeInput(key)
         if text == "nil" then
             text = Game:getProgressText()
         end
-        dialogBox:pushDialog(text)
+    end
+    dialogBox:pushDialog(text)
+    if key == "x" then
+        if stateStack:Top() == "player" and #dialogBox.textTable > 0 then
+            stateStack:Push("dialogBox")
+        elseif stateStack:Top() == "dialogBox" then
+            stateStack:Pop()
+        end
+    end
+    if stateStack:Top() == "dialogBox" then
+        dialogBox:UpdateLine(key)
     end
 end
 

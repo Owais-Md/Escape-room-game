@@ -18,7 +18,7 @@ end
 
 local Background = {}
 
-function Background:New(path, speed, world, gameObjects)
+function Background:New(path, speed, world)
     local background = {}
     setmetatable(background, self)
     self.__index = self
@@ -125,6 +125,11 @@ function Background:Update(dt)
 end
 
 function Background:Draw()
+    width = love.graphics.getWidth()
+    height = love.graphics.getHeight()
+    scale = math.min(width/800, height/560)
+    love.graphics.translate((width-800*scale)/2,(height-560*scale)/2)
+    love.graphics.scale(scale)
     love.graphics.push()
     love.graphics.scale(self.scale)
     for _, layer in ipairs(self.map.layers) do
@@ -134,9 +139,9 @@ function Background:Draw()
                 for x = 0, layer.width - 1 do
                     local index = (x + y * layer.width) + 1
                     local tid = layer.data[index]
-                    flipped_horizontal = bit.band(0x80000000, tid)
-                    flipped_vertical = bit.band(0x40000000, tid)
-                    x_offset, y_offset, x_scale, y_scale = 0, 0, 1, 1
+                    local flipped_horizontal = bit.band(0x80000000, tid)
+                    local flipped_vertical = bit.band(0x40000000, tid)
+                    local x_offset, y_offset, x_scale, y_scale = 0, 0, 1, 1
                     if flipped_horizontal ~= 0 then
                         x_offset = 1
                         x_scale = -1

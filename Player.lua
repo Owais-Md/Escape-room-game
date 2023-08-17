@@ -11,9 +11,6 @@ function Player:New()
     local player = {}
     setmetatable(player, self)
     self.__index = self
-
-    love.graphics.setDefaultFilter("nearest", "nearest")
-    
     
     player.width = 16
     player.height = 16
@@ -48,10 +45,9 @@ end
 
 function Player:Update(dt)
     self.isMoving = false
+    vx, vy = 0, 0
 
     if stateStack:Top() == "player" then
-        vx, vy = 0, 0
-
         if love.keyboard.isDown("right") or love.keyboard.isDown("kp6") or love.keyboard.isDown("d") then
             vx = self.speed * self.width * self.scale
             self.animation_state = self.animations.right
@@ -74,12 +70,12 @@ function Player:Update(dt)
             self.isMoving = true
         end
 
-        self.collider:setLinearVelocity(vx,vy)
-
-        self.x = self.collider:getX() - self.scale*self.width/2
-        self.y = self.collider:getY() - self.scale*self.height/2
     end
-    
+    self.collider:setLinearVelocity(vx,vy)
+
+    self.x = self.collider:getX() - self.scale*self.width/2
+    self.y = self.collider:getY() - self.scale*self.height/2
+
     if self.isMoving == false then
         self.animation_state:gotoFrame(2)
     end

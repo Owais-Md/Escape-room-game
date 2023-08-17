@@ -16,7 +16,7 @@ function love.load()
     dialogBox = Dialog:getDialogBox()
     gameObjects = Game:getGameObjects()
     player = Player:New()
-    background = Background:New(roomPath, speed ,player.world, gameObjects)
+    background = Background:New(roomPath, speed ,player.world)
     --menu = Menu:getMenu()
     playerActive = true
     dialogBoxActive = false
@@ -29,9 +29,6 @@ function love.keypressed(key)
         show_debugging = not show_debugging
     end
     gameObjects:takeInput(key)
-    if key == "escape" then
-        playerActive = not playerActive
-    end
 end
 
 function love.update(dt)
@@ -40,18 +37,10 @@ function love.update(dt)
 end
 
 function love.draw()
-    width = love.graphics.getWidth()
-    height = love.graphics.getHeight()
-    scale = math.min(width/800, height/560)
-    love.graphics.translate((width-800*scale)/2,(height-560*scale)/2)
-    love.graphics.scale(scale)
-    love.graphics.push()
     background:Draw()
     player:Draw()
     if stateStack:Top() == "dialogBox" then
         dialogBox:PrintDialog()
     end
-    love.graphics.pop()
     -- love.graphics.print(love.timer.getFPS())
-    -- love.graphics.print(stateStack:Top())
 end

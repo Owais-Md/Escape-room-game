@@ -19,7 +19,7 @@
             "scale": 5.5,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 80.0909090909091,
+                "x": 80.09090909090908,
                 "y": 56.00000000000001
             }
         },
@@ -27,7 +27,7 @@
             "scale": 5.5,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 80.0909090909091,
+                "x": 80.09090909090908,
                 "y": 56.00000000000001
             }
         },
@@ -65,15 +65,15 @@
         },
         "Room.tmx": {
             "expandedObjectLayers": [
-                6,
                 9,
                 7,
-                2
+                2,
+                6
             ],
             "scale": 6.556696428571429,
-            "selectedLayer": 2,
+            "selectedLayer": 5,
             "viewCenter": {
-                "x": 80.14706883638593,
+                "x": 79.84203717573365,
                 "y": 53.83808810512699
             }
         },
@@ -94,7 +94,7 @@
             "scaleInEditor": 11
         },
         "things.tsx": {
-            "scaleInDock": 1.5,
+            "scaleInDock": 2,
             "scaleInEditor": 5.5
         }
     },

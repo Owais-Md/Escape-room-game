@@ -30,7 +30,7 @@ function dialog:UpdateLine(key)
         self.currentLine = math.min(self.currentLine + 1, #self.textTable - 1)
     elseif love.keyboard.isDown("up") then
         self.currentLine = math.max(self.currentLine - 1, 1)
-    elseif key == "escape" then
+    elseif key == "x" then
         self.currentLine = 1
     end
 end
