@@ -379,7 +379,7 @@ return {
       id = 6,
       name = "Collision Regions",
       class = "",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -402,7 +402,7 @@ return {
         },
         {
           id = 21,
-          name = "furnace",
+          name = "fireplace",
           type = "detect",
           shape = "rectangle",
           x = 64,
@@ -415,7 +415,7 @@ return {
         },
         {
           id = 23,
-          name = "torch_1",
+          name = "torch",
           type = "detect",
           shape = "rectangle",
           x = 20,
@@ -428,7 +428,7 @@ return {
         },
         {
           id = 24,
-          name = "torch_2",
+          name = "torch",
           type = "detect",
           shape = "rectangle",
           x = 132,
@@ -441,7 +441,7 @@ return {
         },
         {
           id = 25,
-          name = "torch_4",
+          name = "torch",
           type = "detect",
           shape = "rectangle",
           x = 132,
@@ -454,7 +454,7 @@ return {
         },
         {
           id = 26,
-          name = "torch_3",
+          name = "torch",
           type = "detect",
           shape = "rectangle",
           x = 20,
@@ -499,7 +499,7 @@ return {
           x = 0,
           y = 44,
           width = 16,
-          height = 20,
+          height = 16,
           rotation = 0,
           visible = true,
           properties = {}
@@ -538,7 +538,7 @@ return {
           x = 0,
           y = 0,
           width = 16,
-          height = 44,
+          height = 36,
           rotation = 0,
           visible = true,
           properties = {}
@@ -549,9 +549,9 @@ return {
           type = "detect",
           shape = "rectangle",
           x = 0,
-          y = 64,
+          y = 68,
           width = 16,
-          height = 32,
+          height = 28,
           rotation = 0,
           visible = true,
           properties = {}

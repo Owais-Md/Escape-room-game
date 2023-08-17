@@ -1,15 +1,16 @@
 --uses that dialogBox.lua
 --uses those fonts from LaenaZimmerman's spriteSheets
 
-DialogBox = require "Dialog Box"
-ImageData = require "basictiles"
-TileSetData = require "TilesetDataGenerator"
+local DialogBox = require "Dialog Box"
+local ImageData = require "basictiles"
+local TileSetData = require "TilesetDataGenerator"
 
-imageToDrawFrom = love.graphics.newImage(ImageData.image)
-quads = TileSetData.quads
-font = love.graphics.newFont(32)
+local imageToDrawFrom = love.graphics.newImage(ImageData.image)
+local quads = TileSetData.quads
+local font = love.graphics.newFont(32)
+local letterlimit = 32
+
 love.graphics.setFont(font)
-letterlimit = 32
 
 local scale = 5
 local dialog = {}

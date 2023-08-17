@@ -1,5 +1,7 @@
+--uses progress from Game_Data.lua to generate objects with correct states
 --need to make a teleport function that moves player to next room depending on the active teleport object
 --need to add isOn to furnace
+--need to index activeObjects with their state, to generate correct text
 
 local tilesetData = require "TilesetDataGenerator"
 local inOb = require "Interactable animation"
@@ -22,7 +24,6 @@ function Background:New(path, speed, world, gameObjects)
     self.__index = self
     
     background.map = require(path)
-    background.gameobjects = gameObjects
 
     background.timer = 0
     background.scale = 5
@@ -35,6 +36,7 @@ function Background:New(path, speed, world, gameObjects)
     background.enteredColliders = {}
     background.enteredCollider = nil
     background.speed = speed
+
     for _,layer in ipairs(background.map.layers) do
         if(layer.type == "objectgroup") then
             for i, obj in pairs(layer.objects)do
@@ -57,8 +59,7 @@ function Background:New(path, speed, world, gameObjects)
                     beginClosed = true
                     flipped_horizontal = true
                     flipped_vertical = false
-                    animationSpeed = 15
-                    local interactableObject = inOb:NewObject(beginClosed, flipped_horizontal, flipped_vertical, animationSpeed, obj.name)
+                    local interactableObject = inOb:NewObject(beginClosed, flipped_horizontal, flipped_vertical, 15, obj.name)
                     table.insert(background.interactableObjects, {object = interactableObject, name = obj.name})
                 end
             end
@@ -94,7 +95,7 @@ function Background:Update(dt)
             end
         end
     end
-    gameObjects:Update(self.enteredColliders, self.activeObject)
+    gameObjects:Update(self.enteredCollider, self.activeObject)
     if self.activeObject then
         if love.keyboard.isDown("o") or self.activeObject.object.isOpening then
             self.activeObject.object:Open(dt)
@@ -206,16 +207,11 @@ function Background:Draw(show_debugging)
     end
     love.graphics.pop()
     if show_debugging then
-        if self.activeObject then
-            love.graphics.print("activeObject:"..self.activeObject.name)
-        end
         if self.enteredCollider then
-            love.graphics.print("\nenteredColliders:")
-            t = "\n\n                           "
-            for _, enteredCollider in ipairs(self.enteredColliders) do
-                love.graphics.print(t..enteredCollider.name)
-                t = "\n"..t
-            end
+            love.graphics.print("enteredCollider:"..self.enteredCollider.name)
+        end
+        if self.activeObject then
+            love.graphics.print("\nactiveObject:"..self.activeObject.name)
         end
     end
 end

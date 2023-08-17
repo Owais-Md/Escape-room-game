@@ -41,6 +41,9 @@ function Animation:NewObject(beginClosed, flipped_horizontal, flipped_vertical, 
     animation.isClosed = beginClosed
     animation.isOpening = false
     animation.isClosing = false
+    animation.isLocked = false
+    animation.state = "Open"
+    if beginClosed then animation.state = "Closed" end
     animation.flipped_horizontal = flipped_horizontal
     animation.flipped_vertical = flipped_vertical
     animation.animationSpeed = animationSpeed
@@ -71,7 +74,7 @@ function Animation:NewObject(beginClosed, flipped_horizontal, flipped_vertical, 
 end
 
 function Animation:Open(dt)
-    if self.isClosed then
+    if self.isClosed and not self.isLocked then
         self.isOpening = true
         if self.frame ~= 3 then
             self.timer = self.timer + dt*self.animationSpeed
@@ -79,19 +82,21 @@ function Animation:Open(dt)
         else
             self.isClosed = false
             self.isOpening = false
+            self.state = "Open"
         end
     end
 end
 
 function Animation:Close(dt)
-    if self.isClosed == false then
+    if not self.isClosed then
         self.isClosing = true
         if self.frame ~= 0 then
-            self.timer = self.timer - dt*animationSpeed
+            self.timer = self.timer - dt*self.animationSpeed
             self.frame = self.timer - self.timer % 1
         else
             self.isClosed = true
             self.isClosing = false
+            self.state = "Closed"
         end
     end
 end

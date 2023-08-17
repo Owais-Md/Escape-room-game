@@ -1,29 +1,25 @@
 love.graphics.setDefaultFilter("nearest","nearest")
-local Dialog = require "Dialog"
 local Game = require "Game_Data"
 local StateStack = require "State Stack"
 local Player = require "Player"
 local Background = require "Background"
+local Dialog = require "Dialog"
 local Menu = require "Menu"
 
 function love.load()
     love.mouse.setVisible(false)
-    speed = 8
-    show_debugging = false
-    player = Player:New()
-    roomPath = "Room 1"
+    local speed = 8
+    local show_debugging = false
+    local roomPath = "Room 1"
     stateStack = StateStack:getStateStack()
-    background = Background:New(roomPath, speed ,player.world, gameObjects)
-    --background = Background:New(roomPath, speed ,player.world)
     dialogBox = Dialog:getDialogBox()
     gameObjects = Game:getGameObjects()
+    player = Player:New()
+    background = Background:New(roomPath, speed ,player.world, gameObjects)
     --menu = Menu:getMenu()
     playerActive = true
     dialogBoxActive = false
     menuActive = false
-    -- dialogBox:pushDialog('The chest is not locked, press "o" to open or "c" to close the chest.')
-    -- dialogBox:pushDialog('The door is locked, try to find its key.')
-    -- dialogBox:pushDialog('There also appears to be a fireplace in the room that is pretty warm.')
 end
 
 function love.keypressed(key)

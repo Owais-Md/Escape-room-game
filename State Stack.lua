@@ -1,6 +1,6 @@
 --Makes stateStack such that only top of stack can accept inputs in the game, but all of the states in the state stack get rendered
 
-StateStack = {}
+local StateStack = {}
 
 function StateStack:getStateStack()
     local stateStack = {}
@@ -10,19 +10,15 @@ function StateStack:getStateStack()
 end
 
 function StateStack:push(state)
-
+    table.insert(self, state)
 end
 
 function  StateStack:top()
-    
+    return self[#self]
 end
 
 function StateStack:pop()
-    
-end
-
-function StateStack:update(dt)
-
+    table.remove(self, #self)
 end
 
 return StateStack
