@@ -56,10 +56,11 @@ function Background:New(path, speed, world)
                     wall:setCollisionClass('Wall')
                     table.insert(background.movingWalls, {collider = wall, name = obj.name, class = "Wall"})
                 elseif obj.type == "draw" then
-                    beginClosed = true
-                    flipped_horizontal = true
-                    flipped_vertical = false
-                    local interactableObject = inOb:NewObject(beginClosed, flipped_horizontal, flipped_vertical, 15, obj.name)
+                    local beginClosed = true
+                    local flipped_horizontal = true
+                    local flipped_vertical = false
+                    local isLocked = false
+                    local interactableObject = inOb:NewObject(beginClosed, isLocked, flipped_horizontal, flipped_vertical, 15, obj.name)
                     table.insert(background.interactableObjects, {object = interactableObject, name = obj.name})
                 end
             end
@@ -95,33 +96,7 @@ function Background:Update(dt)
             end
         end
     end
-    gameObjects:Update(self.enteredCollider, self.activeObject)
-    if self.activeObject then
-        if love.keyboard.isDown("o") or self.activeObject.object.isOpening then
-            self.activeObject.object:Open(dt)
-        elseif love.keyboard.isDown("c") or self.activeObject.object.isClosing then
-            self.activeObject.object:Close(dt)
-        end
-        if self.activeObject.object.isClosed then
-            for _, movingWall in ipairs(self.movingWalls) do
-                if self.activeObject.name == movingWall.name then
-                    if movingWall.class ~= "Wall" then
-                        movingWall.collider:setCollisionClass('Wall')
-                        movingWall.class = "Wall"
-                    end
-                end
-            end
-        else
-            for _, movingWall in ipairs(self.movingWalls) do
-                if self.activeObject.name == movingWall.name then
-                    if movingWall.class ~= "Open Wall" then
-                        movingWall.collider:setCollisionClass('Open Wall')
-                        movingWall.class = "Open Wall"
-                    end
-                end
-            end
-        end
-    end
+    gameObjects:UpdateObjects(self.enteredCollider, self.activeObject, self.movingWalls)
 end
 
 function Background:Draw()

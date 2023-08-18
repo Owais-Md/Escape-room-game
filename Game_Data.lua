@@ -32,9 +32,7 @@ local Game = {
             }
         }
     },
-    Settings = {
-        
-    },
+    Settings = {},
     Dialog = {
         wall = "The wall appears to be made of stone.",
         chestLocked = "The chest appears to be locked.",
@@ -63,30 +61,35 @@ function Game:getGameObjects()
 
     game.enteredCollider = nil
     game.activeObject = nil
-    game.movingWalls = nil
+    game.movingWalls = {}
     return game
 end
 
-function Game:getProgressText()
-    -- if self.enteredCollider.name == "chest" then
-        
-    -- else
-        return "Gotta Enter Correct Text"
---     end
+function Game:getProgressText(enteredCollider)
+    local text
+    if enteredCollider.name == "chest" or enteredCollider.name == "door" then
+        if enteredCollider.isLocked then
+            text = enteredCollider.name.."Locked"
+        else
+            text = enteredCollider.name.."Unlocked"
+        end
+        text = Game.Dialog[text]
+    elseif Game.Progress.interactableObjects[Game.Progress.currentRoomName][enteredCollider.name] then
+        text = Game.Progress.interactableObjects[Game.Progress.currentRoomName][enteredCollider.name].dialog
+    end
+    return text
 end
 
 function Game:takeInput(key)
-    dialogBox:clearDialog() -- add some form of condition to clearing dialog so that extra text can be pushed inside the dialog box for instruction?
-    if self.activeObject then -- need to handle gameObject (interactable objects') functions from here
-        --Active Object actions
-    end
+    --dialogBox:load(inventory)
+    dialogBox:clearDialog()
     if self.enteredCollider then
         local text = tostring(Game.Dialog[self.enteredCollider.name])
         if text == "nil" then
-            text = Game:getProgressText()
+            text = Game:getProgressText(self.enteredCollider)
         end
+        dialogBox:pushDialog(text)
     end
-    dialogBox:pushDialog(text)
     if key == "x" then
         if stateStack:Top() == "player" and #dialogBox.textTable > 0 then
             stateStack:Push("dialogBox")
@@ -99,9 +102,39 @@ function Game:takeInput(key)
     end
 end
 
-function Game:Update(enteredCollider, activeObject)
+function Game:Update(dt)
+    if self.activeObject then
+        if love.keyboard.isDown("o") or self.activeObject.object.isOpening then
+            self.activeObject.object:Open(dt)
+        elseif love.keyboard.isDown("c") or self.activeObject.object.isClosing then
+            self.activeObject.object:Close(dt)
+        end
+        if self.activeObject.object.isClosed then
+            for _, movingWall in ipairs(self.movingWalls) do
+                if self.activeObject.name == movingWall.name then
+                    if movingWall.class ~= "Wall" then
+                        movingWall.collider:setCollisionClass('Wall')
+                        movingWall.class = "Wall"
+                    end
+                end
+            end
+        else
+            for _, movingWall in ipairs(self.movingWalls) do
+                if self.activeObject.name == movingWall.name then
+                    if movingWall.class ~= "Open Wall" then
+                        movingWall.collider:setCollisionClass('Open Wall')
+                        movingWall.class = "Open Wall"
+                    end
+                end
+            end
+        end
+    end
+end
+
+function Game:UpdateObjects(enteredCollider, activeObject, movingWalls)
     self.enteredCollider = enteredCollider
     self.activeObject = activeObject
+    self.movingWalls = movingWalls
 end
 
 return Game

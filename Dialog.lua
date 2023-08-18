@@ -35,6 +35,11 @@ function dialog:UpdateLine(key)
     end
 end
 
+
+function dialog:load(inventory)
+    --need to make an inventory table too
+end
+
 function dialog:pushDialog(text)
     self.text = text
     counter = 0

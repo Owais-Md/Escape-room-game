@@ -29,7 +29,7 @@ local quadsForAnimation = {
 
 local Animation = {}
 
-function Animation:NewObject(beginClosed, flipped_horizontal, flipped_vertical, animationSpeed, name)
+function Animation:NewObject(beginClosed, isLocked, flipped_horizontal, flipped_vertical, animationSpeed, name)
     local animation = {}
     setmetatable(animation, self)
     self.__index = self
@@ -39,9 +39,9 @@ function Animation:NewObject(beginClosed, flipped_horizontal, flipped_vertical, 
     animation.imagePath = "Sprites/Lanea Zimmerman's spritesheets/things.png"
 
     animation.isClosed = beginClosed
+    animation.isLocked = isLocked
     animation.isOpening = false
     animation.isClosing = false
-    animation.isLocked = false
     animation.state = "Open"
     if beginClosed then animation.state = "Closed" end
     animation.flipped_horizontal = flipped_horizontal

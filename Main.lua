@@ -32,6 +32,7 @@ function love.keypressed(key)
 end
 
 function love.update(dt)
+    gameObjects:Update(dt)
     background:Update(dt)
     player:Update(dt)
 end
