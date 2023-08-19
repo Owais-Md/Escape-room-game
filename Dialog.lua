@@ -43,8 +43,8 @@ end
 
 function dialog:pushDialog(text)
     self.text = text or "nil"
-    counter = 0
-    newline = ""
+    local counter = 0
+    local newline = ""
     for word in self.text:gmatch("%S+") do
         if #word + counter < letterlimit then
             if newline == "" then
@@ -70,41 +70,43 @@ function dialog:clearDialog()
 end
 
 function dialog:PrintDialog()
-    love.graphics.push()
-    love.graphics.scale(scale)
-    width = DialogBox.width
-    height = DialogBox.height
-    tilewidth = DialogBox.tilewidth
-    tileheight = DialogBox.tileheight
-    for _, layer in ipairs(DialogBox.layers) do
-        for y = 0, layer.height - 1 do
-            for x = 0, layer.width - 1 do
-                local index = (x + y * layer.width) + 1
-                local tid = layer.data[index]
-                if tid ~= 0 then
-                    local quad = quads[tid]
-                    love.graphics.draw(
-                        imageToDrawFrom,
-                        quad,
-                        x*tilewidth,
-                        y*tileheight
-                    )
+    if stateStack:StateInStack("dialogBox") then
+        love.graphics.push()
+        love.graphics.scale(scale)
+        width = DialogBox.width
+        height = DialogBox.height
+        tilewidth = DialogBox.tilewidth
+        tileheight = DialogBox.tileheight
+        for _, layer in ipairs(DialogBox.layers) do
+            for y = 0, layer.height - 1 do
+                for x = 0, layer.width - 1 do
+                    local index = (x + y * layer.width) + 1
+                    local tid = layer.data[index]
+                    if tid ~= 0 then
+                        local quad = quads[tid]
+                        love.graphics.draw(
+                            imageToDrawFrom,
+                            quad,
+                            x*tilewidth,
+                            y*tileheight
+                        )
+                    end
                 end
             end
         end
-    end
-    if self.currentLine < #self.textTable - 1 then
-        love.graphics.polygon("fill", {8.6*tilewidth, 5.8*tilewidth, 8.7*tilewidth , 5.9*tilewidth, 8.8*tilewidth, 5.8*tilewidth})
-    end
-    if self.currentLine > 1 then
-        love.graphics.polygon("fill", {8.6*tilewidth, 4.2*tilewidth, 8.7*tilewidth , 4.1*tilewidth, 8.8*tilewidth, 4.2*tilewidth})
-    end
-    love.graphics.pop()
-    if #self.textTable > 0 then
-        love.graphics.print(self.textTable[self.currentLine], 1.2*tilewidth*scale, 4.3*tileheight*scale)
-    end
-    if self.currentLine < #self.textTable then
-        love.graphics.print(self.textTable[self.currentLine+1], 1.2*tilewidth*scale, 5.05*tileheight*scale)
+        if self.currentLine < #self.textTable - 1 then
+            love.graphics.polygon("fill", {8.6*tilewidth, 5.8*tilewidth, 8.7*tilewidth , 5.9*tilewidth, 8.8*tilewidth, 5.8*tilewidth})
+        end
+        if self.currentLine > 1 then
+            love.graphics.polygon("fill", {8.6*tilewidth, 4.2*tilewidth, 8.7*tilewidth , 4.1*tilewidth, 8.8*tilewidth, 4.2*tilewidth})
+        end
+        love.graphics.pop()
+        if #self.textTable > 0 then
+            love.graphics.print(self.textTable[self.currentLine], 1.2*tilewidth*scale, 4.3*tileheight*scale)
+        end
+        if self.currentLine < #self.textTable then
+            love.graphics.print(self.textTable[self.currentLine+1], 1.2*tilewidth*scale, 5.05*tileheight*scale)
+        end
     end
 end
 

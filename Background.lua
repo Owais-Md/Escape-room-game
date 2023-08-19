@@ -70,128 +70,135 @@ function Background:New(path, speed, world)
 end
 
 function Background:Update(dt)
-    self.timer = (self.timer + self.speed*dt) % tilesetData.timeLimit
-    for _, collider in ipairs(self.collisionRegions) do
-        if collider.object:enter('Player') then
-            table.insert(self.enteredColliders, 1, collider)
-        end
-    end
-    Table = {}
-    for _,enteredCollider in ipairs(self.enteredColliders) do
-        if not enteredCollider.object:exit('Player') then
-            table.insert(Table, enteredCollider)
-        end
-    end
-    self.enteredColliders = Table
-    self.activeObject = nil
-    if #self.enteredColliders ~= 0 then
-        self.enteredCollider = self.enteredColliders[1]
-    else
-        self.enteredCollider = nil
-    end
-    if self.enteredCollider then
-        for _, interactableObject in ipairs(self.interactableObjects) do
-            if  interactableObject.name == self.enteredCollider.name then
-                self.activeObject = interactableObject
+    if not stateStack:StateInStack("menu") then
+        self.timer = (self.timer + self.speed*dt) % tilesetData.timeLimit
+        for _, collider in ipairs(self.collisionRegions) do
+            if collider.object:enter('Player') then
+                table.insert(self.enteredColliders, 1, collider)
             end
         end
+        Table = {}
+        for _,enteredCollider in ipairs(self.enteredColliders) do
+            if not enteredCollider.object:exit('Player') then
+                table.insert(Table, enteredCollider)
+            end
+        end
+        self.enteredColliders = Table
+        self.activeObject = nil
+        if #self.enteredColliders ~= 0 then
+            self.enteredCollider = self.enteredColliders[1]
+        else
+            self.enteredCollider = nil
+        end
+        if self.enteredCollider then
+            for _, interactableObject in ipairs(self.interactableObjects) do
+                if  interactableObject.name == self.enteredCollider.name then
+                    self.activeObject = interactableObject
+                end
+            end
+        end
+        gameObjects:UpdateObjects(self.enteredCollider, self.activeObject, self.movingWalls)
     end
-    gameObjects:UpdateObjects(self.enteredCollider, self.activeObject, self.movingWalls)
 end
 
 function Background:Draw()
-    width = love.graphics.getWidth()
-    height = love.graphics.getHeight()
-    scale = math.min(width/800, height/560)
+    windowResized = (width == love.graphics.getWidth() and height == love.graphics.getHeight)
+    if not windowResized then
+        width = love.graphics.getWidth()
+        height = love.graphics.getHeight()
+        scale = math.min(width/800, height/560)
+    end
     love.graphics.translate((width-800*scale)/2,(height-560*scale)/2)
     love.graphics.scale(scale)
-    love.graphics.push()
-    love.graphics.scale(self.scale)
-    for _, layer in ipairs(self.map.layers) do
-        if layer.type ~= "objectgroup" then
-            --layer, self.map.tilewidth, self.map.tileheight, tilesetData.animatedTiles, tilesetData.quads, tilesetData.tilesetRanges, self.timer
-            for y = 0, layer.height - 1 do
-                for x = 0, layer.width - 1 do
-                    local index = (x + y * layer.width) + 1
-                    local tid = layer.data[index]
-                    local flipped_horizontal = bit.band(0x80000000, tid)
-                    local flipped_vertical = bit.band(0x40000000, tid)
-                    local x_offset, y_offset, x_scale, y_scale = 0, 0, 1, 1
-                    if flipped_horizontal ~= 0 then
-                        x_offset = 1
-                        x_scale = -1
-                    end
-                    if flipped_vertical ~= 0 then
-                        y_offset = 1
-                        y_scale = -1
-                    end
-                    tid = tid + bit.band(0x80000000, tid) - bit.band(0x40000000, tid)
-                    if tid ~= 0 then
-                        if tilesetData.animatedTiles[tid - 1] ~= nil then
-                            local anim = tilesetData.animatedTiles[tid - 1].animation
-                            local i = (self.timer - self.timer%1) % #anim
-                            tid = anim[i + 1].tileid + 1
+    if stateStack:StateInStack("background") then
+        love.graphics.push()
+        love.graphics.scale(self.scale)
+        for _, layer in ipairs(self.map.layers) do
+            if layer.type ~= "objectgroup" then
+                --layer, self.map.tilewidth, self.map.tileheight, tilesetData.animatedTiles, tilesetData.quads, tilesetData.tilesetRanges, self.timer
+                for y = 0, layer.height - 1 do
+                    for x = 0, layer.width - 1 do
+                        local index = (x + y * layer.width) + 1
+                        local tid = layer.data[index]
+                        local flipped_horizontal = bit.band(0x80000000, tid)
+                        local flipped_vertical = bit.band(0x40000000, tid)
+                        local x_offset, y_offset, x_scale, y_scale = 0, 0, 1, 1
+                        if flipped_horizontal ~= 0 then
+                            x_offset = 1
+                            x_scale = -1
                         end
-                        local quad = tilesetData.quads[tid]
-                        local imagePath
-                        for i,tilesetRange in ipairs(tilesetData.tilesetRanges) do
-                            if tid>=tilesetRange.start and tid<tilesetRange.finish then
-                                imagePath = tilesetRange.imagePath
+                        if flipped_vertical ~= 0 then
+                            y_offset = 1
+                            y_scale = -1
+                        end
+                        tid = tid + bit.band(0x80000000, tid) - bit.band(0x40000000, tid)
+                        if tid ~= 0 then
+                            if tilesetData.animatedTiles[tid - 1] ~= nil then
+                                local anim = tilesetData.animatedTiles[tid - 1].animation
+                                local i = (self.timer - self.timer%1) % #anim
+                                tid = anim[i + 1].tileid + 1
                             end
-                        end
-                        local imageToDrawFrom
-                        for _, imageSet in ipairs(imageSets) do
-                            if imageSet.path == imagePath then
-                                imageToDrawFrom = imageSet.image
+                            local quad = tilesetData.quads[tid]
+                            local imagePath
+                            for i,tilesetRange in ipairs(tilesetData.tilesetRanges) do
+                                if tid>=tilesetRange.start and tid<tilesetRange.finish then
+                                    imagePath = tilesetRange.imagePath
+                                end
                             end
-                        end
-                        love.graphics.draw(
-                            imageToDrawFrom,
-                            quad,
-                            (x + x_offset)*self.map.tilewidth,
-                            (y + y_offset)*self.map.tileheight,
-                            0,
-                            x_scale,
-                            y_scale
-                        )
-                    end
-                end
-            end
-        else
-            for _, obj in ipairs(layer.objects) do
-                if obj.type == "draw" then
-                    for _, interactableObject in ipairs(self.interactableObjects) do
-                        if obj.name == interactableObject.name then
-                            object = interactableObject.object
                             local imageToDrawFrom
                             for _, imageSet in ipairs(imageSets) do
-                                if imageSet.path == object.imagePath then
+                                if imageSet.path == imagePath then
                                     imageToDrawFrom = imageSet.image
                                 end
                             end
-                            quad = object.quads[object.frame + 1]
                             love.graphics.draw(
                                 imageToDrawFrom,
                                 quad,
-                                obj.x + object.x_offset*object.tileWidth,
-                                obj.y + object.y_offset*object.tileHeight,
+                                (x + x_offset)*self.map.tilewidth,
+                                (y + y_offset)*self.map.tileheight,
                                 0,
-                                object.x_scale,
-                                object.y_scale
+                                x_scale,
+                                y_scale
                             )
                         end
                     end
                 end
+            else
+                for _, obj in ipairs(layer.objects) do
+                    if obj.type == "draw" then
+                        for _, interactableObject in ipairs(self.interactableObjects) do
+                            if obj.name == interactableObject.name then
+                                object = interactableObject.object
+                                local imageToDrawFrom
+                                for _, imageSet in ipairs(imageSets) do
+                                    if imageSet.path == object.imagePath then
+                                        imageToDrawFrom = imageSet.image
+                                    end
+                                end
+                                quad = object.quads[object.frame + 1]
+                                love.graphics.draw(
+                                    imageToDrawFrom,
+                                    quad,
+                                    obj.x + object.x_offset*object.tileWidth,
+                                    obj.y + object.y_offset*object.tileHeight,
+                                    0,
+                                    object.x_scale,
+                                    object.y_scale
+                                )
+                            end
+                        end
+                    end
+                end
             end
         end
-    end
-    love.graphics.pop()
-    if show_debugging then
-        if self.enteredCollider then
-            love.graphics.print("enteredCollider:"..self.enteredCollider.name)
-        end
-        if self.activeObject then
-            love.graphics.print("\nactiveObject:"..self.activeObject.name)
+        love.graphics.pop()
+        if show_debugging then
+            if self.enteredCollider then
+                love.graphics.print("enteredCollider:"..self.enteredCollider.name)
+            end
+            if self.activeObject then
+                love.graphics.print("\nactiveObject:"..self.activeObject.name)
+            end
         end
     end
 end

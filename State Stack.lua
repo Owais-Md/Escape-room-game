@@ -29,4 +29,15 @@ function StateStack:Pop()
     end
 end
 
+function StateStack:StateInStack(state)
+    local flag = false
+    for _, stateName in ipairs(self) do
+        if stateName == state then
+            flag = true
+            break
+        end
+    end
+    return flag
+end
+
 return StateStack

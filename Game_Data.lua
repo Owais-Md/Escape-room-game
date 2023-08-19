@@ -8,6 +8,10 @@
 
 local TableIO = require "TableIO"
 
+width = love.graphics.getWidth()
+height = love.graphics.getHeight()
+scale = math.min(width/800, height/560)
+
 local Game = {
     Progress = {
         currentRoomName = "Room_1",
@@ -55,7 +59,7 @@ function Game:saveGame(savefilename)
 end
 
 function Game:loadGame(savefilename)
-    Game.Progress = TableIO.load("progress")
+    Game.Progress = TableIO.load("progress") or Game.Progress
 end
 
 function Game:getGameObjects()
@@ -99,6 +103,18 @@ function Game:takeInput(key)
             stateStack:Push("dialogBox")
         elseif stateStack:Top() == "dialogBox" then
             stateStack:Pop()
+        end
+    end
+    if key == "escape" then
+        if not stateStack:StateInStack("menu") then
+            if menu:MenuEmpty() then
+                menu:MenuPush("midGame")
+            end
+            stateStack:Push("menu")
+        elseif stateStack:Top() == "menu" then
+            if not menu:MenuPop() then
+                stateStack:Pop()
+            end
         end
     end
     if stateStack:Top() == "dialogBox" then

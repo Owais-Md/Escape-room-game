@@ -1,3 +1,5 @@
+--need to make a simpleDrawLayer function (copy code that is used in both Dialog.lua and Menu.lua for drawing a simple Layer)
+
 pathsToTilesets = {
     "basictiles",
     "things"

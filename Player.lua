@@ -2,7 +2,7 @@
 --add that torch highlight thing
 --need to change player.x and player.y on the basis of teleport
 
-local anim8 = require 'libraries/anim8'
+local anim8 = require 'libraries/anim8' --Could've done it without this library too, but had imported this when just started the project, so now can't remove
 local wf = require "libraries.windfield" --FOSS library for game physics
 
 local Player = {}
@@ -85,10 +85,12 @@ function Player:Update(dt)
 end
 
 function Player:Draw()
-    if show_debugging then
-        self.world:draw()
+    if stateStack:StateInStack("player") then
+        if show_debugging then
+            self.world:draw()
+        end
+        self.animation_state:draw(self.spriteSheet, self.x, self.y, nil, self.scale)
     end
-    self.animation_state:draw(self.spriteSheet, self.x, self.y, nil, self.scale)
 end
 
 return Player

@@ -12,14 +12,14 @@ show_debugging = false
 function love.load()
     local speed = 8 -- need to put this in background.lua
     local roomPath = "Room 1" -- need to put this in background.lua too, where it takes info from Game_Data:loadGame()
-    stateStack = StateStack:getStateStack()
+    stateStack = StateStack:getStateStack() --need to initiate stateStack before everything as all files use this global stateStack
+    menu = Menu:getMenu() -- need to initate menu before gameObjects, as gameObjects uses menuStack:MenuPop()
     dialogBox = Dialog:getDialogBox()
     gameObjects = Game:getGameObjects()
-    player = Player:New()
+    player = Player:New() --need to initiate player before background as player.world is passed in background
     background = Background:New(roomPath, speed, player.world)
-    --menu = Menu:getMenu()
-    --stateStack:Push("Menu")
-    stateStack:Push("background", "player")
+    stateStack:Push("menu")
+    --stateStack:Push("background", "player")
 end
 
 function love.keypressed(key)
@@ -30,19 +30,18 @@ function love.keypressed(key)
 end
 
 function love.update(dt)
-    --menu:Update(dt)
-    background:Update(dt)
     gameObjects:Update(dt)
+    background:Update(dt)
     player:Update(dt)
+    menu:Update(dt)
 end
 
 function love.draw()
-    background:Draw()
+    background:Draw() -- contains the scale and origin offset for screen resizing
     player:Draw()
-    if stateStack:Top() == "dialogBox" then -- could move condition to PrintDialog itself
-        dialogBox:PrintDialog()
-    end
-    -- menu:Draw()
+    dialogBox:PrintDialog()
+    menu:Draw()
 
-    -- love.graphics.print(love.timer.getFPS())
+    --love.graphics.print(love.timer.getFPS())
+    love.graphics.print(#menu.menuStack)
 end
