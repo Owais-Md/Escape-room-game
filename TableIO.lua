@@ -1,26 +1,23 @@
 local function tableToString(table)
-    local function serialize(tbl)
-        local str = "{"
-        for k, v in pairs(tbl) do
-            if type(k) == "string" then
-                k = '"' .. k .. '"'
-            end
-            local valueStr
-            if type(v) == "table" then
-                valueStr = serialize(v)
-            elseif type(v) == "string" then
-                valueStr = '"' .. v .. '"'
-            elseif type(v) == "boolean" then
-                valueStr = tostring(v)
-            else
-                valueStr = v
-            end
-            str = str .. "[" .. k .. "]=" .. valueStr .. ","
+    local str = "{"
+    for k, v in pairs(table) do
+        if type(k) == "string" then
+            k = '"' .. k .. '"'
         end
-        str = str .. "}"
-        return str
+        local valueStr
+        if type(v) == "table" then
+            valueStr = tableToString(v)
+        elseif type(v) == "string" then
+            valueStr = '"' .. v .. '"'
+        elseif type(v) == "boolean" then
+            valueStr = tostring(v)
+        else
+            valueStr = v
+        end
+        str = str .. "[" .. k .. "]=" .. valueStr .. ","
     end
-    return serialize(table)
+    str = str .. "}"
+    return str
 end
 
 local function stringToTable(str)
@@ -30,14 +27,15 @@ end
 
 local function dump(table, filename)
     local file = io.open(filename, "w")
+    local success = true
     if file then
         local serialized = tableToString(table)
         file:write(serialized)
         file:close()
-        print("Table saved to " .. filename)
     else
-        print("Error: Unable to open file " .. filename)
+        success = false
     end
+    return success
 end
 
 local function load(filename)
@@ -48,7 +46,6 @@ local function load(filename)
         local table = stringToTable(content)
         return table
     else
-        print("Error: Unable to open file " .. filename)
         return nil
     end
 end

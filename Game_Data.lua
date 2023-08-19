@@ -1,6 +1,10 @@
 --new folder for progress, settings, cheats option to manually enable properties in progress?
 --uses that enteredCollider/activeObject from background.lua to generate text
 --self.gamedetails.progress = load(self.gamedetails.savefile) or self.gamedetails.progress
+--need to organize Game.Progress.interactableObjects better?
+--could make enteredCollider, activeObject and movingWalls global and declare them here?
+--need to make background.lua read movingWall and interactableObject details from Game.Progress
+--need to make teleport function
 
 local TableIO = require "TableIO"
 
@@ -36,9 +40,9 @@ local Game = {
     Dialog = {
         wall = "The wall appears to be made of stone.",
         chestLocked = "The chest appears to be locked.",
-        chestUnlocked = "The chest is not locked, press o to open and c to close the chest.",
+        chestUnlocked = 'Press "O" to open, and "C" to close the chest.',
         doorLocked = "The door appears to be locked.",
-        doorUnlocked = "The door is unlocked, press o to open and c to close the door.",
+        doorUnlocked = 'Press "O" to open, and "C" to close the door.',
         torch = "The torch is bright and warm.",
         fireplace = "The fireplace makes the room feel cozy. If not for this fireplace, the room would probably be pretty cold."
     }
@@ -47,11 +51,11 @@ local Game = {
 --TableIO.dump(Game.Settings, "settings")
 
 function Game:saveGame(savefilename)
-
+    TableIO.dump(Game.Progress, "progress")
 end
 
 function Game:loadGame(savefilename)
-
+    Game.Progress = TableIO.load("progress")
 end
 
 function Game:getGameObjects()
@@ -102,7 +106,7 @@ function Game:takeInput(key)
     end
 end
 
-function Game:Update(dt)
+function Game:Update(dt) -- could change isOpening/ isClosing directly from Game:takeInput(key)
     if self.activeObject then
         if love.keyboard.isDown("o") or self.activeObject.object.isOpening then
             self.activeObject.object:Open(dt)

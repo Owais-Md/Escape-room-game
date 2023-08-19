@@ -1,5 +1,6 @@
 --uses that dialogBox.lua
 --uses those fonts from LaenaZimmerman's spriteSheets
+--need to make dialog:load(inventory) [and also need to make an inventory] [prints inventory inside dialogBox itself? or should i make another pop-up/ state for inventory?]
 
 local DialogBox = require "Dialog Box"
 local ImageData = require "basictiles"
@@ -41,7 +42,7 @@ function dialog:load(inventory)
 end
 
 function dialog:pushDialog(text)
-    self.text = text
+    self.text = text or "nil"
     counter = 0
     newline = ""
     for word in self.text:gmatch("%S+") do

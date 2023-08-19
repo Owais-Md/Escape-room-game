@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "Room.tmx",
+    "activeFile": "Menu Box.tmx",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -19,16 +19,32 @@
             "scale": 5.5,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 79.9090909090909,
+                "x": 80.09090909090908,
                 "y": 56.00000000000001
+            }
+        },
+        "Menu Box.tmx": {
+            "scale": 5.5,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 87.54545454545455,
+                "y": 53.63636363636364
+            }
+        },
+        "Menu.tmx": {
+            "scale": 6.522767857142857,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 79.95072205872286,
+                "y": 53.65820272397509
             }
         },
         "Option Box.tmx": {
             "scale": 5.5,
-            "selectedLayer": 0,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 80.09090909090908,
-                "y": 56.00000000000001
+                "x": 79.9090909090909,
+                "y": 55.81818181818183
             }
         },
         "Room 1.tmx": {
@@ -65,10 +81,10 @@
         },
         "Room.tmx": {
             "expandedObjectLayers": [
-                7,
-                6,
+                2,
                 9,
-                2
+                7,
+                6
             ],
             "scale": 6.556696428571429,
             "selectedLayer": 0,
@@ -110,17 +126,19 @@
     "map.width": 10,
     "openFiles": [
         "Dialog Box.tmx",
-        "Option Box.tmx",
         "things.tsx",
-        "Room.tmx"
+        "Room.tmx",
+        "Menu Box.tmx"
     ],
     "project": "Tiled.tiled-project",
     "property.type": "bool",
     "recentFiles": [
         "Dialog Box.tmx",
-        "Option Box.tmx",
         "things.tsx",
         "Room.tmx",
+        "Menu Box.tmx",
+        "Menu.tmx",
+        "Option Box.tmx",
         "basictiles.tsx",
         "characters.tsx",
         "Room 2.tmx",
