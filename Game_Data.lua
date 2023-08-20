@@ -8,9 +8,10 @@
 
 local TableIO = require "TableIO"
 
-width = love.graphics.getWidth()
-height = love.graphics.getHeight()
-scale = math.min(width/800, height/560)
+ww = love.graphics.getWidth()
+wh = love.graphics.getHeight()
+scale = math.min(ww/800, wh/560)
+wtranslate = {(ww-800*scale)/2,(wh-560*scale)/2}
 
 local Game = {
     Progress = {

@@ -6,6 +6,15 @@ local TileSetData = require "TilesetDataGenerator"
 
 local quads = TileSetData.quads
 local imageToDrawFrom = love.graphics.newImage(ImageData.image)
+local font = love.graphics.newFont(16)
+
+love.graphics.setFont(font)
+
+local colors = {
+    default = {1, 1, 1, 1},
+    fill = {0.3, 0.3, 0.5, 0.8},
+    hot = {0.4, 0.4, 0.6, 1}
+}
 
 local Menu = {}
 
@@ -82,15 +91,29 @@ local menuList = {
 }
 
 local function CreateMenu(menuStack)
-
+    local menu = {}
+    menu.buttons = menuList[menuStack[#menuStack]]
+    menu.margin = 20
+    for _, button in ipairs(menu.buttons) do
+        button.width = font:getWidth(button.text)
+        if not menu.height then
+            menu.height = 3*font:getHeight()
+            menu.totalheight = menu.height*#menu.buttons + menu.margin*(#menu.buttons-1)
+        end
+        button.x = ww/2 - button.width/2 - 2*menu.margin
+        button.w = 2*(ww/2 - button.x)
+        button.y = wh/2 - menu.totalheight/2 + (_ - 1)*(menu.height + menu.margin)
+        button.h = menu.height
+    end
+    return menu
 end
 
 function Menu:getMenu()
     local menu = {}
     setmetatable(menu, self)
     self.__index = self
-    menu.menuStack = {"startScreen","randommenu"}
-    menu.currentMenu = CreateMenu()
+    menu.menuStack = {"startScreen"}
+    menu.currentMenu = CreateMenu(menu.menuStack)
     return menu
 end
 
@@ -152,9 +175,13 @@ function Menu:Draw()
             end
         end
         love.graphics.pop()
-        love.graphics.setColor(0.3,0.3,0.5,1)
-        love.graphics.rectangle("fill", 300, 200, 200, 100)
-        love.graphics.setColor(1,1,1,1)
+        for _, button in ipairs(self.currentMenu.buttons) do
+            love.graphics.setColor(unpack(colors.fill))
+            love.graphics.rectangle("fill", button.x, button.y, button.w, button.h)
+            love.graphics.setColor(unpack(colors.default))
+            love.graphics.rectangle("line", button.x, button.y, button.w, button.h)
+            love.graphics.print(button.text, ww/2 - button.width/2, button.y + self.currentMenu.height/3)
+        end
     end
 end
 

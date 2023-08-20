@@ -102,13 +102,14 @@ function Background:Update(dt)
 end
 
 function Background:Draw()
-    windowResized = (width == love.graphics.getWidth() and height == love.graphics.getHeight)
-    if not windowResized then
-        width = love.graphics.getWidth()
-        height = love.graphics.getHeight()
-        scale = math.min(width/800, height/560)
-    end
-    love.graphics.translate((width-800*scale)/2,(height-560*scale)/2)
+    -- windowResized = (ww == love.graphics.getWidth() and wh == love.graphics.getHeight)
+    -- if not windowResized then
+    --     ww = love.graphics.getWidth()
+    --     wh = love.graphics.getHeight()
+    --     scale = math.min(ww/800, wh/560)
+    --     wtranslate = {(ww-800*scale)/2,(wh-560*scale)/2}
+    -- end
+    love.graphics.translate(unpack(wtranslate))
     love.graphics.scale(scale)
     if stateStack:StateInStack("background") then
         love.graphics.push()
