@@ -112,10 +112,8 @@ function Game:takeInput(key)
                 menu:MenuPush("midGame")
             end
             stateStack:Push("menu")
-        elseif stateStack:Top() == "menu" then
-            if not menu:MenuPop() then
-                stateStack:Pop()
-            end
+        elseif stateStack:Top() == "menu" and menu:MenuTop() ~= "startScreen" then
+            stateStack:Pop()
         end
     end
     if stateStack:Top() == "dialogBox" then

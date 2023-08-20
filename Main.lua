@@ -7,6 +7,8 @@ local Background = require "Background"
 local Dialog = require "Dialog"
 local Menu = require "Menu"
 
+testcounter = 0
+
 show_debugging = false
 
 function love.load()
@@ -38,10 +40,9 @@ end
 
 function love.draw()
     background:Draw() -- contains the scale and origin offset for screen resizing
-    menu:Draw()
     player:Draw()
     dialogBox:PrintDialog()
+    menu:Draw()
 
     --love.graphics.print(love.timer.getFPS())
-    --love.graphics.print(#menu.menuStack)
 end
