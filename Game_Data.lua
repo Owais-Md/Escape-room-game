@@ -3,10 +3,16 @@
 --self.gamedetails.progress = load(self.gamedetails.savefile) or self.gamedetails.progress
 --need to organize Game.Progress.interactableObjects better?
 --could make enteredCollider, activeObject and movingWalls global and declare them here?
+--need to save progress actively from Game:Update(dt), so that on saving Game.Progress later, progress can be retrieved
+--also need to add switches inside the game, so that game isn't bland lmao
 --need to make background.lua read movingWall and interactableObject details from Game.Progress
 --need to make teleport function
+--could i just use loadgame and Game.Progress smartly to make my teleport function?
+--lmao jeniyas
 
 local TableIO = require "TableIO"
+local Player = require "Player"
+local Background = require "Background"
 
 ww = love.graphics.getWidth()
 wh = love.graphics.getHeight()
@@ -15,9 +21,13 @@ wtranslate = {(ww-800*scale)/2,(wh-560*scale)/2}
 
 local Game = {
     Progress = {
-        currentRoomName = "Room_1",
+        currentRoomName = "Room 1",
+        player = {
+            x = nil,
+            y = nil
+        },
         interactableObjects = {
-            Room_1 = {
+            ["Room 1"] = {
                 chest = {
                     beginClosed = true,
                     flipped_horizontal = false,
@@ -36,7 +46,7 @@ local Game = {
                     dialog = "This wall appears to be different from the other walls.",
                 }
             },
-            Room_2 = {
+            ["Room 2"] = {
 
             }
         }
@@ -56,11 +66,16 @@ local Game = {
 --TableIO.dump(Game.Settings, "settings")
 
 function Game:saveGame(savefilename)
+    self.Progress.player.x = player.x
+    self.Progress.player.y = player.y
     TableIO.dump(Game.Progress, "progress")
 end
 
 function Game:loadGame(savefilename)
     Game.Progress = TableIO.load("progress") or Game.Progress
+    player.world:destroy()
+    player = Player:New()
+    background = Background:New(self.Progress.currentRoomName, player.world)
 end
 
 function Game:getGameObjects()
@@ -99,7 +114,7 @@ function Game:takeInput(key)
         end
         dialogBox:pushDialog(text)
     end
-    if key == "x" then
+    if key == "x" or key == "return" then
         if stateStack:Top() == "player" and #dialogBox.textTable > 0 then
             stateStack:Push("dialogBox")
         elseif stateStack:Top() == "dialogBox" then
@@ -147,6 +162,8 @@ function Game:Update(dt) -- could change isOpening/ isClosing directly from Game
                 end
             end
         end
+        Game.Progress.interactableObjects[Game.Progress.currentRoomName][self.activeObject.name].isLocked = self.activeObject.object.isLocked
+        Game.Progress.interactableObjects[Game.Progress.currentRoomName][self.activeObject.name].beginClosed = self.activeObject.object.isClosed
     end
 end
 

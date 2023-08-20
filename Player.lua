@@ -18,8 +18,8 @@ function Player:New()
     player.speed = 3*player.scale/4
     player.spriteSheet = love.graphics.newImage("Sprites/Lanea Zimmerman's spritesheets/characters.png")
     player.grid = anim8.newGrid(player.width, player.height, player.spriteSheet:getWidth(), player.spriteSheet:getHeight())
-    player.x = love.graphics.getWidth() / 2 - player.scale*player.width/2
-    player.y = love.graphics.getHeight() / 2 - player.scale*player.height/2
+    player.x = gameObjects.Progress.player.x or (love.graphics.getWidth() / 2 - player.scale*player.width/2)
+    player.y = gameObjects.Progress.player.y or (love.graphics.getHeight() / 2 - player.scale*player.height/2)
     player.world = wf.newWorld(0, 0)
     player.world:addCollisionClass('Player')
     player.world:addCollisionClass('Wall')

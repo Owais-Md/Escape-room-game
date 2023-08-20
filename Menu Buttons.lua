@@ -23,7 +23,7 @@ local Buttons = {
     ,
     ["Save Game"] = newButton("Save Game",
                     function ()
-                        -- call saveGame from GameData
+                        gameObjects:saveGame("Savefile")
                     end
                 )
     ,
@@ -31,7 +31,7 @@ local Buttons = {
                     function ()
                         menu:MenuPop()
                         stateStack:Pop()
-                        -- call loadGame from GameData
+                        gameObjects:loadGame("Savefile")
                         stateStack:Push("background", "player")
                         menu:MenuPush("midGame")
                     end

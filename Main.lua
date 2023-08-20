@@ -12,14 +12,12 @@ testcounter = 0
 show_debugging = false
 
 function love.load()
-    local speed = 8 -- need to put this in background.lua
-    local roomPath = "Room 1" -- need to put this in background.lua too, where it takes info from Game_Data:loadGame()
     stateStack = StateStack:getStateStack() --need to initiate stateStack before everything as all files use this global stateStack
     menu = Menu:getMenu() -- need to initate menu before gameObjects, as gameObjects uses menuStack:MenuPop()
     dialogBox = Dialog:getDialogBox()
     gameObjects = Game:getGameObjects()
     player = Player:New() --need to initiate player before background as player.world is passed in background
-    background = Background:New(roomPath, speed, player.world)
+    background = Background:New(gameObjects.Progress.currentRoomName, player.world)
     stateStack:Push("menu")
     --stateStack:Push("background", "player")
 end

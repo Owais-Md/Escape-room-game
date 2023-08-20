@@ -7,6 +7,7 @@ local tilesetData = require "TilesetDataGenerator"
 local inOb = require "Interactable animation"
 
 local imageSets = {}
+local speed = 8
 
 local Table = {}
 
@@ -18,7 +19,7 @@ end
 
 local Background = {}
 
-function Background:New(path, speed, world)
+function Background:New(path, world)
     local background = {}
     setmetatable(background, self)
     self.__index = self
