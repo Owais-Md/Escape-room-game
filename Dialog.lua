@@ -9,9 +9,7 @@ local TileSetData = require "TilesetDataGenerator"
 local imageToDrawFrom = love.graphics.newImage(ImageData.image)
 local quads = TileSetData.quads
 local font = love.graphics.newFont(32)
-local letterlimit = 32
-
-love.graphics.setFont(font)
+local letterlimit = 30
 
 local scale = 5
 local dialog = {}
@@ -71,6 +69,7 @@ end
 
 function dialog:PrintDialog()
     if stateStack:StateInStack("dialogBox") then
+        love.graphics.setFont(font)
         love.graphics.push()
         love.graphics.scale(scale)
         width = DialogBox.width

@@ -3,12 +3,11 @@
 local MenuBox = require "Menu Box"
 local ImageData = require "basictiles"
 local TileSetData = require "TilesetDataGenerator"
+local Buttons = require "Menu Buttons"
 
 local quads = TileSetData.quads
 local imageToDrawFrom = love.graphics.newImage(ImageData.image)
 local font = love.graphics.newFont(16)
-
-love.graphics.setFont(font)
 
 local mx, my = love.mouse.getPosition()
 local isDown = false
@@ -20,76 +19,6 @@ local colors = {
 }
 
 local Menu = {}
-
-local function newButton(text, func)
-    return {
-        text = text,
-        func = func
-    }
-end
-
-local Buttons = {
-    ["New Game"] = newButton("New Game",
-                    function ()
-                        menu:MenuPop()
-                        stateStack:Pop()
-                        stateStack:Push("background", "player") --, "tutorial") -- need to make a tutorial
-                        menu:MenuPush("midGame")
-                    end
-                )
-    ,
-    ["Settings"] = newButton("Settings",
-                    function ()
-                        menu:MenuPush("Settings") -- need to make settings..
-                    end
-                )
-    ,
-    ["Save Game"] = newButton("Save Game",
-                    function ()
-                        -- call saveGame from GameData
-                    end
-                )
-    ,
-    ["Load From Saved Game"] = newButton("Load From Saved Game",
-                    function ()
-                        menu:MenuPop()
-                        stateStack:Pop()
-                        -- call loadGame from GameData
-                        stateStack:Push("background", "player")
-                        menu:MenuPush("midGame")
-                    end
-                )
-    ,
-    ["Change Sprite"] = newButton("Change Sprite",
-                    function ()
-                        
-                    end
-                )
-    ,
-    ["Change Dialog Background"] = newButton("Change Dialog Background",
-                    function ()
-                        
-                    end
-                )
-    ,
-    ["Credits"] = newButton("Credits",
-                    function ()
-                        -- need to make credits
-                    end
-                )
-    ,
-    ["Back"] = newButton("Back",
-                    function ()
-                        menu:MenuPop()
-                    end
-                )
-    ,
-    ["Exit"] = newButton("Exit",
-                    function ()
-                        love.event.quit(0)
-                    end
-                )
-}
 
 local menuList = {
     startScreen = {
@@ -128,10 +57,12 @@ local function getCurrentMenu(menuStack)
             menu.height = 3*font:getHeight()
             menu.totalheight = menu.height*#menu.buttons + menu.margin*(#menu.buttons-1)
         end
-        button.x = ww/2 - button.width/2 - 2*menu.margin
-        button.w = 2*(ww/2 - button.x)
-        button.y = wh/2 - menu.totalheight/2 + (_ - 1)*(menu.height + menu.margin)
+        button.x = 400 - button.width/2 - 2*menu.margin
+        button.w = 2*(400 - button.x)
+        button.y = 280 - menu.totalheight/2 + (_ - 1)*(menu.height + menu.margin)
         button.h = menu.height
+        button.text_x = 400 - button.width/2
+        button.text_y = button.y + menu.height/3
         button.hot = false
     end
     return menu
@@ -205,6 +136,7 @@ end
 
 function Menu:Draw()
     if stateStack:Top() == "menu" then
+        love.graphics.setFont(font)
         love.graphics.setColor(1,1,1,0.8)
         love.graphics.push()
         love.graphics.scale(5)
@@ -236,7 +168,7 @@ function Menu:Draw()
             love.graphics.rectangle("fill", button.x, button.y, button.w, button.h)
             love.graphics.setColor(unpack(colors.default))
             love.graphics.rectangle("line", button.x, button.y, button.w, button.h)
-            love.graphics.print(button.text, ww/2 - button.width/2, button.y + self.currentMenu.height/3)
+            love.graphics.print(button.text, button.text_x, button.text_y)
         end
         love.graphics.circle("fill", mx, my, menu.currentMenu.margin/2)
     end
