@@ -1,13 +1,9 @@
-love.graphics.setDefaultFilter("nearest","nearest")
-love.mouse.setVisible(false)
 local Game = require "Game_Data"
 local StateStack = require "State Stack"
 local Player = require "Player"
 local Background = require "Background"
 local Dialog = require "Dialog"
 local Menu = require "Menu"
-
-testcounter = 0
 
 show_debugging = false
 
@@ -19,7 +15,6 @@ function love.load()
     player = Player:New() --need to initiate player before background as player.world is passed in background
     background = Background:New(gameObjects.Progress.currentRoomName, player.world)
     stateStack:Push("menu")
-    --stateStack:Push("background", "player")
 end
 
 function love.keypressed(key)
@@ -42,5 +37,5 @@ function love.draw()
     dialogBox:PrintDialog()
     menu:Draw()
 
-    --love.graphics.print(love.timer.getFPS())
+    love.graphics.print(love.timer.getFPS())
 end

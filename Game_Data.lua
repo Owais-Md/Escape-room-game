@@ -10,6 +10,11 @@
 --could i just use loadgame and Game.Progress smartly to make my teleport function?
 --lmao jeniyas
 
+love.graphics.setDefaultFilter("nearest","nearest")
+love.mouse.setVisible(false)
+bigFont = love.graphics.newFont(32)
+smallFont = love.graphics.newFont(16)
+
 local TableIO = require "TableIO"
 local Player = require "Player"
 local Background = require "Background"
@@ -24,7 +29,8 @@ local Game = {
         currentRoomName = "Room 1",
         player = {
             x = nil,
-            y = nil
+            y = nil,
+            looking = nil
         },
         interactableObjects = {
             ["Room 1"] = {
@@ -36,7 +42,7 @@ local Game = {
                 },
                 door = {
                     beginClosed = true,
-                    flipped_horizontal = false,
+                    flipped_horizontal = true,
                     flipped_vertical = false,
                     isLocked = false
                 },
@@ -68,14 +74,20 @@ local Game = {
 function Game:saveGame(savefilename)
     self.Progress.player.x = player.x
     self.Progress.player.y = player.y
-    TableIO.dump(Game.Progress, "progress")
+    self.Progress.player.looking = player.looking
+
+    TableIO.dump(Game.Progress, savefilename)
 end
 
-function Game:loadGame(savefilename)
-    Game.Progress = TableIO.load("progress") or Game.Progress
+function Game:reloadGame() -- Uses Game.Progress to reload the game
     player.world:destroy()
     player = Player:New()
     background = Background:New(self.Progress.currentRoomName, player.world)
+end
+
+function Game:loadGame(savefilename)
+    Game.Progress = TableIO.load(savefilename) or Game.Progress
+    Game:reloadGame()
 end
 
 function Game:getGameObjects()
@@ -90,7 +102,7 @@ function Game:getGameObjects()
 end
 
 function Game:getProgressText(enteredCollider)
-    local text
+    local text = nil
     if enteredCollider.name == "chest" or enteredCollider.name == "door" then
         if enteredCollider.isLocked then
             text = enteredCollider.name.."Locked"
@@ -165,6 +177,16 @@ function Game:Update(dt) -- could change isOpening/ isClosing directly from Game
         Game.Progress.interactableObjects[Game.Progress.currentRoomName][self.activeObject.name].isLocked = self.activeObject.object.isLocked
         Game.Progress.interactableObjects[Game.Progress.currentRoomName][self.activeObject.name].beginClosed = self.activeObject.object.isClosed
     end
+end
+
+function Game:getObjectProperties(objName)
+    local Obj = Game.Progress.interactableObjects[Game.Progress.currentRoomName][objName]
+    return {
+        beginClosed = Obj.beginClosed,
+        flipped_horizontal = Obj.flipped_horizontal,
+        flipped_vertical = Obj.flipped_vertical,
+        isLocked = Obj.isLocked
+    }
 end
 
 function Game:UpdateObjects(enteredCollider, activeObject, movingWalls)

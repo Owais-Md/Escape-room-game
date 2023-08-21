@@ -40,16 +40,13 @@ function Animation:NewObject(beginClosed, isLocked, flipped_horizontal, flipped_
 
     animation.isClosed = beginClosed
     animation.isLocked = isLocked
-    animation.isOpening = false
-    animation.isClosing = false
     animation.flipped_horizontal = flipped_horizontal
     animation.flipped_vertical = flipped_vertical
+    animation.isOpening = false
+    animation.isClosing = false
     animation.animationSpeed = animationSpeed
     animation.quads = {}
     animation.frame = 0
-    if animation.isClosed == false then
-        animation.frame = #animation.quads - 1
-    end
     animation.timer = 0
     for _,quads in ipairs(quadsForAnimation) do
         if quads.name == name then
@@ -57,6 +54,9 @@ function Animation:NewObject(beginClosed, isLocked, flipped_horizontal, flipped_
                 table.insert(animation.quads, love.graphics.newQuad(cuard.x*tileWidth, cuard.y*tileHeight, tileWidth, tileHeight, imageWidth, imageHeight))
             end
         end
+    end
+    if animation.isClosed == false then
+        animation.frame = #animation.quads - 1
     end
     animation.x_offset, animation.y_offset, animation.x_scale, animation.y_scale = 0, 0, 1, 1
     if animation.flipped_horizontal then

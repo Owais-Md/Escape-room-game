@@ -7,7 +7,6 @@ local Buttons = require "Menu Buttons"
 
 local quads = TileSetData.quads
 local imageToDrawFrom = love.graphics.newImage(ImageData.image)
-local font = love.graphics.newFont(16)
 
 local mx, my = love.mouse.getPosition()
 local isDown = false
@@ -52,9 +51,9 @@ local function getCurrentMenu(menuStack)
     menu.buttons = menuList[menuStack[#menuStack]]
     menu.margin = 20
     for _, button in ipairs(menu.buttons) do
-        button.width = font:getWidth(button.text)
+        button.width = smallFont:getWidth(button.text)
         if not menu.height then
-            menu.height = 3*font:getHeight()
+            menu.height = 3*smallFont:getHeight()
             menu.totalheight = menu.height*#menu.buttons + menu.margin*(#menu.buttons-1)
         end
         button.x = 400 - button.width/2 - 2*menu.margin
@@ -124,7 +123,6 @@ function Menu:Update(dt)
         if mx>button.x and mx<button.x + button.w and my>button.y and my<button.y + button.h then
             button.hot = true
             if love.mouse.isDown(1) and not isDown then
-                testcounter = testcounter + 1
                 isDown = true
                 button.func()
             end
@@ -136,7 +134,7 @@ end
 
 function Menu:Draw()
     if stateStack:Top() == "menu" then
-        love.graphics.setFont(font)
+        love.graphics.setFont(smallFont)
         love.graphics.setColor(1,1,1,0.8)
         love.graphics.push()
         love.graphics.scale(5)

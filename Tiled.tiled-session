@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "Menu Box.tmx",
+    "activeFile": "Room.tmx",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -27,8 +27,8 @@
             "scale": 5.5,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 87.54545454545455,
-                "y": 53.63636363636364
+                "x": 87.36363636363637,
+                "y": 53.45454545454546
             }
         },
         "Menu.tmx": {
@@ -82,15 +82,15 @@
         "Room.tmx": {
             "expandedObjectLayers": [
                 2,
-                9,
                 7,
+                9,
                 6
             ],
             "scale": 6.556696428571429,
-            "selectedLayer": 0,
+            "selectedLayer": 4,
             "viewCenter": {
                 "x": 79.84203717573365,
-                "y": 53.685572274800855
+                "y": 36.75631510859944
             }
         },
         "Tileset.tmx": {
@@ -135,8 +135,8 @@
     "recentFiles": [
         "Dialog Box.tmx",
         "things.tsx",
-        "Room.tmx",
         "Menu Box.tmx",
+        "Room.tmx",
         "Menu.tmx",
         "Option Box.tmx",
         "basictiles.tsx",

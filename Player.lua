@@ -36,7 +36,7 @@ function Player:New()
     player.animations.right = anim8.newAnimation(player.grid('4-6', 3), {player.animationSpeed, 0.1, player.animationSpeed})
     player.animations.up = anim8.newAnimation(player.grid('4-6', 4), {player.animationSpeed, 0.1, player.animationSpeed})
 
-    player.animation_state = player.animations.down
+    player.animation_state = player.animations[gameObjects.Progress.player.looking] or player.animations.down
     player.looking = "down"
     player.isMoving = false
 

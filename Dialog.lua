@@ -8,7 +8,6 @@ local TileSetData = require "TilesetDataGenerator"
 
 local imageToDrawFrom = love.graphics.newImage(ImageData.image)
 local quads = TileSetData.quads
-local font = love.graphics.newFont(32)
 local letterlimit = 30
 
 local scale = 5
@@ -69,7 +68,7 @@ end
 
 function dialog:PrintDialog()
     if stateStack:StateInStack("dialogBox") then
-        love.graphics.setFont(font)
+        love.graphics.setFont(bigFont)
         love.graphics.push()
         love.graphics.scale(scale)
         width = DialogBox.width
@@ -106,6 +105,7 @@ function dialog:PrintDialog()
         if self.currentLine < #self.textTable then
             love.graphics.print(self.textTable[self.currentLine+1], 1.2*tilewidth*scale, 5.05*tileheight*scale)
         end
+        love.graphics.setFont(smallFont)
     end
 end
 

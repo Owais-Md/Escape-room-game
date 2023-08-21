@@ -57,10 +57,12 @@ function Background:New(path, world)
                     wall:setCollisionClass('Wall')
                     table.insert(background.movingWalls, {collider = wall, name = obj.name, class = "Wall"})
                 elseif obj.type == "draw" then
-                    local beginClosed = true
-                    local flipped_horizontal = true
-                    local flipped_vertical = false
-                    local isLocked = false
+                    -- local beginClosed = true
+                    -- local flipped_horizontal = true
+                    -- local flipped_vertical = false
+                    -- local isLocked = false
+                    local ObjectProperties = gameObjects:getObjectProperties(obj.name)
+                    local beginClosed, flipped_horizontal, flipped_vertical, isLocked = ObjectProperties.beginClosed, ObjectProperties.flipped_horizontal, ObjectProperties.flipped_vertical, ObjectProperties.isLocked
                     local interactableObject = inOb:NewObject(beginClosed, isLocked, flipped_horizontal, flipped_vertical, 15, obj.name)
                     table.insert(background.interactableObjects, {object = interactableObject, name = obj.name})
                 end
