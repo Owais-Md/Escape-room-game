@@ -32,28 +32,47 @@ local Game = {
             y = nil,
             looking = nil
         },
-        interactableObjects = {
-            ["Room 1"] = {
-                chest = {
-                    beginClosed = true,
-                    flipped_horizontal = false,
-                    flipped_vertical = false,
-                    isLocked = false
-                },
-                door = {
-                    beginClosed = true,
-                    flipped_horizontal = true,
-                    flipped_vertical = false,
-                    isLocked = false
-                },
-                wierdWall = {
-                    beginClosed = true,
-                    isLocked = true,
-                    dialog = "This wall appears to be different from the other walls.",
-                }
+        ["Room 1"] = {
+            chest = {
+                beginClosed = true,
+                flipped_horizontal = false,
+                flipped_vertical = false,
+                isLocked = false
             },
-            ["Room 2"] = {
-
+            door = {
+                beginClosed = true,
+                flipped_horizontal = true,
+                flipped_vertical = false,
+                isLocked = false
+            },
+            wierdWall = {
+                beginClosed = true,
+                isLocked = true,
+                dialog = "This wall appears to be different from the other walls.",
+            },
+            teleports = {
+                ["Room 2 teleport"] = {
+                    currentRoomName = "Room 2",
+                    x = 5*(5*16),
+                    y = 5*(5*16),
+                    looking = "up"
+                }
+            }
+        },
+        ["Room 2"] = {
+            door = {
+                beginClosed = true,
+                flipped_horizontal = true,
+                flipped_vertical = false,
+                isLocked = false
+            },
+            teleports = {
+                ["Room 1 teleport"] = {
+                    currentRoomName = "Room 1",
+                    x = 6*(5*16),
+                    y = 1*(5*16),
+                    looking = "down"
+                }
             }
         }
     },
@@ -110,8 +129,8 @@ function Game:getProgressText(enteredCollider)
             text = enteredCollider.name.."Unlocked"
         end
         text = Game.Dialog[text]
-    elseif Game.Progress.interactableObjects[Game.Progress.currentRoomName][enteredCollider.name] then
-        text = Game.Progress.interactableObjects[Game.Progress.currentRoomName][enteredCollider.name].dialog
+    elseif Game.Progress[Game.Progress.currentRoomName][enteredCollider.name] then
+        text = Game.Progress[Game.Progress.currentRoomName][enteredCollider.name].dialog
     end
     return text
 end
@@ -149,6 +168,14 @@ function Game:takeInput(key)
 end
 
 function Game:Update(dt) -- could change isOpening/ isClosing directly from Game:takeInput(key)
+    if self.enteredCollider and string.find(self.enteredCollider.name, "teleport") then
+        local teleport_details = Game.Progress[Game.Progress.currentRoomName].teleports[self.enteredCollider.name]
+        Game.Progress.currentRoomName = teleport_details.currentRoomName
+        Game.Progress.player.x = teleport_details.x
+        Game.Progress.player.y = teleport_details.y
+        Game.Progress.player.looking = teleport_details.looking
+        Game:reloadGame()
+    end
     if self.activeObject then
         if love.keyboard.isDown("o") or self.activeObject.object.isOpening then
             self.activeObject.object:Open(dt)
@@ -174,19 +201,21 @@ function Game:Update(dt) -- could change isOpening/ isClosing directly from Game
                 end
             end
         end
-        Game.Progress.interactableObjects[Game.Progress.currentRoomName][self.activeObject.name].isLocked = self.activeObject.object.isLocked
-        Game.Progress.interactableObjects[Game.Progress.currentRoomName][self.activeObject.name].beginClosed = self.activeObject.object.isClosed
+        Game.Progress[Game.Progress.currentRoomName][self.activeObject.name].isLocked = self.activeObject.object.isLocked
+        Game.Progress[Game.Progress.currentRoomName][self.activeObject.name].beginClosed = self.activeObject.object.isClosed
     end
 end
 
 function Game:getObjectProperties(objName)
-    local Obj = Game.Progress.interactableObjects[Game.Progress.currentRoomName][objName]
-    return {
-        beginClosed = Obj.beginClosed,
-        flipped_horizontal = Obj.flipped_horizontal,
-        flipped_vertical = Obj.flipped_vertical,
-        isLocked = Obj.isLocked
-    }
+    local Obj = Game.Progress[Game.Progress.currentRoomName][objName]
+    if Obj then
+        return {
+            beginClosed = Obj.beginClosed,
+            flipped_horizontal = Obj.flipped_horizontal,
+            flipped_vertical = Obj.flipped_vertical,
+            isLocked = Obj.isLocked
+        }
+    end
 end
 
 function Game:UpdateObjects(enteredCollider, activeObject, movingWalls)

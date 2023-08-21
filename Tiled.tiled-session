@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "Room.tmx",
+    "activeFile": "Room 2.tmx",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -48,11 +48,17 @@
             }
         },
         "Room 1.tmx": {
-            "scale": 7.226785714285714,
-            "selectedLayer": 2,
+            "expandedObjectLayers": [
+                7,
+                2,
+                9,
+                6
+            ],
+            "scale": 5.5,
+            "selectedLayer": 6,
             "viewCenter": {
-                "x": 79.91104521868053,
-                "y": 34.8702742772424
+                "x": 71.45454545454547,
+                "y": 54.00000000000001
             }
         },
         "Room 1.tmx#basictiles": {
@@ -64,11 +70,17 @@
             "scaleInEditor": 5.5
         },
         "Room 2.tmx": {
-            "scale": 6.556696428571429,
-            "selectedLayer": 3,
+            "expandedObjectLayers": [
+                8,
+                3,
+                9,
+                6
+            ],
+            "scale": 5.5,
+            "selectedLayer": 5,
             "viewCenter": {
-                "x": 79.99455300605979,
-                "y": 55.973309729692936
+                "x": 85.45454545454547,
+                "y": 65.45454545454544
             }
         },
         "Room 2.tmx#basictiles": {
@@ -81,16 +93,16 @@
         },
         "Room.tmx": {
             "expandedObjectLayers": [
-                2,
-                7,
+                6,
                 9,
-                6
+                2,
+                7
             ],
             "scale": 6.556696428571429,
             "selectedLayer": 4,
             "viewCenter": {
                 "x": 79.84203717573365,
-                "y": 36.75631510859944
+                "y": 53.53305644447472
             }
         },
         "Tileset.tmx": {
@@ -127,23 +139,24 @@
     "openFiles": [
         "Dialog Box.tmx",
         "things.tsx",
+        "Menu Box.tmx",
         "Room.tmx",
-        "Menu Box.tmx"
+        "Room 2.tmx"
     ],
     "project": "Tiled.tiled-project",
     "property.type": "bool",
     "recentFiles": [
+        "Room 1.tmx",
         "Dialog Box.tmx",
         "things.tsx",
         "Menu Box.tmx",
         "Room.tmx",
+        "Room 2.tmx",
         "Menu.tmx",
         "Option Box.tmx",
         "basictiles.tsx",
         "characters.tsx",
-        "Room 2.tmx",
-        "Tileset.tmx",
-        "Room 1.tmx"
+        "Tileset.tmx"
     ],
     "tileset.embedInMap": false,
     "tileset.lastUsedFormat": "tsx",

@@ -28,6 +28,7 @@ local menuList = {
     },
     midGame = {
         Buttons["Save Game"],
+        Buttons["Load From Saved Game"],
         Buttons["Settings"],
         Buttons["Credits"],
         Buttons["Back"],
