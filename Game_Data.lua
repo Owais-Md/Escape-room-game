@@ -1,14 +1,8 @@
 --new folder for progress, settings, cheats option to manually enable properties in progress?
 --uses that enteredCollider/activeObject from background.lua to generate text
---self.gamedetails.progress = load(self.gamedetails.savefile) or self.gamedetails.progress
---need to organize Game.Progress.interactableObjects better?
---could make enteredCollider, activeObject and movingWalls global and declare them here?
---need to save progress actively from Game:Update(dt), so that on saving Game.Progress later, progress can be retrieved
+--need to make getProgressText better so that i can show locked objects better [dialogBox]
 --also need to add switches inside the game, so that game isn't bland lmao
---need to make background.lua read movingWall and interactableObject details from Game.Progress
---need to make teleport function
---could i just use loadgame and Game.Progress smartly to make my teleport function?
---lmao jeniyas
+--need to make an inventory too
 
 love.graphics.setDefaultFilter("nearest","nearest")
 love.mouse.setVisible(false)
@@ -53,14 +47,6 @@ local Game = {
                 beginClosed = true,
                 isLocked = true,
                 dialog = "This wall appears to be different from the other walls.",
-            },
-            teleports = {
-                ["Room 2 teleport"] = {
-                    currentRoomName = "Room 2",
-                    x = 5*(5*16),
-                    y = 5.25*(5*16),
-                    looking = "up"
-                }
             }
         },
         ["Room 2"] = {
@@ -73,14 +59,24 @@ local Game = {
                     roomName = "Room 1",
                     doorName = "door"
                 }
-            },
-            teleports = {
-                ["Room 1 teleport"] = {
-                    currentRoomName = "Room 1",
-                    x = 6*(5*16),
-                    y = 0.25*(5*16),
-                    looking = "down"
-                }
+            }
+        }
+    },
+    Teleports = {
+        ["Room 1"] = {
+            ["Room 2 teleport"] = {
+                currentRoomName = "Room 2",
+                x = 5*(5*16),
+                y = 5.25*(5*16),
+                looking = "up"
+            }
+        },
+        ["Room 2"] = {
+            ["Room 1 teleport"] = {
+                currentRoomName = "Room 1",
+                x = 6*(5*16),
+                y = 0.25*(5*16),
+                looking = "down"
             }
         }
     },
@@ -177,7 +173,7 @@ end
 
 function Game:Update(dt) -- could change isOpening/ isClosing directly from Game:takeInput(key)
     if self.enteredCollider and string.find(self.enteredCollider.name, "teleport") then
-        local teleport_details = Game.Progress[Game.Progress.currentRoomName].teleports[self.enteredCollider.name]
+        local teleport_details = Game.Teleports[Game.Progress.currentRoomName][self.enteredCollider.name]
         Game.Progress.currentRoomName = teleport_details.currentRoomName
         Game.Progress.player.x = teleport_details.x
         Game.Progress.player.y = teleport_details.y
