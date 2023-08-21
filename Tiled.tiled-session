@@ -58,7 +58,7 @@
             "selectedLayer": 6,
             "viewCenter": {
                 "x": 71.45454545454547,
-                "y": 54.00000000000001
+                "y": 53.81818181818183
             }
         },
         "Room 1.tmx#basictiles": {
@@ -73,11 +73,10 @@
             "expandedObjectLayers": [
                 8,
                 3,
-                9,
-                6
+                9
             ],
             "scale": 5.5,
-            "selectedLayer": 5,
+            "selectedLayer": 6,
             "viewCenter": {
                 "x": 85.45454545454547,
                 "y": 65.45454545454544

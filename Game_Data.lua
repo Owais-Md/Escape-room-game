@@ -43,7 +43,11 @@ local Game = {
                 beginClosed = true,
                 flipped_horizontal = true,
                 flipped_vertical = false,
-                isLocked = false
+                isLocked = false,
+                associatedDoor = {
+                    roomName = "Room 2",
+                    doorName = "door"
+                }
             },
             wierdWall = {
                 beginClosed = true,
@@ -54,7 +58,7 @@ local Game = {
                 ["Room 2 teleport"] = {
                     currentRoomName = "Room 2",
                     x = 5*(5*16),
-                    y = 5*(5*16),
+                    y = 5.25*(5*16),
                     looking = "up"
                 }
             }
@@ -64,13 +68,17 @@ local Game = {
                 beginClosed = true,
                 flipped_horizontal = true,
                 flipped_vertical = false,
-                isLocked = false
+                isLocked = false,
+                associatedDoor = {
+                    roomName = "Room 1",
+                    doorName = "door"
+                }
             },
             teleports = {
                 ["Room 1 teleport"] = {
                     currentRoomName = "Room 1",
                     x = 6*(5*16),
-                    y = 1*(5*16),
+                    y = 0.25*(5*16),
                     looking = "down"
                 }
             }
@@ -182,7 +190,8 @@ function Game:Update(dt) -- could change isOpening/ isClosing directly from Game
         elseif love.keyboard.isDown("c") or self.activeObject.object.isClosing then
             self.activeObject.object:Close(dt)
         end
-        if self.activeObject.object.isClosed then
+        local associatedDoor = Game.Progress[Game.Progress.currentRoomName][self.activeObject.name].associatedDoor
+        if self.activeObject.object.isClosed then -- finds associated Wall and then closes/opens it whenever touched
             for _, movingWall in ipairs(self.movingWalls) do
                 if self.activeObject.name == movingWall.name then
                     if movingWall.class ~= "Wall" then
@@ -190,6 +199,9 @@ function Game:Update(dt) -- could change isOpening/ isClosing directly from Game
                         movingWall.class = "Wall"
                     end
                 end
+            end
+            if associatedDoor then
+                Game.Progress[associatedDoor.roomName][associatedDoor.doorName].beginClosed = true
             end
         else
             for _, movingWall in ipairs(self.movingWalls) do
@@ -199,6 +211,9 @@ function Game:Update(dt) -- could change isOpening/ isClosing directly from Game
                         movingWall.class = "Open Wall"
                     end
                 end
+            end
+            if associatedDoor then
+                Game.Progress[associatedDoor.roomName][associatedDoor.doorName].beginClosed = false
             end
         end
         Game.Progress[Game.Progress.currentRoomName][self.activeObject.name].isLocked = self.activeObject.object.isLocked

@@ -47,7 +47,6 @@ function Animation:NewObject(beginClosed, isLocked, flipped_horizontal, flipped_
     animation.animationSpeed = animationSpeed
     animation.quads = {}
     animation.frame = 0
-    animation.timer = 0
     for _,quads in ipairs(quadsForAnimation) do
         if quads.name == name then
             for _, cuard in ipairs(quads.cuards) do
@@ -55,9 +54,10 @@ function Animation:NewObject(beginClosed, isLocked, flipped_horizontal, flipped_
             end
         end
     end
-    if animation.isClosed == false then
+    if beginClosed == false then
         animation.frame = #animation.quads - 1
     end
+    animation.timer = animation.frame
     animation.x_offset, animation.y_offset, animation.x_scale, animation.y_scale = 0, 0, 1, 1
     if animation.flipped_horizontal then
         animation.x_offset = 1
@@ -85,7 +85,7 @@ function Animation:Open(dt)
 end
 
 function Animation:Close(dt)
-    if not self.isClosed then
+    if self.isClosed == false then
         self.isClosing = true
         if self.frame ~= 0 then
             self.timer = self.timer - dt*self.animationSpeed

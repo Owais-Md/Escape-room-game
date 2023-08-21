@@ -110,35 +110,6 @@ return {
     {
       type = "objectgroup",
       draworder = "topdown",
-      id = 3,
-      name = "Draw",
-      class = "",
-      visible = false,
-      opacity = 1,
-      offsetx = 0,
-      offsety = 0,
-      parallaxx = 1,
-      parallaxy = 1,
-      properties = {},
-      objects = {
-        {
-          id = 31,
-          name = "door",
-          type = "draw",
-          shape = "rectangle",
-          x = 80,
-          y = 96,
-          width = 16,
-          height = 16,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        }
-      }
-    },
-    {
-      type = "objectgroup",
-      draworder = "topdown",
       id = 6,
       name = "Game Walls",
       class = "",
@@ -233,10 +204,39 @@ return {
     {
       type = "objectgroup",
       draworder = "topdown",
+      id = 3,
+      name = "Draw",
+      class = "",
+      visible = false,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 31,
+          name = "door",
+          type = "draw",
+          shape = "rectangle",
+          x = 80,
+          y = 96,
+          width = 16,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
       id = 8,
       name = "Collision Regions",
       class = "",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -383,9 +383,9 @@ return {
           type = "movingWall",
           shape = "rectangle",
           x = 80,
-          y = 96,
+          y = 100,
           width = 16,
-          height = 16,
+          height = 12,
           rotation = 0,
           visible = true,
           properties = {

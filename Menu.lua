@@ -28,7 +28,6 @@ local menuList = {
     },
     midGame = {
         Buttons["Save Game"],
-        Buttons["Load From Saved Game"],
         Buttons["Settings"],
         Buttons["Credits"],
         Buttons["Back"],
@@ -94,7 +93,9 @@ function Menu:MenuPop()
         self.currentMenu = getCurrentMenu(self.menuStack)
         return true
     else
-        stateStack:Pop()
+        if stateStack:Top() == "menu" then
+            stateStack:Pop()
+        end
         return false
     end
 end
