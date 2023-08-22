@@ -9,7 +9,6 @@ local Buttons = {
     ["New Game"] = newButton("New Game",
                     function ()
                         menu:MenuPop()
-                        stateStack:Pop()
                         stateStack:Push("background", "player") --, "tutorial") -- need to make a tutorial
                         menu:MenuPush("midGame")
                     end
@@ -24,13 +23,15 @@ local Buttons = {
     ["Save Game"] = newButton("Save Game",
                     function ()
                         gameObjects:saveGame("progress.save")
+                        dialogBox:pushDialog("Game has been saved.")
+                        dialogBox:pushDialog('Press "Enter" to continue')
+                        stateStack:Push("dialogBox")
                     end
                 )
     ,
     ["Load From Saved Game"] = newButton("Load From Saved Game",
                     function ()
                         menu:MenuPop()
-                        stateStack:Pop()
                         gameObjects:loadGame("progress.save")
                         stateStack:Push("background", "player")
                         menu:MenuPush("midGame")

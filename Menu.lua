@@ -76,10 +76,6 @@ function Menu:getMenu()
     return menu
 end
 
-function Menu:PrintPopup(text)
-
-end
-
 function Menu:MenuPush(menuState)
     table.insert(self.menuStack, menuState)
     self.currentMenu = getCurrentMenu(self.menuStack)
@@ -135,7 +131,7 @@ function Menu:Update(dt)
 end
 
 function Menu:Draw()
-    if stateStack:Top() == "menu" then
+    if stateStack:StateInStack("menu") then
         love.graphics.setFont(smallFont)
         love.graphics.setColor(1,1,1,0.8)
         love.graphics.push()

@@ -34,8 +34,13 @@ end
 function love.draw()
     background:Draw() -- contains the scale and origin offset for screen resizing
     player:Draw()
-    dialogBox:PrintDialog()
+    if not stateStack:StateInStack("menu") then
+        dialogBox:PrintDialog()
+    end
     menu:Draw()
+    if stateStack:StateInStack("menu") then
+        dialogBox:PrintDialog()
+    end
 
     love.graphics.print(love.timer.getFPS())
 end

@@ -66,7 +66,7 @@ local Game = {
         ["Room 1"] = {
             ["Room 2 teleport"] = {
                 currentRoomName = "Room 2",
-                x = 5*(5*16),
+                x = 6*(5*16),
                 y = 5.25*(5*16),
                 looking = "up"
             }
