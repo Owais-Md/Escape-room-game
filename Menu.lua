@@ -29,7 +29,6 @@ local menuList = {
     midGame = {
         Buttons["Save Game"],
         Buttons["Settings"],
-        Buttons["Credits"],
         Buttons["Back"],
         Buttons["Exit"]
     },
@@ -125,6 +124,8 @@ end
 
 function Menu:Update(dt)
     mx, my = love.mouse.getPosition()
+    if mx>800 then mx = 800 end
+    if my>560 then my = 560 end
     if stateStack:Top() == "menu" then
         if not love.mouse.isDown(1) then
             isDown = false

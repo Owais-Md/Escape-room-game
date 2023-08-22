@@ -5,6 +5,16 @@ local function newButton(text, func)
     }
 end
 
+local function pushDialoginMenu(textTable)
+    dialogBox:clearDialog()
+    table.insert(textTable, 'Press "Enter" to continue')
+    for _, line in ipairs(textTable) do
+        dialogBox:pushDialog(line)
+    end
+    stateStack:Push("dialogBox")
+    dialogBox.dialogPopped = false
+end
+
 local Buttons = {
     ["New Game"] = newButton("New Game",
                     function ()
@@ -22,12 +32,12 @@ local Buttons = {
     ,
     ["Save Game"] = newButton("Save Game",
                     function ()
-                        dialogBox:clearDialog()
                         gameObjects:saveGame("progress.save")
-                        dialogBox:pushDialog("Game has been saved.")
-                        dialogBox:pushDialog('Press "Enter" to continue')
-                        stateStack:Push("dialogBox")
-                        dialogBox.dialogPopped = false
+                        menu:getExitWarning()
+                        local saveGameText = {
+                            "Game has been saved."
+                        }
+                        pushDialoginMenu(saveGameText)
                     end
                 )
     ,
@@ -54,7 +64,10 @@ local Buttons = {
     ,
     ["Credits"] = newButton("Credits",
                     function ()
-                        -- need to make credits
+                        creditsText = {
+                            "Spritesheets: By Laena Zimmerman, from https://opengameart.org/content/ tiny-16-basic under the creative commons license CC BY 3.0."
+                        }
+                        pushDialoginMenu(creditsText)
                     end
                 )
     ,
@@ -67,11 +80,10 @@ local Buttons = {
     ["Exit"] = newButton("Exit",
                     function ()
                         if not menu:getExitWarning() then
-                            dialogBox:clearDialog()
-                            dialogBox:pushDialog("Make sure to save your game before you exit.")
-                            dialogBox:pushDialog('Press "Enter" to continue')
-                            stateStack:Push("dialogBox")
-                            dialogBox.dialogPopped = false
+                            local exitWarningText = {
+                                "Make sure to save your game before you exit."
+                            }
+                            pushDialoginMenu(exitWarningText)
                         else
                             love.event.quit(0)
                         end

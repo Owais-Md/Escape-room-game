@@ -41,9 +41,9 @@ function love.draw()
     if stateStack:StateInStack("menu") then
         dialogBox:PrintDialog()
     end
-
-    love.graphics.print(love.timer.getFPS())
-    if dialogBox.textTable then
-        love.graphics.print("\n"..#dialogBox.textTable)
+    if show_debugging then
+        love.graphics.push()
+        love.graphics.print(love.timer.getFPS(), smallFont:getHeight(), 560-2*smallFont:getHeight())
+        love.graphics.pop()
     end
 end
