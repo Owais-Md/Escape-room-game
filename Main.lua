@@ -43,4 +43,7 @@ function love.draw()
     end
 
     love.graphics.print(love.timer.getFPS())
+    if dialogBox.textTable then
+        love.graphics.print("\n"..#dialogBox.textTable)
+    end
 end

@@ -22,10 +22,12 @@ local Buttons = {
     ,
     ["Save Game"] = newButton("Save Game",
                     function ()
+                        dialogBox:clearDialog()
                         gameObjects:saveGame("progress.save")
                         dialogBox:pushDialog("Game has been saved.")
                         dialogBox:pushDialog('Press "Enter" to continue')
                         stateStack:Push("dialogBox")
+                        dialogBox.dialogPopped = false
                     end
                 )
     ,
@@ -64,7 +66,15 @@ local Buttons = {
     ,
     ["Exit"] = newButton("Exit",
                     function ()
-                        love.event.quit(0)
+                        if not menu:getExitWarning() then
+                            dialogBox:clearDialog()
+                            dialogBox:pushDialog("Make sure to save your game before you exit.")
+                            dialogBox:pushDialog('Press "Enter" to continue')
+                            stateStack:Push("dialogBox")
+                            dialogBox.dialogPopped = false
+                        else
+                            love.event.quit(0)
+                        end
                     end
                 )
 }

@@ -73,12 +73,22 @@ function Menu:getMenu()
     self.__index = self
     menu.menuStack = {"startScreen"}
     menu.currentMenu = getCurrentMenu(menu.menuStack)
+    menu.warningGiven = false
     return menu
 end
 
 function Menu:MenuPush(menuState)
     table.insert(self.menuStack, menuState)
     self.currentMenu = getCurrentMenu(self.menuStack)
+end
+
+function Menu:getExitWarning()
+    if self.warningGiven or not stateStack:StateInStack("player") then
+        return true
+    else
+        self.warningGiven = true
+        return false
+    end
 end
 
 function Menu:MenuPop()
@@ -91,6 +101,7 @@ function Menu:MenuPop()
     else
         if stateStack:Top() == "menu" then
             stateStack:Pop()
+            self.warningGiven = false
         end
         return false
     end
@@ -114,18 +125,20 @@ end
 
 function Menu:Update(dt)
     mx, my = love.mouse.getPosition()
-    if not love.mouse.isDown(1) then
-        isDown = false
-    end
-    for _, button in ipairs(self.currentMenu.buttons) do
-        if mx>button.x and mx<button.x + button.w and my>button.y and my<button.y + button.h then
-            button.hot = true
-            if love.mouse.isDown(1) and not isDown then
-                isDown = true
-                button.func()
+    if stateStack:Top() == "menu" then
+        if not love.mouse.isDown(1) then
+            isDown = false
+        end
+        for _, button in ipairs(self.currentMenu.buttons) do
+            if mx>button.x and mx<button.x + button.w and my>button.y and my<button.y + button.h then
+                button.hot = true
+                if love.mouse.isDown(1) and not isDown then
+                    isDown = true
+                    button.func()
+                end
+            else
+                button.hot = false
             end
-        else
-            button.hot = false
         end
     end
 end

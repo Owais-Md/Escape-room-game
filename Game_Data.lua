@@ -141,7 +141,7 @@ end
 
 function Game:takeInput(key)
     --dialogBox:load(inventory)
-    dialogBox:clearDialog()
+    if dialogBox.dialogPopped then dialogBox:clearDialog() end
     if self.enteredCollider then
         local text = tostring(Game.Dialog[self.enteredCollider.name])
         if text == "nil" then
@@ -152,8 +152,10 @@ function Game:takeInput(key)
     if key == "x" or key == "return" then
         if stateStack:Top() == "player" and #dialogBox.textTable > 0 then
             stateStack:Push("dialogBox")
+            dialogBox.dialogPopped = false
         elseif stateStack:Top() == "dialogBox" then
             stateStack:Pop()
+            dialogBox.dialogPopped = true
         end
     end
     if key == "escape" then
@@ -164,6 +166,7 @@ function Game:takeInput(key)
             stateStack:Push("menu")
         elseif stateStack:Top() == "menu" and menu:MenuTop() ~= "startScreen" then
             stateStack:Pop()
+            menu.warningGiven = false
         end
     end
     if stateStack:Top() == "dialogBox" then
