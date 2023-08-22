@@ -55,7 +55,7 @@
                 6
             ],
             "scale": 5.5,
-            "selectedLayer": 6,
+            "selectedLayer": 5,
             "viewCenter": {
                 "x": 71.45454545454547,
                 "y": 53.81818181818183
@@ -73,13 +73,14 @@
             "expandedObjectLayers": [
                 8,
                 3,
-                9
+                9,
+                6
             ],
             "scale": 5.5,
             "selectedLayer": 6,
             "viewCenter": {
                 "x": 85.45454545454547,
-                "y": 65.45454545454544
+                "y": 65.0909090909091
             }
         },
         "Room 2.tmx#basictiles": {
@@ -89,6 +90,19 @@
         "Room 2.tmx#things": {
             "scaleInDock": 1.5,
             "scaleInEditor": 5.5
+        },
+        "Room 3.tmx": {
+            "expandedObjectLayers": [
+                7,
+                5,
+                6
+            ],
+            "scale": 4,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 71.25,
+                "y": 60.5
+            }
         },
         "Room.tmx": {
             "expandedObjectLayers": [

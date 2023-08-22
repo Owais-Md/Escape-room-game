@@ -52,13 +52,19 @@ local Buttons = {
     ,
     ["Change Sprite"] = newButton("Change Sprite",
                     function ()
-                        
+                        text = {
+                            "Wait for future updates :) !!"
+                        }
+                        pushDialoginMenu(text)
                     end
                 )
     ,
     ["Change Dialog Background"] = newButton("Change Dialog Background",
                     function ()
-                        
+                        text = {
+                            "Wait for future updates :) !!"
+                        }
+                        pushDialoginMenu(text)
                     end
                 )
     ,

@@ -40,7 +40,6 @@ function dialog:load(inventory)
 end
 
 function dialog:pushDialog(text)
-    self.currentLine = 1
     self.text = text or "nil"
     local counter = 0
     local newline = ""

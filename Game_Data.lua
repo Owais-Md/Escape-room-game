@@ -20,7 +20,7 @@ wtranslate = {(ww-800*scale)/2,(wh-560*scale)/2}
 
 local Game = {
     Progress = {
-        currentRoomName = "Room 1",
+        currentRoomName = "Room 2",
         player = {
             x = nil,
             y = nil,
@@ -60,6 +60,18 @@ local Game = {
                     doorName = "door"
                 }
             }
+        },
+        ["Room 3"] = {
+            lockingDoor = {
+                beginClosed = true,
+                flipped_horizontal = true,
+                flipped_vertical = false,
+                isLocked = true,
+                associatedDoor = {
+                    roomName = "Room 1",
+                    doorName = "door"
+                }
+            }
         }
     },
     Teleports = {
@@ -77,7 +89,21 @@ local Game = {
                 x = 6*(5*16),
                 y = 0.25*(5*16),
                 looking = "down"
+            },
+            ["Room 3 teleport"] = {
+                currentRoomName = "Room 3",
+                x = 1*(5*16),
+                y = nil,
+                looking = "right"
             }
+        },
+        ["Room 3"] = {
+            ["Room 2 teleport"] = {
+                currentRoomName = "Room 2",
+                x = 8.75*(5*16),
+                y = nil,
+                looking = "left"
+            },
         }
     },
     Settings = {},
@@ -178,8 +204,8 @@ function Game:Update(dt) -- could change isOpening/ isClosing directly from Game
     if self.enteredCollider and string.find(self.enteredCollider.name, "teleport") then
         local teleport_details = Game.Teleports[Game.Progress.currentRoomName][self.enteredCollider.name]
         Game.Progress.currentRoomName = teleport_details.currentRoomName
-        Game.Progress.player.x = teleport_details.x
-        Game.Progress.player.y = teleport_details.y
+        Game.Progress.player.x = teleport_details.x or player.x
+        Game.Progress.player.y = teleport_details.y or player.y
         Game.Progress.player.looking = teleport_details.looking
         Game:reloadGame()
     end

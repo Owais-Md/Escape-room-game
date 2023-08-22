@@ -24,6 +24,15 @@ local quadsForAnimation = {
             {x = 6, y = 2},
             {x = 6, y = 3}
         }
+    },
+    {
+        name = "lockingDoor",
+        cuards = {
+            {x = 3, y = 0},
+            {x = 3, y = 1},
+            {x = 3, y = 2},
+            {x = 3, y = 3}
+        }
     }
 }
 
