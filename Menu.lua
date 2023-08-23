@@ -4,6 +4,7 @@ local MenuBox = require "Menu Box"
 local ImageData = require "basictiles"
 local TileSetData = require "TilesetDataGenerator"
 local Buttons = require "Menu Buttons"
+local Dialog  = require "Dialog"
 
 local quads = TileSetData.quads
 local imageToDrawFrom = love.graphics.newImage(ImageData.image)
@@ -73,6 +74,7 @@ function Menu:getMenu()
     menu.menuStack = {"startScreen"}
     menu.currentMenu = getCurrentMenu(menu.menuStack)
     menu.warningGiven = false
+    menu.dialogBox = Dialog:getDialogBox()
     return menu
 end
 

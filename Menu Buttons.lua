@@ -6,13 +6,12 @@ local function newButton(text, func)
 end
 
 local function pushDialoginMenu(textTable)
-    dialogBox:clearDialog()
+    stateStack:Push("menuDialogBox")
+    menu.dialogBox:clearDialog()
     table.insert(textTable, 'Press "Enter" to continue')
     for _, line in ipairs(textTable) do
-        dialogBox:pushDialog(line)
+        menu.dialogBox:pushDialog(line)
     end
-    stateStack:Push("dialogBox")
-    dialogBox.dialogPopped = false
 end
 
 local Buttons = {

@@ -20,7 +20,7 @@ wtranslate = {(ww-800*scale)/2,(wh-560*scale)/2}
 
 local Game = {
     Progress = {
-        currentRoomName = "Room 2",
+        currentRoomName = "Room 1",
         player = {
             x = nil,
             y = nil,
@@ -167,7 +167,7 @@ end
 
 function Game:takeInput(key)
     --dialogBox:load(inventory)
-    if dialogBox.dialogPopped then dialogBox:clearDialog() end
+    dialogBox:clearDialog()
     if self.enteredCollider then
         local text = tostring(Game.Dialog[self.enteredCollider.name])
         if text == "nil" then
@@ -178,10 +178,14 @@ function Game:takeInput(key)
     if key == "x" or key == "return" then
         if stateStack:Top() == "player" and #dialogBox.textTable > 0 then
             stateStack:Push("dialogBox")
-            dialogBox.dialogPopped = false
         elseif stateStack:Top() == "dialogBox" then
+            dialogBox:clearDialog()
             stateStack:Pop()
-            dialogBox.dialogPopped = true
+            dialogBox.currentLine = 1
+        elseif stateStack:Top() == "menuDialogBox" then
+            menu.dialogBox:clearDialog()
+            stateStack:Pop()
+            menu.dialogBox.currentLine = 1
         end
     end
     if key == "escape" then
@@ -197,6 +201,9 @@ function Game:takeInput(key)
     end
     if stateStack:Top() == "dialogBox" then
         dialogBox:UpdateLine(key)
+    end
+    if stateStack:Top() == "menuDialogBox" then
+        menu.dialogBox:UpdateLine(key)
     end
 end
 

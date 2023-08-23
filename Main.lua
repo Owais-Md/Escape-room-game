@@ -34,13 +34,9 @@ end
 function love.draw()
     background:Draw() -- contains the scale and origin offset for screen resizing
     player:Draw()
-    if not stateStack:StateInStack("menu") then
-        dialogBox:PrintDialog()
-    end
+    dialogBox:PrintDialog()
     menu:Draw()
-    if stateStack:StateInStack("menu") then
-        dialogBox:PrintDialog()
-    end
+    if #menu.dialogBox.textTable>0 then menu.dialogBox:PrintDialog() end
     if show_debugging then
         love.graphics.push()
         love.graphics.print(love.timer.getFPS(), smallFont:getHeight(), 560-2*smallFont:getHeight())

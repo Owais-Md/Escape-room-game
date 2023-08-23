@@ -20,7 +20,6 @@ function dialog:getDialogBox()
     object.text = ""
     object.textTable = {}
     object.currentLine = 1
-    object.dialogPopped = true
     return object
 end
 
@@ -29,8 +28,6 @@ function dialog:UpdateLine(key)
         self.currentLine = math.min(self.currentLine + 1, #self.textTable - 1)
     elseif love.keyboard.isDown("up") then
         self.currentLine = math.max(self.currentLine - 1, 1)
-    elseif key == "x" then
-        self.currentLine = 1
     end
 end
 
@@ -68,7 +65,7 @@ function dialog:clearDialog()
 end
 
 function dialog:PrintDialog()
-    if stateStack:StateInStack("dialogBox") then
+    if stateStack:StateInStack("dialogBox") or stateStack:StateInStack("menuDialogBox") then
         love.graphics.setFont(bigFont)
         love.graphics.push()
         love.graphics.scale(scale)
