@@ -9,7 +9,10 @@ local Dialog  = require "Dialog"
 local quads = TileSetData.quads
 local imageToDrawFrom = love.graphics.newImage(ImageData.image)
 
+love.mouse.setPosition(200,130)
 local mx, my = love.mouse.getPosition()
+local mode = "keyboard"
+local hotButton = 1
 local isDown = false
 
 local colors = {
@@ -63,6 +66,9 @@ local function getCurrentMenu(menuStack)
         button.text_x = 400 - button.width/2
         button.text_y = button.y + menu.height/3
         button.hot = false
+        if _ == hotButton or button.text == "New Game" then
+            button.hot = true
+        end
     end
     return menu
 end
@@ -124,23 +130,35 @@ function Menu:MenuTop()
     end
 end
 
+function Menu:takeInput(key)
+    if key == "up" or key == "down" then
+        mode = "keyboard"
+    end
+end
+
 function Menu:Update(dt)
-    mx, my = love.mouse.getPosition()
+    local newmx, newmy = love.mouse.getPosition()
+    if newmx~=mx or newmy ~= my then
+        mode = "mouse"
+    end
+    mx, my = newmx, newmy
     if mx>800 then mx = 800 end
     if my>560 then my = 560 end
-    if stateStack:Top() == "menu" then
-        if not love.mouse.isDown(1) then
-            isDown = false
-        end
-        for _, button in ipairs(self.currentMenu.buttons) do
-            if mx>button.x and mx<button.x + button.w and my>button.y and my<button.y + button.h then
-                button.hot = true
-                if love.mouse.isDown(1) and not isDown then
-                    isDown = true
-                    button.func()
+    if mode == "mouse" then
+        if stateStack:Top() == "menu" then
+            if not love.mouse.isDown(1) then
+                isDown = false
+            end
+            for _, button in ipairs(self.currentMenu.buttons) do
+                if mx>button.x and mx<button.x + button.w and my>button.y and my<button.y + button.h then
+                    button.hot = true
+                    if love.mouse.isDown(1) and not isDown then
+                        isDown = true
+                        button.func()
+                    end
+                else
+                    button.hot = false
                 end
-            else
-                button.hot = false
             end
         end
     end
@@ -183,6 +201,7 @@ function Menu:Draw()
             love.graphics.print(button.text, button.text_x, button.text_y)
         end
         love.graphics.circle("fill", mx, my, menu.currentMenu.margin/2)
+        --love.graphics.print(mode, 20, 20)
     end
 end
 

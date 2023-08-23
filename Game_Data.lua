@@ -202,6 +202,9 @@ function Game:takeInput(key)
     if stateStack:Top() == "dialogBox" then
         dialogBox:UpdateLine(key)
     end
+    if stateStack:Top() == "menu" then
+        menu:takeInput(key)
+    end
     if stateStack:Top() == "menuDialogBox" then
         menu.dialogBox:UpdateLine(key)
     end
