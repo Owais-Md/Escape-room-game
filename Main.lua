@@ -36,7 +36,6 @@ function love.draw()
     player:Draw()
     dialogBox:PrintDialog()
     menu:Draw()
-    if #menu.dialogBox.textTable>0 then menu.dialogBox:PrintDialog() end
     if show_debugging then
         love.graphics.push()
         love.graphics.print(love.timer.getFPS(), smallFont:getHeight(), 560-2*smallFont:getHeight())

@@ -18,7 +18,7 @@ wh = love.graphics.getHeight()
 scale = math.min(ww/800, wh/560)
 wtranslate = {(ww-800*scale)/2,(wh-560*scale)/2}
 
-local justPopped = false
+local justPopped
 
 local Game = {
     Progress = {

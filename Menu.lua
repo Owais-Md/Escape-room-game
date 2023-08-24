@@ -276,7 +276,10 @@ function Menu:Draw()
                 )
             end
         end
-        love.graphics.circle("fill", mx, my, 10)
+        if #menu.dialogBox.textTable>0 then menu.dialogBox:PrintDialog() end
+        if mode == "mouse" then
+            love.graphics.circle("fill", mx, my, 10)
+        end
         -- love.graphics.print(hotButton, 20, 20)
     end
 end
