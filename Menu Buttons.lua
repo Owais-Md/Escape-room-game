@@ -73,16 +73,7 @@ local Buttons = {
                         menu:MenuPush("Change Sprite")
                     end
                 )
-    ,
-    ["Change Dialog Background"] = textButton(
-                    "Change Dialog Background",
-                    function ()
-                        text = {
-                            "Wait for future updates :) !!"
-                        }
-                        pushDialoginMenu(text)
-                    end
-                )
+
     ,
     ["Credits"] = textButton(
                     "Credits",
@@ -106,7 +97,7 @@ local Buttons = {
                 "Boy",
                     function ()
                         player:SpriteChange("Boy")
-                        menu:MenuPop()
+                        while menu:MenuPop() do end
                     end
                 )
     ,
@@ -115,7 +106,7 @@ local Buttons = {
                 "Girl",
                     function ()
                         player:SpriteChange("Girl")
-                        menu:MenuPop()
+                        while menu:MenuPop() do end
                     end
                 )
     ,
@@ -124,7 +115,7 @@ local Buttons = {
                 "Skeleton",
                     function ()
                         player:SpriteChange("Skeleton")
-                        menu:MenuPop()
+                        while menu:MenuPop() do end
                     end
                 )
     ,
@@ -133,7 +124,7 @@ local Buttons = {
                 "Neutral",
                     function ()
                         player:SpriteChange("Neutral")
-                        menu:MenuPop()
+                        while menu:MenuPop() do end
                     end
                 )
     ,
