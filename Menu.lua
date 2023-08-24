@@ -1,14 +1,28 @@
 --has new-game, load from game, savegame, restart, choose sprites, customization?, cheats?, credits?
 
 local MenuBox = require "Menu Box"
-local ImageData = require "basictiles"
 local TileSetData = require "TilesetDataGenerator"
 local Buttons = require "Menu Buttons"
 local Dialog  = require "Dialog"
 
 local quads = TileSetData.quads
-local imageToDrawFrom = love.graphics.newImage(ImageData.image)
-local charactersImage = love.graphics.newImage("Sprites/Lanea Zimmerman's spritesheets/characters.png")
+
+local imagesToDrawFrom = {
+    ["basictiles"] = love.graphics.newImage("Sprites/Lanea Zimmerman's spritesheets/basictiles.png"),
+    ["characters"] = love.graphics.newImage("Sprites/Lanea Zimmerman's spritesheets/characters.png")
+}
+
+local charactertilewidth = 16
+local charactertileheight = 16
+local characterimagewidth = imagesToDrawFrom["characters"]:getWidth()
+local characterimageheight = imagesToDrawFrom["characters"]:getHeight()
+
+local charquads = {
+    ["Boy"] = love.graphics.newQuad( 4*charactertilewidth, 0, charactertilewidth, charactertileheight, characterimagewidth, characterimageheight),
+    ["Girl"] = love.graphics.newQuad( 7*charactertilewidth, 0, charactertilewidth, charactertileheight, characterimagewidth, characterimageheight),
+    ["Skeleton"] = love.graphics.newQuad( 10*charactertilewidth, 0, charactertilewidth, charactertileheight, characterimagewidth, characterimageheight),
+    ["Neutral"] = love.graphics.newQuad( 1*charactertilewidth, 0, charactertilewidth, charactertileheight, characterimagewidth, characterimageheight)
+}
 
 love.mouse.setPosition(200,130)
 local mx, my = love.mouse.getPosition()
@@ -73,8 +87,8 @@ local function getCurrentMenu(menuStack)
             end
         end
     else
-        menu.width = 100
-        menu.height = 100
+        menu.width = 120
+        menu.height = 120
         if menu.buttons[#menu.buttons].text == "Back" then
             table.remove(menu.buttons, #menu.buttons)
         end
@@ -86,8 +100,6 @@ local function getCurrentMenu(menuStack)
             button.h = 2*(280 - button.y)
             button.image_x = button.x + menu.margin
             button.image_y = button.y + menu.margin
-            button.text_x = button.x + menu.margin
-            button.text_y = 280 + menu.margin
             button.hot = false
             if _ == 1 then
                 hotButton = 1
@@ -222,10 +234,10 @@ function Menu:Draw()
         love.graphics.setColor(1,1,1,0.8)
         love.graphics.push()
         love.graphics.scale(5)
-        width = MenuBox.width
-        height = MenuBox.height
-        tilewidth = MenuBox.tilewidth
-        tileheight = MenuBox.tileheight
+        local width = MenuBox.width
+        local height = MenuBox.height
+        local tilewidth = MenuBox.tilewidth
+        local tileheight = MenuBox.tileheight
         for _, layer in ipairs(MenuBox.layers) do
             for y = 0, layer.height - 1 do
                 for x = 0, layer.width - 1 do
@@ -234,7 +246,7 @@ function Menu:Draw()
                     if tid ~= 0 then
                         local quad = quads[tid]
                         love.graphics.draw(
-                            imageToDrawFrom,
+                            imagesToDrawFrom["basictiles"],
                             quad,
                             x*tilewidth,
                             y*tileheight
@@ -250,7 +262,20 @@ function Menu:Draw()
             love.graphics.rectangle("fill", button.x, button.y, button.w, button.h)
             love.graphics.setColor(unpack(colors.default))
             love.graphics.rectangle("line", button.x, button.y, button.w, button.h)
-            love.graphics.print(button.text, button.text_x, button.text_y)
+            if button.type == "text" then
+                love.graphics.print(button.text, button.text_x, button.text_y)
+            elseif button.type == "image" then
+                local quad = charquads[button.name]
+                love.graphics.draw(
+                    imagesToDrawFrom["characters"],
+                    quad,
+                    button.image_x,
+                    button.image_y,
+                    0,
+                    5,
+                    5
+                )
+            end
         end
         love.graphics.circle("fill", mx, my, 10)
         -- love.graphics.print(hotButton, 20, 20)

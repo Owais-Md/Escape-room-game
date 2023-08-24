@@ -5,6 +5,10 @@
 local anim8 = require 'libraries/anim8' --Could've done it without this library too, but had imported this when just started the project, so now can't remove
 local wf = require "libraries.windfield" --FOSS library for game physics
 
+local animationGrids = {
+    ["Boy"]
+}
+
 local Player = {}
 
 function Player:New()

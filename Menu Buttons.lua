@@ -6,11 +6,11 @@ local function textButton(text, func)
     }
 end
 
-local function imageButton(image, quads, func)
+local function imageButton(image, name, func)
     return{
         type = "image",
         image = image,
-        quads = quads,
+        name = name,
         func = func
     }
 end
@@ -25,7 +25,8 @@ local function pushDialoginMenu(textTable)
 end
 
 local Buttons = {
-    ["New Game"] = textButton("New Game",
+    ["New Game"] = textButton(
+                    "New Game",
                     function ()
                         menu:MenuPop()
                         stateStack:Push("background", "player") --, "tutorial") -- need to make a tutorial
@@ -33,13 +34,15 @@ local Buttons = {
                     end
                 )
     ,
-    ["Settings"] = textButton("Settings",
+    ["Settings"] = textButton(
+                    "Settings",
                     function ()
                         menu:MenuPush("Settings") -- need to make settings..
                     end
                 )
     ,
-    ["Save Game"] = textButton("Save Game",
+    ["Save Game"] = textButton(
+                    "Save Game",
                     function ()
                         gameObjects:saveGame("progress.save")
                         menu:getExitWarning()
@@ -50,7 +53,8 @@ local Buttons = {
                     end
                 )
     ,
-    ["Load From Saved Game"] = textButton("Load From Saved Game",
+    ["Load From Saved Game"] = textButton(
+                    "Load From Saved Game",
                     function ()
                         menu:MenuPop()
                         gameObjects:loadGame("progress.save")
@@ -59,7 +63,8 @@ local Buttons = {
                     end
                 )
     ,
-    ["Change Sprite"] = textButton("Change Sprite",
+    ["Change Sprite"] = textButton(
+                    "Change Sprite",
                     function ()
                         -- text = {
                         --     "Wait for future updates :) !!"
@@ -69,7 +74,8 @@ local Buttons = {
                     end
                 )
     ,
-    ["Change Dialog Background"] = textButton("Change Dialog Background",
+    ["Change Dialog Background"] = textButton(
+                    "Change Dialog Background",
                     function ()
                         text = {
                             "Wait for future updates :) !!"
@@ -78,7 +84,8 @@ local Buttons = {
                     end
                 )
     ,
-    ["Credits"] = textButton("Credits",
+    ["Credits"] = textButton(
+                    "Credits",
                     function ()
                         creditsText = {
                             "Spritesheets: By Laena Zimmerman, from https://opengameart.org/content/ tiny-16-basic under the creative commons license CC BY 3.0."
@@ -87,37 +94,47 @@ local Buttons = {
                     end
                 )
     ,
-    ["Back"] = textButton("Back",
+    ["Back"] = textButton(
+                    "Back",
                     function ()
                         menu:MenuPop()
                     end
                 )
     ,
-    ["Boy"] = textButton("Boy",
+    ["Boy"] = imageButton(
+                "characters",
+                "Boy",
                     function ()
                         menu:MenuPop()
                     end
                 )
     ,
-    ["Girl"] = textButton("Girl",
+    ["Girl"] = imageButton(
+                "characters",
+                "Girl",
                     function ()
                         menu:MenuPop()
                     end
                 )
     ,
-    ["Skeleton"] = textButton("Skeleton",
+    ["Skeleton"] = imageButton(
+                "characters",
+                "Skeleton",
                     function ()
                         menu:MenuPop()
                     end
                 )
     ,
-    ["Neutral"] = textButton("Neutral",
+    ["Neutral"] = imageButton(
+                "characters",
+                "Neutral",
                     function ()
                         menu:MenuPop()
                     end
                 )
     ,
-    ["Exit"] = textButton("Exit",
+    ["Exit"] = textButton(
+                    "Exit",
                     function ()
                         if not menu:getExitWarning() then
                             local exitWarningText = {
