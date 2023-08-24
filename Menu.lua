@@ -53,7 +53,6 @@ local menuList = {
     },
     Settings = {
         Buttons["Change Sprite"],
-        Buttons["Change Dialog Background"],
         Buttons["Back"]
     },
     ["Change Sprite"] = {
@@ -69,7 +68,7 @@ local function getCurrentMenu(menuStack)
     menu.menuName = menuStack[#menuStack]
     menu.margin = 20
     menu.buttons = menuList[menu.menuName]
-    if menu.menuName ~= "Change Sprite" and menu.menuName ~= "Change Dialog Background" then
+    if menu.menuName ~= "Change Sprite" then
         menu.height = 3*smallFont:getHeight()
         menu.totalheight = menu.height*#menu.buttons + menu.margin*(#menu.buttons-1)
         for _, button in ipairs(menu.buttons) do

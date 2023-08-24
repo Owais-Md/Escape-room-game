@@ -5,8 +5,34 @@
 local anim8 = require 'libraries/anim8' --Could've done it without this library too, but had imported this when just started the project, so now can't remove
 local wf = require "libraries.windfield" --FOSS library for game physics
 
-local animationGrids = {
-    ["Boy"]
+local spriteSheet = love.graphics.newImage("Sprites/Lanea Zimmerman's spritesheets/characters.png")
+local grid = anim8.newGrid(16, 16, spriteSheet:getWidth(), spriteSheet:getHeight())
+
+local animations = {
+    ["Boy"] = {
+        down = anim8.newAnimation(grid('4-6', 1), {0.2, 0.1, 0.2}),
+        left = anim8.newAnimation(grid('4-6', 2), {0.2, 0.1, 0.2}),
+        right = anim8.newAnimation(grid('4-6', 3), {0.2, 0.1, 0.2}),
+        up = anim8.newAnimation(grid('4-6', 4), {0.2, 0.1, 0.2})
+    },
+    ["Girl"] = {
+        down = anim8.newAnimation(grid('7-9', 1), {0.2, 0.1, 0.2}),
+        left = anim8.newAnimation(grid('7-9', 2), {0.2, 0.1, 0.2}),
+        right = anim8.newAnimation(grid('7-9', 3), {0.2, 0.1, 0.2}),
+        up = anim8.newAnimation(grid('7-9', 4), {0.2, 0.1, 0.2})
+    },
+    ["Skeleton"] = {
+        down = anim8.newAnimation(grid('10-12', 1), {0.2, 0.1, 0.2}),
+        left = anim8.newAnimation(grid('10-12', 2), {0.2, 0.1, 0.2}),
+        right = anim8.newAnimation(grid('10-12', 3), {0.2, 0.1, 0.2}),
+        up = anim8.newAnimation(grid('10-12', 4), {0.2, 0.1, 0.2})
+    },
+    ["Neutral"] = {
+        down = anim8.newAnimation(grid('1-3', 1), {0.2, 0.1, 0.2}),
+        left = anim8.newAnimation(grid('1-3', 2), {0.2, 0.1, 0.2}),
+        right = anim8.newAnimation(grid('1-3', 3), {0.2, 0.1, 0.2}),
+        up = anim8.newAnimation(grid('1-3', 4), {0.2, 0.1, 0.2})
+    }
 }
 
 local Player = {}
@@ -20,8 +46,6 @@ function Player:New()
     player.height = 16
     player.scale = 5
     player.speed = 3*player.scale/4
-    player.spriteSheet = love.graphics.newImage("Sprites/Lanea Zimmerman's spritesheets/characters.png")
-    player.grid = anim8.newGrid(player.width, player.height, player.spriteSheet:getWidth(), player.spriteSheet:getHeight())
     player.x = gameObjects.Progress.player.x or (love.graphics.getWidth() / 2 - player.scale*player.width/2)
     player.y = gameObjects.Progress.player.y or (love.graphics.getHeight() / 2 - player.scale*player.height/2)
     player.world = wf.newWorld(0, 0)
@@ -33,18 +57,22 @@ function Player:New()
     player.collider:setCollisionClass('Player')
     player.collider:setFixedRotation(true)
 
-    player.animations = {}
-    player.animationSpeed = 3/(player.scale*player.speed)
-    player.animations.down = anim8.newAnimation(player.grid('4-6', 1), {player.animationSpeed, 0.1, player.animationSpeed})
-    player.animations.left = anim8.newAnimation(player.grid('4-6', 2), {player.animationSpeed, 0.1, player.animationSpeed})
-    player.animations.right = anim8.newAnimation(player.grid('4-6', 3), {player.animationSpeed, 0.1, player.animationSpeed})
-    player.animations.up = anim8.newAnimation(player.grid('4-6', 4), {player.animationSpeed, 0.1, player.animationSpeed})
+    player.character = gameObjects.Progress.player.character or "Boy"
+
+    player.animations = animations[player.character]
 
     player.animation_state = player.animations[gameObjects.Progress.player.looking] or player.animations.down
     player.looking = "down"
     player.isMoving = false
 
     return player
+end
+
+function Player:SpriteChange(character)
+    gameObjects.Progress.player.character = character
+    self.character = character
+    self.animations = animations[character]
+    self.animation_state = self.animations[self.looking]
 end
 
 function Player:Update(dt)
@@ -93,7 +121,7 @@ function Player:Draw()
         if show_debugging then
             self.world:draw()
         end
-        self.animation_state:draw(self.spriteSheet, self.x, self.y, nil, self.scale)
+        self.animation_state:draw(spriteSheet, self.x, self.y, nil, self.scale)
     end
 end
 

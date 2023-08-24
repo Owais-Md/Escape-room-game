@@ -24,6 +24,7 @@ local Game = {
     Progress = {
         currentRoomName = "Room 1",
         player = {
+            character = "Boy",
             x = nil,
             y = nil,
             looking = nil
@@ -123,6 +124,7 @@ local Game = {
 --TableIO.dump(Game.Settings, "settings")
 
 function Game:saveGame(savefilename)
+    self.Progress.player.character = player.character
     self.Progress.player.x = player.x
     self.Progress.player.y = player.y
     self.Progress.player.looking = player.looking

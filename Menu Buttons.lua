@@ -105,6 +105,7 @@ local Buttons = {
                 "characters",
                 "Boy",
                     function ()
+                        player:SpriteChange("Boy")
                         menu:MenuPop()
                     end
                 )
@@ -113,6 +114,7 @@ local Buttons = {
                 "characters",
                 "Girl",
                     function ()
+                        player:SpriteChange("Girl")
                         menu:MenuPop()
                     end
                 )
@@ -121,6 +123,7 @@ local Buttons = {
                 "characters",
                 "Skeleton",
                     function ()
+                        player:SpriteChange("Skeleton")
                         menu:MenuPop()
                     end
                 )
@@ -129,6 +132,7 @@ local Buttons = {
                 "characters",
                 "Neutral",
                     function ()
+                        player:SpriteChange("Neutral")
                         menu:MenuPop()
                     end
                 )
