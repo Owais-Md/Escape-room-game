@@ -18,6 +18,8 @@ wh = love.graphics.getHeight()
 scale = math.min(ww/800, wh/560)
 wtranslate = {(ww-800*scale)/2,(wh-560*scale)/2}
 
+local justPopped = false
+
 local Game = {
     Progress = {
         currentRoomName = "Room 1",
@@ -167,6 +169,7 @@ end
 
 function Game:takeInput(key)
     --dialogBox:load(inventory)
+    justPopped = false
     dialogBox:clearDialog()
     if self.enteredCollider then
         local text = tostring(Game.Dialog[self.enteredCollider.name])
@@ -184,6 +187,7 @@ function Game:takeInput(key)
             dialogBox.currentLine = 1
         elseif stateStack:Top() == "menuDialogBox" then
             menu.dialogBox:clearDialog()
+            justPopped = true
             stateStack:Pop()
             menu.dialogBox.currentLine = 1
         end
@@ -202,7 +206,7 @@ function Game:takeInput(key)
     if stateStack:Top() == "dialogBox" then
         dialogBox:UpdateLine(key)
     end
-    if stateStack:Top() == "menu" then
+    if stateStack:Top() == "menu" and not justPopped then
         menu:takeInput(key)
     end
     if stateStack:Top() == "menuDialogBox" then

@@ -11,14 +11,14 @@ local imageToDrawFrom = love.graphics.newImage(ImageData.image)
 
 love.mouse.setPosition(200,130)
 local mx, my = love.mouse.getPosition()
-local mode = "keyboard"
+local mode = "mouse"
 local hotButton = 1
 local isDown = false
 
 local colors = {
     default = {1, 1, 1, 1},
     fill = {0.3, 0.3, 0.5, 0.8},
-    hot = {0.7, 0.8, 0.6, 1}
+    hot = {0.6, 0.8, 0.6, 1}
 }
 
 local Menu = {}
@@ -131,8 +131,25 @@ function Menu:MenuTop()
 end
 
 function Menu:takeInput(key)
-    if key == "up" or key == "down" then
-        mode = "keyboard"
+    mode = "keyboard"
+    local num = #self.currentMenu.buttons
+    if key == "up" or key == "w" or key == "right" or key == "d" then
+        hotButton = math.max(1, hotButton - 1)
+    end
+    if key == "down" or key == "s" or key == "left" or key == "a" then
+        hotButton = math.min(num, hotButton + 1)
+    end
+    local func
+    for _, button in ipairs(self.currentMenu.buttons) do
+        if _ == hotButton then
+            button.hot = true
+            func = button.func
+        else
+            button.hot = false
+        end
+    end
+    if key == "return" then
+        func()
     end
 end
 
@@ -152,6 +169,7 @@ function Menu:Update(dt)
             for _, button in ipairs(self.currentMenu.buttons) do
                 if mx>button.x and mx<button.x + button.w and my>button.y and my<button.y + button.h then
                     button.hot = true
+                    hotButton = _
                     if love.mouse.isDown(1) and not isDown then
                         isDown = true
                         button.func()
@@ -201,7 +219,7 @@ function Menu:Draw()
             love.graphics.print(button.text, button.text_x, button.text_y)
         end
         love.graphics.circle("fill", mx, my, menu.currentMenu.margin/2)
-        --love.graphics.print(mode, 20, 20)
+        -- love.graphics.print(hotButton, 20, 20)
     end
 end
 
