@@ -8,6 +8,7 @@ local Dialog  = require "Dialog"
 
 local quads = TileSetData.quads
 local imageToDrawFrom = love.graphics.newImage(ImageData.image)
+local charactersImage = love.graphics.newImage("Sprites/Lanea Zimmerman's spritesheets/characters.png")
 
 love.mouse.setPosition(200,130)
 local mx, my = love.mouse.getPosition()
@@ -45,30 +46,63 @@ local menuList = {
         Buttons["Boy"],
         Buttons["Girl"],
         Buttons["Skeleton"],
-        Buttons["Back"]
+        Buttons["Neutral"]
     }
 }
 
 local function getCurrentMenu(menuStack)
     local menu = {}
-    menu.buttons = menuList[menuStack[#menuStack]]
+    menu.menuName = menuStack[#menuStack]
     menu.margin = 20
-    for _, button in ipairs(menu.buttons) do
-        button.width = smallFont:getWidth(button.text)
-        if not menu.height then
-            menu.height = 3*smallFont:getHeight()
-            menu.totalheight = menu.height*#menu.buttons + menu.margin*(#menu.buttons-1)
+    menu.buttons = menuList[menu.menuName]
+    if menu.menuName ~= "Change Sprite" and menu.menuName ~= "Change Dialog Background" then
+        menu.height = 3*smallFont:getHeight()
+        menu.totalheight = menu.height*#menu.buttons + menu.margin*(#menu.buttons-1)
+        for _, button in ipairs(menu.buttons) do
+            button.width = smallFont:getWidth(button.text)
+            button.x = 400 - button.width/2 - 2*menu.margin
+            button.w = 2*(400 - button.x)
+            button.y = 280 - menu.totalheight/2 + (_ - 1)*(menu.height + menu.margin)
+            button.h = menu.height
+            button.text_x = 400 - button.width/2
+            button.text_y = button.y + menu.height/3
+            button.hot = false
+            if _ == 1 then
+                hotButton = 1
+                button.hot = true
+            end
         end
-        button.x = 400 - button.width/2 - 2*menu.margin
-        button.w = 2*(400 - button.x)
-        button.y = 280 - menu.totalheight/2 + (_ - 1)*(menu.height + menu.margin)
-        button.h = menu.height
-        button.text_x = 400 - button.width/2
-        button.text_y = button.y + menu.height/3
-        button.hot = false
-        if _ == hotButton or button.text == "New Game" then
-            button.hot = true
+    else
+        menu.width = 100
+        menu.height = 100
+        if menu.buttons[#menu.buttons].text == "Back" then
+            table.remove(menu.buttons, #menu.buttons)
         end
+        menu.totalwidth = menu.width*#menu.buttons + menu.margin*(#menu.buttons-1)
+        for _, button in ipairs(menu.buttons) do
+            button.x = 400 - menu.totalwidth/2 + (_ - 1)*(menu.width + menu.margin)
+            button.w = menu.width
+            button.y = 280 - menu.height/2
+            button.h = 2*(280 - button.y)
+            button.image_x = button.x + menu.margin
+            button.image_y = button.y + menu.margin
+            button.text_x = button.x + menu.margin
+            button.text_y = 280 + menu.margin
+            button.hot = false
+            if _ == 1 then
+                hotButton = 1
+                button.hot = true
+            end
+        end
+        local Back = Buttons["Back"]
+        local width = smallFont:getWidth(Back.text)
+        Back.x = 400 - width/2 - 2*menu.margin
+        Back.y = 280 + menu.height/2 + menu.margin
+        Back.w = 2*(400 - Back.x)
+        Back.h = 3*smallFont:getHeight()
+        Back.text_x = Back.x + 2*menu.margin
+        Back.text_y = Back.y + Back.h/3
+        table.insert(menu.buttons, Back)
     end
     return menu
 end
@@ -133,10 +167,10 @@ end
 function Menu:takeInput(key)
     mode = "keyboard"
     local num = #self.currentMenu.buttons
-    if key == "up" or key == "w" or key == "right" or key == "d" then
+    if key == "up" or key == "w" or key == "left" or key == "a" then
         hotButton = math.max(1, hotButton - 1)
     end
-    if key == "down" or key == "s" or key == "left" or key == "a" then
+    if key == "down" or key == "s" or key == "right" or key == "d" then
         hotButton = math.min(num, hotButton + 1)
     end
     local func
@@ -218,7 +252,7 @@ function Menu:Draw()
             love.graphics.rectangle("line", button.x, button.y, button.w, button.h)
             love.graphics.print(button.text, button.text_x, button.text_y)
         end
-        love.graphics.circle("fill", mx, my, menu.currentMenu.margin/2)
+        love.graphics.circle("fill", mx, my, 10)
         -- love.graphics.print(hotButton, 20, 20)
     end
 end
