@@ -39,8 +39,8 @@ function Background:New(path, world)
     background.speed = speed
 
     for _,layer in ipairs(background.map.layers) do
-        if(layer.type == "objectgroup") then
-            for i, obj in pairs(layer.objects)do
+        if layer.type == "objectgroup" then
+            for _, obj in pairs(layer.objects)do
                 if obj.type == "wall" then
                     local wall = world:newRectangleCollider(obj.x*background.scale, obj.y*background.scale, obj.width*background.scale, obj.height*background.scale)
                     wall:setType('static')

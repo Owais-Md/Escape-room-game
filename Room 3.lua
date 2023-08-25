@@ -9,8 +9,8 @@ return {
   height = 7,
   tilewidth = 16,
   tileheight = 16,
-  nextlayerid = 8,
-  nextobjectid = 43,
+  nextlayerid = 9,
+  nextobjectid = 51,
   properties = {},
   tilesets = {
     {
@@ -185,6 +185,19 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
+        },
+        {
+          id = 50,
+          name = "",
+          type = "wall",
+          shape = "rectangle",
+          x = 48,
+          y = 16,
+          width = 16,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     },
@@ -204,11 +217,24 @@ return {
       objects = {
         {
           id = 9,
-          name = "lockingDoor",
+          name = "lockingDoor 1",
           type = "draw",
           shape = "rectangle",
           x = 112,
           y = 0,
+          width = 16,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 48,
+          name = "orangeLever",
+          type = "draw",
+          shape = "rectangle",
+          x = 48,
+          y = 16,
           width = 16,
           height = 16,
           rotation = 0,
@@ -264,7 +290,7 @@ return {
           shape = "rectangle",
           x = 80,
           y = 0,
-          width = 32,
+          width = 28,
           height = 16,
           rotation = 0,
           visible = true,
@@ -301,9 +327,9 @@ return {
           name = "wall",
           type = "detect",
           shape = "rectangle",
-          x = 128,
+          x = 132,
           y = 0,
-          width = 16,
+          width = 12,
           height = 16,
           rotation = 0,
           visible = true,
@@ -334,6 +360,76 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
+        },
+        {
+          id = 46,
+          name = "text",
+          type = "detect",
+          shape = "rectangle",
+          x = 64,
+          y = 0,
+          width = 16,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 47,
+          name = "lockingDoor 1",
+          type = "detect",
+          shape = "rectangle",
+          x = 108,
+          y = 0,
+          width = 24,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 49,
+          name = "orangeLever",
+          type = "detect",
+          shape = "rectangle",
+          x = 48,
+          y = 16,
+          width = 16,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 8,
+      name = "Moving Walls",
+      class = "",
+      visible = false,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 44,
+          name = "lockingDoor 1",
+          type = "movingWall",
+          shape = "rectangle",
+          x = 112,
+          y = 0,
+          width = 16,
+          height = 12,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["Door-open"] = false
+          }
         }
       }
     }

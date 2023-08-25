@@ -10,7 +10,7 @@ return {
   tilewidth = 16,
   tileheight = 16,
   nextlayerid = 11,
-  nextobjectid = 42,
+  nextobjectid = 44,
   properties = {},
   tilesets = {
     {
@@ -44,12 +44,12 @@ return {
       properties = {},
       encoding = "lua",
       data = {
-        1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        4, 4, 4, 4, 4, 4, 2, 4, 4, 4,
         74, 74, 74, 74, 74, 74, 74, 74, 74, 74,
         74, 74, 74, 74, 74, 74, 74, 74, 74, 74,
-        1, 1, 1, 1, 1, 74, 74, 74, 1, 1,
-        23, 23, 23, 23, 1, 74, 74, 74, 1, 23,
-        23, 23, 23, 23, 1, 74, 18, 74, 1, 23,
+        1, 1, 1, 1, 1, 74, 74, 74, 4, 4,
+        23, 23, 23, 23, 1, 74, 74, 74, 4, 23,
+        23, 23, 23, 23, 1, 74, 18, 74, 4, 23,
         23, 23, 23, 23, 1, 1, 18, 1, 1, 23
       }
     },
@@ -249,7 +249,7 @@ return {
       id = 8,
       name = "Collision Regions",
       class = "",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -290,7 +290,7 @@ return {
           shape = "rectangle",
           x = 0,
           y = 0,
-          width = 160,
+          width = 96,
           height = 16,
           rotation = 0,
           visible = true,
@@ -396,6 +396,32 @@ return {
           y = 16,
           width = 4,
           height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 42,
+          name = "wall",
+          type = "detect",
+          shape = "rectangle",
+          x = 112,
+          y = 0,
+          width = 48,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 43,
+          name = "text",
+          type = "detect",
+          shape = "rectangle",
+          x = 96,
+          y = 0,
+          width = 16,
+          height = 16,
           rotation = 0,
           visible = true,
           properties = {}

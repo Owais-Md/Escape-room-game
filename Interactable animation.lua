@@ -33,6 +33,14 @@ local quadsForAnimation = {
             {x = 3, y = 2},
             {x = 3, y = 3}
         }
+    },
+    {
+        name = "orangeLever",
+        cuards = {
+            {x = 3, y = 4},
+            {x = 4, y = 4},
+            {x = 5, y = 4}
+        }
     }
 }
 
@@ -57,7 +65,7 @@ function Animation:NewObject(beginClosed, isLocked, flipped_horizontal, flipped_
     animation.quads = {}
     animation.frame = 0
     for _,quads in ipairs(quadsForAnimation) do
-        if quads.name == name then
+        if string.find(name, quads.name) then
             for _, cuard in ipairs(quads.cuards) do
                 table.insert(animation.quads, love.graphics.newQuad(cuard.x*tileWidth, cuard.y*tileHeight, tileWidth, tileHeight, imageWidth, imageHeight))
             end
@@ -83,7 +91,7 @@ end
 function Animation:Open(dt)
     if self.isClosed and not self.isLocked then
         self.isOpening = true
-        if self.frame ~= 3 then
+        if self.frame ~= #self.quads - 1 then
             self.timer = self.timer + dt*self.animationSpeed
             self.frame = self.timer - self.timer % 1
         else

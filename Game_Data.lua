@@ -34,13 +34,15 @@ local Game = {
                 beginClosed = true,
                 flipped_horizontal = false,
                 flipped_vertical = false,
-                isLocked = false
+                isLocked = false,
+                objectConditions = nil,
             },
             door = {
                 beginClosed = true,
                 flipped_horizontal = true,
                 flipped_vertical = false,
                 isLocked = false,
+                objectConditions = nil,
                 associatedDoor = {
                     roomName = "Room 2",
                     doorName = "door"
@@ -58,6 +60,7 @@ local Game = {
                 flipped_horizontal = true,
                 flipped_vertical = false,
                 isLocked = false,
+                objectConditions = nil,
                 associatedDoor = {
                     roomName = "Room 1",
                     doorName = "door"
@@ -65,15 +68,27 @@ local Game = {
             }
         },
         ["Room 3"] = {
-            lockingDoor = {
+            ["lockingDoor 1"] = {
                 beginClosed = true,
                 flipped_horizontal = true,
                 flipped_vertical = false,
                 isLocked = true,
-                associatedDoor = {
-                    roomName = "Room 1",
-                    doorName = "door"
+                objectConditions = {
+                    lever = {
+                        roomName = "Room 3",
+                        objectName = "orangeLever",
+                        fields = {
+                            ["beginClosed"] = false
+                        }
+                    }
                 }
+            },
+            orangeLever = {
+                beginClosed = false,
+                flipped_horizontal = true,
+                flipped_vertical = false,
+                isLocked = false,
+                objectConditions = nil
             }
         }
     },
@@ -169,6 +184,20 @@ function Game:getProgressText(enteredCollider)
     return text
 end
 
+function Game:evaluateConditions(roomName, objectName)
+    local evaluation = true
+    if Game.Progress[roomName][objectName].objectConditions ~= nil then
+        for _, conditions in pairs(Game.Progress[roomName][objectName].objectConditions) do
+            for field, value in pairs(conditions.fields) do
+                evaluation = evaluation and (Game.Progress[conditions.roomName][conditions.objectName][field] == value)
+            end
+        end
+        return not evaluation
+    else
+        return false
+    end
+end
+
 function Game:takeInput(key)
     --dialogBox:load(inventory)
     justPopped = false
@@ -176,7 +205,7 @@ function Game:takeInput(key)
     if self.enteredCollider then
         local text = tostring(Game.Dialog[self.enteredCollider.name])
         if text == "nil" then
-            text = Game:getProgressText(self.enteredCollider)
+            --text = Game:getProgressText(self.enteredCollider)
         end
         dialogBox:pushDialog(text)
     end
@@ -224,6 +253,16 @@ function Game:Update(dt) -- could change isOpening/ isClosing directly from Game
         Game.Progress.player.y = teleport_details.y or player.y
         Game.Progress.player.looking = teleport_details.looking
         Game:reloadGame()
+    end
+    if self.enteredCollider then
+        local RoomName = Game.Progress.currentRoomName
+        local ObjectName = self.enteredCollider.name
+        self.flag = RoomName..ObjectName
+        if Game.Progress[RoomName][ObjectName] and Game.Progress[RoomName][ObjectName].objectConditions ~= nil then
+            Game.Progress[RoomName][ObjectName].isLocked = Game:evaluateConditions(RoomName, ObjectName)
+            self.activeObject.object.isLocked = Game.Progress[RoomName][ObjectName].isLocked
+            self.flag = RoomName..ObjectName.."set"
+        end
     end
     if self.activeObject then
         if love.keyboard.isDown("o") or self.activeObject.object.isOpening then

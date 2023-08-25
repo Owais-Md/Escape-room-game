@@ -26,7 +26,7 @@ local charquads = {
 
 love.mouse.setPosition(200,130)
 local mx, my = love.mouse.getPosition()
-local mode = "mouse"
+local mode = "keyboard"
 local hotButton = 1
 local isDown = false
 

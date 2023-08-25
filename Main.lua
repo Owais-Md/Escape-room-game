@@ -40,5 +40,8 @@ function love.draw()
         love.graphics.push()
         love.graphics.print(love.timer.getFPS(), smallFont:getHeight(), 560-2*smallFont:getHeight())
         love.graphics.pop()
+        if gameObjects.flag then
+            love.graphics.print("\n\n"..gameObjects.flag)
+        end
     end
 end
