@@ -32,7 +32,7 @@ local Buttons = {
                         menu:MenuPush("midGame")
                         stateStack:Push("background", "player", "tutorial")
                         local tutorialText = {
-                            "Player: you can use WASD or arrow keys to move the player around.",
+                            "Player: you can use arrow keys or WASD to move the player around.",
                             "Menu: opened and closed with escape key, navigation with mouse or arrow keys or WASD, selection with Enter key.",
                             "You can change your sprite from Menu->Settings.",
                             'DialogBox: Navigated using the arrow keys. exits with "x" or Enter key or mouseclick.',

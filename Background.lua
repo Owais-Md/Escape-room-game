@@ -55,7 +55,14 @@ function Background:New(path, world)
                     local wall = world:newRectangleCollider(obj.x*background.scale, obj.y*background.scale, obj.width*background.scale, obj.height*background.scale)
                     wall:setType('static')
                     wall:setCollisionClass('Wall')
-                    table.insert(background.movingWalls, {collider = wall, name = obj.name, class = "Wall"})
+                    local ObjectProperties = gameObjects:getObjectProperties(obj.name)
+                    local beginClosed = ObjectProperties.beginClosed
+                    local class = "Wall"
+                    if beginClosed == false then
+                        class = "Open Wall"
+                        wall:setCollisionClass('Open Wall')
+                    end
+                    table.insert(background.movingWalls, {collider = wall, name = obj.name, class = class})
                 elseif obj.type == "draw" then
                     local ObjectProperties = gameObjects:getObjectProperties(obj.name)
                     local beginClosed, flipped_horizontal, flipped_vertical, isLocked = ObjectProperties.beginClosed, ObjectProperties.flipped_horizontal, ObjectProperties.flipped_vertical, ObjectProperties.isLocked

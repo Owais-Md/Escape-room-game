@@ -47,7 +47,10 @@ local Game = {
                 }
             },
             wierdWall = {
-                beginClosed = true
+                beginClosed = true,
+                flipped_horizontal = nil,
+                flipped_vertical = nil,
+                isLocked = nil
             }
         },
         ["Room 2"] = {
@@ -80,17 +83,17 @@ local Game = {
     ProgressText = {
         ["Room 1"] = {
             ["chest"] = {
-                isLocked = "The chest appears to be locked",
-                beginClosed = 'You can press "O" to open the chest and "C" to close the chest',
-                elsetext = "There appears to be a piece of paper inside the chest that reads: Nice, you figured out how to open this chest!! Now forget about this chest, and pay closer attention to your surroundings, the next place you need to go is right in front of you!!"
+                isLocked = "The chest appears to be locked.",
+                beginClosed = 'You can press "O" to open the chest and "C" to close the chest.',
+                elsetext = "There appears to be a piece of paper inside the chest that reads: Nice, you figured out how to open this chest!! Now forget about this chest, and pay closer attention to your surroundings, the next place you need to go is right in front of you!!."
             },
             ["door"] = {
-                beginClosed = 'You can press "O" to open the door and "C" to close the door',
-                elsetext = "The door is open"
+                beginClosed = 'You can press "O" to open the door and "C" to close the door.',
+                elsetext = "The door is open."
             },
             ["wierdWall"] = {
-                beginClosed = "This wall appears to be different from the other wallls",
-                elsetext = "Whoa!! This wall appears transparent!! Could i walk through this?"
+                beginClosed = "This wall appears to be different from the other wallls.",
+                elsetext = "Whoa!! This wall appears transparent!! Could i walk through this.?"
             }
         },
         ["Room 2"] = {
@@ -98,8 +101,8 @@ local Game = {
                 elsetext = "Shouldn't you be closing doors behind yourself? :)"
             },
             ["door"] = {
-                beginClosed = 'You can press "O" to open the door and "C" to close the door',
-                elsetext = "The door is open"
+                beginClosed = 'You can press "O" to open the door and "C" to close the door.',
+                elsetext = "The door is open."
             }
         },
         ["Room 3"] = {
@@ -108,13 +111,13 @@ local Game = {
             },
             ["orangeLever"] = {
                 isLocked = "The lever is not moving!",
-                beginClosed = 'You can press "R" to shift lever to right and "L" to move it back left',
-                elsetext = "I wonder what this lever did.. The lever is colored orange.. Is that supposed to mean something?"
+                beginClosed = 'You can press "R" to shift lever to right and "L" to move it back left.',
+                elsetext = "I wonder what this lever did.. The lever is colored orange.. Is that supposed to mean something.?"
             },
             ["lockingDoor 1"] = {
-                isLocked = "The door appears to be locked",
-                beginClosed = 'It appears that the lever has unlocked this door. You can press "O" to open the door and "C" to close the door',
-                elsetext = "The door is open"
+                isLocked = "The door appears to be locked.",
+                beginClosed = 'It appears that the lever has unlocked this door. You can press "O" to open the door and "C" to close the door.',
+                elsetext = "The door is open."
             }
         }
     },
