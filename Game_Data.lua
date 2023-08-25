@@ -47,9 +47,7 @@ local Game = {
                 }
             },
             wierdWall = {
-                beginClosed = true,
-                isLocked = true,
-                dialog = "This wall appears to be different from the other walls.",
+                beginClosed = true
             }
         },
         ["Room 2"] = {
@@ -72,8 +70,8 @@ local Game = {
                 isLocked = true
             },
             orangeLever = {
-                beginClosed = false,
-                flipped_horizontal = true,
+                beginClosed = true,
+                flipped_horizontal = false,
                 flipped_vertical = false,
                 isLocked = false
             }
@@ -163,6 +161,33 @@ local Game = {
             ["door"] = {
                 beginClosed = 'You can press "O" to open the door and "C" to close the door',
                 elsetext = "The door is open"
+            },
+            ["wierdWall"] = {
+                beginClosed = "This wall appears to be different from the other wallls",
+                elsetext = "The wall appears to be different from the other walls"
+            }
+        },
+        ["Room 2"] = {
+            ["text"] = {
+                isLocked = "The chest appears to be locked",
+                beginClosed = 'You can press "O" to open the chest and "C" to close the chest',
+                elsetext = "There appears to be a piece of paper inside the chest that reads: Nice"
+            },
+            ["door"] = {
+                beginClosed = 'You can press "O" to open the door and "C" to close the door',
+                elsetext = "The door is open"
+            }
+        },
+        ["Room 3"] = {
+            ["orangeLever"] = {
+                isLocked = "The lever is not moving!",
+                beginClosed = 'You can press "O" to shift lever to right and "C" to move it back left',
+                elsetext = "I wonder what this lever did"
+            },
+            ["lockingDoor 1"] = {
+                isLocked = "The door appears to be locked",
+                beginClosed = 'You can press "O" to open the door and "C" to close the door',
+                elsetext = "The door is open"
             }
         }
     }
@@ -210,15 +235,18 @@ end
 function Game:getProgressText(enteredCollider)
     local text = "Not yet set text"
     local textTable = nil
-    if Game.ProgressText[Game.Progress.currentRoomName] and Game.ProgressText[Game.Progress.currentRoomName][enteredCollider.name] then
+    if Game.ProgressText[Game.Progress.currentRoomName][enteredCollider.name] then
         textTable = Game.ProgressText[Game.Progress.currentRoomName][enteredCollider.name]
     end
     if textTable then
         self.flag = "Set"
-        local object = Game.Progress[Game.Progress.currentRoomName][enteredCollider.name]
-        if object.isLocked then
+        local object
+        if Game.Progress[Game.Progress.currentRoomName][enteredCollider.name] then 
+            object = Game.Progress[Game.Progress.currentRoomName][enteredCollider.name]
+        end
+        if object and object.isLocked then
             text = textTable.isLocked
-        elseif object.beginClosed then
+        elseif object and object.beginClosed then
             text = textTable.beginClosed
         else
             text = textTable.elsetext
