@@ -75,6 +75,32 @@ local Game = {
                 flipped_vertical = false,
                 isLocked = false
             }
+        },
+        ["Room 4"] = {
+            ["redLever 1"] = {
+                beginClosed = true,
+                flipped_horizontal = false,
+                flipped_vertical = false,
+                isLocked = false
+            },
+            ["redLever 2"] = {
+                beginClosed = true,
+                flipped_horizontal = false,
+                flipped_vertical = false,
+                isLocked = false
+            },
+            ["redLever 3"] = {
+                beginClosed = true,
+                flipped_horizontal = false,
+                flipped_vertical = false,
+                isLocked = false
+            },
+            ["redLever 4"] = {
+                beginClosed = true,
+                flipped_horizontal = false,
+                flipped_vertical = false,
+                isLocked = false
+            }
         }
     },
     ProgressText = {
@@ -116,6 +142,26 @@ local Game = {
                 beginClosed = 'It appears that the lever has unlocked this door. You can press "O" to open the door and "C" to close the door.',
                 elsetext = "The door is open."
             }
+        },
+        ["Room 4"] = {
+            ["text"] = {
+                elsetext = "Let the light guide the way.. But what is it that 3 levers can do that a single one can't?"
+            },
+            ["redLever 1"] = {
+                isLocked = '"R" to move lever right and "L" to move it left',
+                beginClosed = '"R" to move lever right and "L" to move it left',
+                elsetext = '"R" to move lever right and "L" to move it left'
+            },
+            ["redLever 2"] = {
+                isLocked = '"R" to move lever right and "L" to move it left',
+                beginClosed = '"R" to move lever right and "L" to move it left',
+                elsetext = '"R" to move lever right and "L" to move it left'
+            },
+            ["redLever 3"] = {
+                isLocked = '"R" to move lever right and "L" to move it left',
+                beginClosed = '"R" to move lever right and "L" to move it left',
+                elsetext = '"R" to move lever right and "L" to move it left'
+            }
         }
     },
     Teleports = {
@@ -139,6 +185,12 @@ local Game = {
                 x = 1*(5*16),
                 y = nil,
                 looking = "right"
+            },
+            ["Room 4 teleport"] = {
+                currentRoomName = "Room 4",
+                x = 8.75*(5*16),
+                y = nil,
+                looking = "left"
             }
         },
         ["Room 3"] = {
@@ -147,6 +199,14 @@ local Game = {
                 x = 8.75*(5*16),
                 y = nil,
                 looking = "left"
+            },
+        },
+        ["Room 4"] = {
+            ["Room 2 teleport"] = {
+                currentRoomName = "Room 2",
+                x = 0.25*(5*16),
+                y = nil,
+                looking = "right"
             },
         }
     },
@@ -200,6 +260,11 @@ local Game = {
                 }
             },
             orangeLever = nil
+        },
+        ["Room 4"] = {
+            ["redLever 1"] = nil,
+            ["redLever 2"] = nil,
+            ["redLever 3"] = nil
         }
     },
     GeneralDialog = {
@@ -407,7 +472,6 @@ function Game:Update(dt) -- could change isOpening/ isClosing directly from Game
         Game.Progress[RoomName][self.activeObject.name].isLocked = self.activeObject.object.isLocked
         Game.Progress[RoomName][self.activeObject.name].beginClosed = self.activeObject.object.isClosed
     end
-    _G.flag = tostring(Game.Progress["Room 3"]["lockingDoor 1"].beginClosed)
 end
 
 function Game:isWallClosed(objName)

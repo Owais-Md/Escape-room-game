@@ -19,16 +19,16 @@
             "scale": 5.5,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 79.63636363636364,
-                "y": 55.63636363636364
+                "x": 78.90909090909092,
+                "y": 55.45454545454546
             }
         },
         "Menu Box.tmx": {
             "scale": 5.5,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 86.54545454545453,
-                "y": 52.727272727272734
+                "x": 85.63636363636363,
+                "y": 52.54545454545455
             }
         },
         "Menu.tmx": {
@@ -57,8 +57,8 @@
             "scale": 5.5,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 79.45454545454547,
-                "y": 53.27272727272728
+                "x": 78.54545454545455,
+                "y": 53.09090909090909
             }
         },
         "Room 1.tmx#basictiles": {
@@ -79,8 +79,8 @@
             "scale": 5.5,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 79.45454545454547,
-                "y": 59.09090909090909
+                "x": 84.00000000000001,
+                "y": 58.18181818181819
             }
         },
         "Room 2.tmx#basictiles": {
@@ -99,18 +99,24 @@
                 8
             ],
             "scale": 5.5,
-            "selectedLayer": 0,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 79.45454545454547,
-                "y": 58.18181818181819
+                "x": 78.54545454545455,
+                "y": 58.00000000000001
             }
         },
         "Room 4.tmx": {
+            "expandedObjectLayers": [
+                5,
+                6,
+                7,
+                8
+            ],
             "scale": 5.5,
-            "selectedLayer": 1,
+            "selectedLayer": 5,
             "viewCenter": {
-                "x": 82.18181818181819,
-                "y": 51.27272727272728
+                "x": 48.000000000000014,
+                "y": 57.63636363636364
             }
         },
         "Room.tmx": {
@@ -168,18 +174,18 @@
     "project": "Tiled.tiled-project",
     "property.type": "bool",
     "recentFiles": [
-        "Room 3.tmx",
-        "Room 2.tmx",
         "Menu Box.tmx",
         "Dialog Box.tmx",
+        "Room 4.tmx",
+        "Room 3.tmx",
+        "Room 2.tmx",
         "Room 1.tmx",
         "things.tsx",
         "Room.tmx",
         "Menu.tmx",
         "Option Box.tmx",
         "basictiles.tsx",
-        "characters.tsx",
-        "Tileset.tmx"
+        "characters.tsx"
     ],
     "tileset.embedInMap": false,
     "tileset.lastUsedFormat": "tsx",
