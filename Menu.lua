@@ -58,8 +58,8 @@ local menuList = {
     ["Change Sprite"] = {
         Buttons["Boy"],
         Buttons["Girl"],
-        Buttons["Skeleton"],
-        Buttons["Neutral"]
+        Buttons["Neutral"],
+        Buttons["Skeleton"]
     }
 }
 

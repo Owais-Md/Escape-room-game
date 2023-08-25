@@ -148,14 +148,19 @@ local Game = {
         }
     },
     Settings = {},
-    Dialog = {
+    GeneralDialog = {
         wall = "The wall appears to be made of stone.",
-        chestLocked = "The chest appears to be locked.",
-        chestUnlocked = 'Press "O" to open, and "C" to close the chest.',
-        doorLocked = "The door appears to be locked.",
-        doorUnlocked = 'Press "O" to open, and "C" to close the door.',
         torch = "The torch is bright and warm.",
         fireplace = "The fireplace makes the room feel cozy. If not for this fireplace, the room would probably be pretty cold."
+    },
+    ProgressText = {
+        ["Room 1"] = {
+            ["chest"] = {
+                isLocked = "The chest appears to be locked",
+                isClosed = 'You can press "O" to open the chest and "C" to close the chest',
+                elsetext = "There appears to be a piece of paper inside the chest that reads: Nice"
+            }
+        }
     }
 }
 
@@ -177,8 +182,14 @@ function Game:reloadGame() -- Uses Game.Progress to reload the game
 end
 
 function Game:loadGame(savefilename)
-    Game.Progress = TableIO.load(savefilename) or Game.Progress
-    Game:reloadGame()
+    local loadedFile = TableIO.load(savefilename)
+    if loadedFile then
+        Game.Progress = loadedFile
+        Game:reloadGame()
+        return true
+    else
+        return false
+    end
 end
 
 function Game:getGameObjects()
@@ -193,16 +204,17 @@ function Game:getGameObjects()
 end
 
 function Game:getProgressText(enteredCollider)
-    local text = nil
-    if enteredCollider.name == "chest" or enteredCollider.name == "door" then
-        if enteredCollider.isLocked then
-            text = enteredCollider.name.."Locked"
-        else
-            text = enteredCollider.name.."Unlocked"
+    local text = "Not yet set text"
+    local textTable = nil
+    if Game.ProgressText[Game.Progress.currentRoomName] and Game.ProgressText[Game.Progress.currentRoomName][enteredCollider.name] then
+        textTable = Game.ProgressText[Game.Progress.currentRoomName][enteredCollider.name]
+    end
+    if textTable then
+        self.flag = "Set"
+        local object = Game.Progress[Game.Progress.currentRoomName][enteredCollider.name]
+        if object.isLocked then
+            text = textTable.isLocked
         end
-        text = Game.Dialog[text]
-    elseif Game.Progress[Game.Progress.currentRoomName][enteredCollider.name] then
-        text = Game.Progress[Game.Progress.currentRoomName][enteredCollider.name].dialog
     end
     return text
 end
@@ -226,9 +238,11 @@ function Game:takeInput(key)
     justPopped = false
     dialogBox:clearDialog()
     if self.enteredCollider then
-        local text = tostring(Game.Dialog[self.enteredCollider.name])
-        if text == "nil" then
-            --text = Game:getProgressText(self.enteredCollider)
+        local text = tostring(Game.GeneralDialog[self.enteredCollider.name])
+        if text == "nil" then --couldnt find general dialog, tries to find dialog inside 
+            text = Game:getProgressText(self.enteredCollider)
+        else
+            text = "I don't even know what that is."
         end
         dialogBox:pushDialog(text)
     end
@@ -280,15 +294,13 @@ function Game:Update(dt) -- could change isOpening/ isClosing directly from Game
     if self.enteredCollider then
         local RoomName = Game.Progress.currentRoomName
         local ObjectName = self.enteredCollider.name
-        self.flag = RoomName..ObjectName
         if Game.objectConditions[RoomName][ObjectName] ~= nil then
             Game.Progress[RoomName][ObjectName].isLocked = Game:evaluateConditions(RoomName, ObjectName)
             self.activeObject.object.isLocked = Game.Progress[RoomName][ObjectName].isLocked
-            self.flag = RoomName..ObjectName.."set"
         end
     end
     if self.activeObject then
-        if love.keyboard.isDown("o") or self.activeObject.object.isOpening then
+        if love.keyboard.isDown("o") or self.activeObject.object.isOpening then -- opens or closes activeObject
             self.activeObject.object:Open(dt)
         elseif love.keyboard.isDown("c") or self.activeObject.object.isClosing then
             self.activeObject.object:Close(dt)

@@ -56,10 +56,13 @@ local Buttons = {
     ["Load From Saved Game"] = textButton(
                     "Load From Saved Game",
                     function ()
-                        menu:MenuPop()
-                        gameObjects:loadGame("progress.save")
-                        stateStack:Push("background", "player")
-                        menu:MenuPush("midGame")
+                        if not gameObjects:loadGame("progress.save") then
+                            pushDialoginMenu({"No save file found."})
+                        else
+                            menu:MenuPop()
+                            stateStack:Push("background", "player")
+                            menu:MenuPush("midGame")
+                        end
                     end
                 )
     ,
@@ -79,7 +82,8 @@ local Buttons = {
                     "Credits",
                     function ()
                         creditsText = {
-                            "Spritesheets: By Laena Zimmerman, from https://opengameart.org/content/ tiny-16-basic under the creative commons license CC BY 3.0."
+                            "Spritesheets:",
+                            "By Laena Zimmerman, from https://opengameart.org/content/ tiny-16-basic under the creative commons license CC BY 3.0."
                         }
                         pushDialoginMenu(creditsText)
                     end

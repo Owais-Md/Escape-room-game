@@ -69,10 +69,8 @@ function dialog:PrintDialog()
         love.graphics.setFont(bigFont)
         love.graphics.push()
         love.graphics.scale(scale)
-        width = DialogBox.width
-        height = DialogBox.height
-        tilewidth = DialogBox.tilewidth
-        tileheight = DialogBox.tileheight
+        local tilewidth = DialogBox.tilewidth
+        local tileheight = DialogBox.tileheight
         for _, layer in ipairs(DialogBox.layers) do
             for y = 0, layer.height - 1 do
                 for x = 0, layer.width - 1 do
