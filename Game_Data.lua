@@ -169,9 +169,7 @@ local Game = {
         },
         ["Room 2"] = {
             ["text"] = {
-                isLocked = "The chest appears to be locked",
-                beginClosed = 'You can press "O" to open the chest and "C" to close the chest',
-                elsetext = "There appears to be a piece of paper inside the chest that reads: Nice"
+                elsetext = "Should'nt you be closing doors behind yourself? :)"
             },
             ["door"] = {
                 beginClosed = 'You can press "O" to open the door and "C" to close the door',
@@ -179,14 +177,17 @@ local Game = {
             }
         },
         ["Room 3"] = {
+            ["text"] = {
+                elsetext = "The levers are not necessarily the only things controlling whether a particular door or chest is open or not:)"
+            },
             ["orangeLever"] = {
                 isLocked = "The lever is not moving!",
                 beginClosed = 'You can press "O" to shift lever to right and "C" to move it back left',
-                elsetext = "I wonder what this lever did"
+                elsetext = "I wonder what this lever did.. The lever is colored orange.. Is that supposed to mean something?"
             },
             ["lockingDoor 1"] = {
                 isLocked = "The door appears to be locked",
-                beginClosed = 'You can press "O" to open the door and "C" to close the door',
+                beginClosed = 'It appears that the lever has unlocked this door. You can press "O" to open the door and "C" to close the door',
                 elsetext = "The door is open"
             }
         }
@@ -340,29 +341,27 @@ function Game:Update(dt) -- could change isOpening/ isClosing directly from Game
             self.activeObject.object:Close(dt)
         end
         local associatedDoor = Game.Progress[Game.Progress.currentRoomName][self.activeObject.name].associatedDoor
-        if self.activeObject.object.isClosed then -- finds associated Wall and then closes/opens it whenever touched
-            for _, movingWall in ipairs(self.movingWalls) do
-                if self.activeObject.name == movingWall.name then
-                    if movingWall.class ~= "Wall" then
-                        movingWall.collider:setCollisionClass('Wall')
-                        movingWall.class = "Wall"
+        for _, movingWall in ipairs(self.movingWalls) do
+            if self.activeObject.object.isClosed then -- finds associated Wall and then closes/opens it whenever touched
+                    if self.activeObject.name == movingWall.name then
+                        if movingWall.class ~= "Wall" then
+                            movingWall.collider:setCollisionClass('Wall')
+                            movingWall.class = "Wall"
+                        end
                     end
+                if associatedDoor then
+                    Game.Progress[associatedDoor.roomName][associatedDoor.doorName].beginClosed = true
                 end
-            end
-            if associatedDoor then
-                Game.Progress[associatedDoor.roomName][associatedDoor.doorName].beginClosed = true
-            end
-        else
-            for _, movingWall in ipairs(self.movingWalls) do
+            else
                 if self.activeObject.name == movingWall.name then
                     if movingWall.class ~= "Open Wall" then
                         movingWall.collider:setCollisionClass('Open Wall')
                         movingWall.class = "Open Wall"
                     end
                 end
-            end
-            if associatedDoor then
-                Game.Progress[associatedDoor.roomName][associatedDoor.doorName].beginClosed = false
+                if associatedDoor then
+                    Game.Progress[associatedDoor.roomName][associatedDoor.doorName].beginClosed = false
+                end
             end
         end
         Game.Progress[Game.Progress.currentRoomName][self.activeObject.name].isLocked = self.activeObject.object.isLocked
