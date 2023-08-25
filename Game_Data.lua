@@ -157,8 +157,12 @@ local Game = {
         ["Room 1"] = {
             ["chest"] = {
                 isLocked = "The chest appears to be locked",
-                isClosed = 'You can press "O" to open the chest and "C" to close the chest',
+                beginClosed = 'You can press "O" to open the chest and "C" to close the chest',
                 elsetext = "There appears to be a piece of paper inside the chest that reads: Nice"
+            },
+            ["door"] = {
+                beginClosed = 'You can press "O" to open the door and "C" to close the door',
+                elsetext = "The door is open"
             }
         }
     }
@@ -214,12 +218,16 @@ function Game:getProgressText(enteredCollider)
         local object = Game.Progress[Game.Progress.currentRoomName][enteredCollider.name]
         if object.isLocked then
             text = textTable.isLocked
+        elseif object.beginClosed then
+            text = textTable.beginClosed
+        else
+            text = textTable.elsetext
         end
     end
     return text
 end
 
-function Game:evaluateConditions(roomName, objectName)
+function Game:evaluateConditions(roomName, objectName) -- evaluates new condition for islocked, if the evaluation is false, the object will no longer be locked
     local evaluation = true
     if Game.objectConditions[roomName][objectName] ~= nil then
         for _, conditions in pairs(Game.objectConditions[roomName][objectName]) do
@@ -241,8 +249,6 @@ function Game:takeInput(key)
         local text = tostring(Game.GeneralDialog[self.enteredCollider.name])
         if text == "nil" then --couldnt find general dialog, tries to find dialog inside 
             text = Game:getProgressText(self.enteredCollider)
-        else
-            text = "I don't even know what that is."
         end
         dialogBox:pushDialog(text)
     end
@@ -336,6 +342,17 @@ function Game:Update(dt) -- could change isOpening/ isClosing directly from Game
     end
 end
 
+function Game:getMovingWallProperties(objName)
+    local Obj = Game.Progress[Game.Progress.currentRoomName][objName]
+    if Obj then
+        return {
+            beginClosed = Obj.beginClosed,
+            flipped_horizontal = Obj.flipped_horizontal,
+            flipped_vertical = Obj.flipped_vertical,
+            isLocked = Obj.isLocked
+        }
+    end
+end
 function Game:getObjectProperties(objName)
     local Obj = Game.Progress[Game.Progress.currentRoomName][objName]
     if Obj then
