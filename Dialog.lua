@@ -31,11 +31,6 @@ function dialog:UpdateLine(key)
     end
 end
 
-
-function dialog:load(inventory)
-    --need to make an inventory table too
-end
-
 function dialog:pushDialog(text)
     self.text = text or "nil"
     local counter = 0
@@ -65,7 +60,7 @@ function dialog:clearDialog()
 end
 
 function dialog:PrintDialog()
-    if stateStack:StateInStack("dialogBox") or stateStack:StateInStack("menuDialogBox") then
+    if stateStack:StateInStack("dialogBox") or stateStack:StateInStack("menuDialogBox") or stateStack:StateInStack("tutorial") then
         love.graphics.setFont(bigFont)
         love.graphics.push()
         love.graphics.scale(scale)

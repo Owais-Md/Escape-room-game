@@ -29,15 +29,28 @@ local Buttons = {
                     "New Game",
                     function ()
                         menu:MenuPop()
-                        stateStack:Push("background", "player") --, "tutorial") -- need to make a tutorial
                         menu:MenuPush("midGame")
+                        stateStack:Push("background", "player", "tutorial")
+                        local tutorialText = {
+                            "Game Controls Tutorial:",
+                            "Player: you can use WASD or arrow keys to move the player around.",
+                            "Menu: opened and closed with escape key, navigation with mouse or arrow keys or WASD, selection with Enter key.",
+                            "You can change your sprite from Menu->Settings",
+                            'DialogBox: Navigated using the arrow keys. exits with "x" or Enter key.',
+                            'You can go up to an object and press "x" or "Enter" to inspect the object, which will open a dialog box.',
+                            'This tutorial will pop-up everytime you start a new game.',
+                            'You can press "escape" to exit this tutorial.'
+                        }
+                        for _, line in ipairs(tutorialText) do
+                            dialogBox:pushDialog(line)
+                        end
                     end
                 )
     ,
     ["Settings"] = textButton(
                     "Settings",
                     function ()
-                        menu:MenuPush("Settings") -- need to make settings..
+                        menu:MenuPush("Settings")
                     end
                 )
     ,
@@ -69,10 +82,6 @@ local Buttons = {
     ["Change Sprite"] = textButton(
                     "Change Sprite",
                     function ()
-                        -- text = {
-                        --     "Wait for future updates :) !!"
-                        -- }
-                        -- pushDialoginMenu(text)
                         menu:MenuPush("Change Sprite")
                     end
                 )

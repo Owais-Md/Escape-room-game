@@ -77,6 +77,47 @@ local Game = {
             }
         }
     },
+    ProgressText = {
+        ["Room 1"] = {
+            ["chest"] = {
+                isLocked = "The chest appears to be locked",
+                beginClosed = 'You can press "O" to open the chest and "C" to close the chest',
+                elsetext = "There appears to be a piece of paper inside the chest that reads: Nice, you figured out how to open this chest!! Now forget about this chest, and pay closer attention to your surroundings, the next place you need to go is right in front of you!!"
+            },
+            ["door"] = {
+                beginClosed = 'You can press "O" to open the door and "C" to close the door',
+                elsetext = "The door is open"
+            },
+            ["wierdWall"] = {
+                beginClosed = "This wall appears to be different from the other wallls",
+                elsetext = "Whoa!! This wall appears transparent!! Could i walk through this?"
+            }
+        },
+        ["Room 2"] = {
+            ["text"] = {
+                elsetext = "Shouldn't you be closing doors behind yourself? :)"
+            },
+            ["door"] = {
+                beginClosed = 'You can press "O" to open the door and "C" to close the door',
+                elsetext = "The door is open"
+            }
+        },
+        ["Room 3"] = {
+            ["text"] = {
+                elsetext = "The levers are not necessarily the only things controlling whether a particular door or chest is open or not:)"
+            },
+            ["orangeLever"] = {
+                isLocked = "The lever is not moving!",
+                beginClosed = 'You can press "R" to shift lever to right and "L" to move it back left',
+                elsetext = "I wonder what this lever did.. The lever is colored orange.. Is that supposed to mean something?"
+            },
+            ["lockingDoor 1"] = {
+                isLocked = "The door appears to be locked",
+                beginClosed = 'It appears that the lever has unlocked this door. You can press "O" to open the door and "C" to close the door',
+                elsetext = "The door is open"
+            }
+        }
+    },
     Teleports = {
         ["Room 1"] = {
             ["Room 2 teleport"] = {
@@ -161,52 +202,10 @@ local Game = {
             orangeLever = nil
         }
     },
-    Settings = {},
     GeneralDialog = {
         wall = "The wall appears to be made of stone.",
         torch = "The torch is bright and warm.",
         fireplace = "The fireplace makes the room feel cozy. If not for this fireplace, the room would probably be pretty cold."
-    },
-    ProgressText = {
-        ["Room 1"] = {
-            ["chest"] = {
-                isLocked = "The chest appears to be locked",
-                beginClosed = 'You can press "O" to open the chest and "C" to close the chest',
-                elsetext = "There appears to be a piece of paper inside the chest that reads: Nice"
-            },
-            ["door"] = {
-                beginClosed = 'You can press "O" to open the door and "C" to close the door',
-                elsetext = "The door is open"
-            },
-            ["wierdWall"] = {
-                beginClosed = "This wall appears to be different from the other wallls",
-                elsetext = "Whoa!! This wall appears transparent!! Could i walk through this?"
-            }
-        },
-        ["Room 2"] = {
-            ["text"] = {
-                elsetext = "Shouldn't you be closing doors behind yourself? :)"
-            },
-            ["door"] = {
-                beginClosed = 'You can press "O" to open the door and "C" to close the door',
-                elsetext = "The door is open"
-            }
-        },
-        ["Room 3"] = {
-            ["text"] = {
-                elsetext = "The levers are not necessarily the only things controlling whether a particular door or chest is open or not:)"
-            },
-            ["orangeLever"] = {
-                isLocked = "The lever is not moving!",
-                beginClosed = 'You can press "R" to shift lever to right and "L" to move it back left',
-                elsetext = "I wonder what this lever did.. The lever is colored orange.. Is that supposed to mean something?"
-            },
-            ["lockingDoor 1"] = {
-                isLocked = "The door appears to be locked",
-                beginClosed = 'It appears that the lever has unlocked this door. You can press "O" to open the door and "C" to close the door',
-                elsetext = "The door is open"
-            }
-        }
     }
 }
 
@@ -286,49 +285,58 @@ function Game:evaluateConditions(roomName, objectName) -- evaluates new conditio
 end
 
 function Game:takeInput(key)
-    --dialogBox:load(inventory)
-    justPopped = false
-    dialogBox:clearDialog()
-    if self.enteredCollider then
-        local text = tostring(Game.GeneralDialog[self.enteredCollider.name])
-        if text == "nil" then --couldnt find general dialog, tries to find dialog inside 
-            text = Game:getProgressText(self.enteredCollider)
-        end
-        dialogBox:pushDialog(text)
-    end
-    if key == "x" or key == "return" then
-        if stateStack:Top() == "player" and #dialogBox.textTable > 0 then
-            stateStack:Push("dialogBox")
-        elseif stateStack:Top() == "dialogBox" then
-            dialogBox:clearDialog()
+    if stateStack:Top() == "tutorial" then
+        dialogBox:UpdateLine(key)
+        if key == "escape" then
             stateStack:Pop()
             dialogBox.currentLine = 1
-        elseif stateStack:Top() == "menuDialogBox" then
-            menu.dialogBox:clearDialog()
-            justPopped = true
-            stateStack:Pop()
-            menu.dialogBox.currentLine = 1
         end
-    end
-    if key == "escape" then
-        if not stateStack:StateInStack("menu") then
-            if menu:MenuEmpty() then
-                menu:MenuPush("midGame")
+    else
+        --dialogBox:load(inventory)
+        justPopped = false
+        dialogBox:clearDialog()
+        if self.enteredCollider then
+            local text = tostring(Game.GeneralDialog[self.enteredCollider.name])
+            if text == "nil" then --couldnt find general dialog, tries to find dialog inside 
+                text = Game:getProgressText(self.enteredCollider)
             end
-            stateStack:Push("menu")
-        elseif stateStack:Top() == "menu" and menu:MenuTop() ~= "startScreen" then
-            stateStack:Pop()
-            menu.warningGiven = false
+            dialogBox:pushDialog(text)
         end
-    end
-    if stateStack:Top() == "dialogBox" then
-        dialogBox:UpdateLine(key)
-    end
-    if stateStack:Top() == "menu" and not justPopped then
-        menu:takeInput(key)
-    end
-    if stateStack:Top() == "menuDialogBox" then
-        menu.dialogBox:UpdateLine(key)
+        if key == "x" or key == "return" then
+            if stateStack:Top() == "player" and #dialogBox.textTable > 0 then
+                stateStack:Push("dialogBox")
+            elseif stateStack:Top() == "dialogBox" then
+                dialogBox:clearDialog()
+                stateStack:Pop()
+                dialogBox.currentLine = 1
+            elseif stateStack:Top() == "menuDialogBox" then
+                menu.dialogBox:clearDialog()
+                justPopped = true
+                stateStack:Pop()
+                menu.dialogBox.currentLine = 1
+            end
+        end
+        if key == "escape" then
+            if not stateStack:StateInStack("menu") then
+                if menu:MenuEmpty() then
+                    menu:MenuPush("midGame")
+                end
+                stateStack:Push("menu")
+            elseif stateStack:Top() == "menu" and menu:MenuTop() ~= "startScreen" then
+                stateStack:Pop()
+                while menu:MenuPop() do end
+                menu.warningGiven = false
+            end
+        end
+        if stateStack:Top() == "dialogBox" then
+            dialogBox:UpdateLine(key)
+        end
+        if stateStack:Top() == "menu" and not justPopped then
+            menu:takeInput(key)
+        end
+        if stateStack:Top() == "menuDialogBox" then
+            menu.dialogBox:UpdateLine(key)
+        end
     end
 end
 
