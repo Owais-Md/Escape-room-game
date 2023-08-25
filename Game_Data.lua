@@ -47,10 +47,7 @@ local Game = {
                 }
             },
             wierdWall = {
-                beginClosed = true,
-                flipped_horizontal = nil,
-                flipped_vertical = nil,
-                isLocked = nil
+                beginClosed = true
             }
         },
         ["Room 2"] = {
@@ -153,7 +150,7 @@ local Game = {
             },
         }
     },
-    objectConditions = {
+    objectConditions = { -- if it is an interactable object, then the conditions are meant for isLocked, and if it is a movingWall, then the conditions are meant for beginClosed
         ["Room 1"] = {
             chest = {
                 lockingDoor = {

@@ -41,6 +41,30 @@ local quadsForAnimation = {
             {x = 4, y = 4},
             {x = 5, y = 4}
         }
+    },
+    {
+        name = "blueLever",
+        cuards = {
+            {x = 3, y = 5},
+            {x = 4, y = 5},
+            {x = 5, y = 5}
+        }
+    },
+    {
+        name = "redLever",
+        cuards = {
+            {x = 3, y = 6},
+            {x = 4, y = 6},
+            {x = 5, y = 6}
+        }
+    },
+    {
+        name = "greenLever",
+        cuards = {
+            {x = 3, y = 7},
+            {x = 4, y = 7},
+            {x = 5, y = 7}
+        }
     }
 }
 
