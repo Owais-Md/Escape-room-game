@@ -19,16 +19,16 @@
             "scale": 5.5,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 79.81818181818183,
-                "y": 55.81818181818183
+                "x": 79.63636363636364,
+                "y": 55.63636363636364
             }
         },
         "Menu Box.tmx": {
             "scale": 5.5,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 86.72727272727273,
-                "y": 52.909090909090914
+                "x": 86.54545454545453,
+                "y": 52.727272727272734
             }
         },
         "Menu.tmx": {
@@ -80,7 +80,7 @@
             "selectedLayer": 6,
             "viewCenter": {
                 "x": 79.45454545454547,
-                "y": 59.63636363636364
+                "y": 59.09090909090909
             }
         },
         "Room 2.tmx#basictiles": {
@@ -102,7 +102,7 @@
             "selectedLayer": 6,
             "viewCenter": {
                 "x": 79.45454545454547,
-                "y": 58.909090909090914
+                "y": 58.54545454545455
             }
         },
         "Room.tmx": {
@@ -161,10 +161,10 @@
     "property.type": "bool",
     "recentFiles": [
         "Room 3.tmx",
+        "Room 2.tmx",
         "Menu Box.tmx",
         "Dialog Box.tmx",
         "Room 1.tmx",
-        "Room 2.tmx",
         "things.tsx",
         "Room.tmx",
         "Menu.tmx",
