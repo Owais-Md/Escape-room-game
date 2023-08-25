@@ -34,15 +34,13 @@ local Game = {
                 beginClosed = true,
                 flipped_horizontal = false,
                 flipped_vertical = false,
-                isLocked = false,
-                objectConditions = nil,
+                isLocked = false
             },
             door = {
                 beginClosed = true,
                 flipped_horizontal = true,
                 flipped_vertical = false,
                 isLocked = false,
-                objectConditions = nil,
                 associatedDoor = {
                     roomName = "Room 2",
                     doorName = "door"
@@ -60,7 +58,6 @@ local Game = {
                 flipped_horizontal = true,
                 flipped_vertical = false,
                 isLocked = false,
-                objectConditions = nil,
                 associatedDoor = {
                     roomName = "Room 1",
                     doorName = "door"
@@ -72,23 +69,13 @@ local Game = {
                 beginClosed = true,
                 flipped_horizontal = true,
                 flipped_vertical = false,
-                isLocked = true,
-                objectConditions = {
-                    lever = {
-                        roomName = "Room 3",
-                        objectName = "orangeLever",
-                        fields = {
-                            ["beginClosed"] = false
-                        }
-                    }
-                }
+                isLocked = true
             },
             orangeLever = {
                 beginClosed = false,
                 flipped_horizontal = true,
                 flipped_vertical = false,
-                isLocked = false,
-                objectConditions = nil
+                isLocked = false
             }
         }
     },
@@ -122,6 +109,42 @@ local Game = {
                 y = nil,
                 looking = "left"
             },
+        }
+    },
+    objectConditions = {
+        ["Room 1"] = {
+            chest = {
+                lockingDoor = {
+                    roomName = "Room 3",
+                    objectName = "lockingDoor 1",
+                    fields = {
+                        ["beginClosed"] = false
+                    }
+                },
+                ["first door"] = {
+                    roomName = "Room 1",
+                    objectName = "door",
+                    fields = {
+                        ["beginClosed"] = true
+                    }
+                }
+            },
+            door = nil
+        },
+        ["Room 2"] = {
+            door = nil
+        },
+        ["Room 3"] = {
+            ["lockingDoor 1"] = {
+                lever = {
+                    roomName = "Room 3",
+                    objectName = "orangeLever",
+                    fields = {
+                        ["beginClosed"] = false
+                    }
+                }
+            },
+            orangeLever = nil
         }
     },
     Settings = {},
@@ -186,8 +209,8 @@ end
 
 function Game:evaluateConditions(roomName, objectName)
     local evaluation = true
-    if Game.Progress[roomName][objectName].objectConditions ~= nil then
-        for _, conditions in pairs(Game.Progress[roomName][objectName].objectConditions) do
+    if Game.objectConditions[roomName][objectName] ~= nil then
+        for _, conditions in pairs(Game.objectConditions[roomName][objectName]) do
             for field, value in pairs(conditions.fields) do
                 evaluation = evaluation and (Game.Progress[conditions.roomName][conditions.objectName][field] == value)
             end
@@ -258,7 +281,7 @@ function Game:Update(dt) -- could change isOpening/ isClosing directly from Game
         local RoomName = Game.Progress.currentRoomName
         local ObjectName = self.enteredCollider.name
         self.flag = RoomName..ObjectName
-        if Game.Progress[RoomName][ObjectName] and Game.Progress[RoomName][ObjectName].objectConditions ~= nil then
+        if Game.objectConditions[RoomName][ObjectName] ~= nil then
             Game.Progress[RoomName][ObjectName].isLocked = Game:evaluateConditions(RoomName, ObjectName)
             self.activeObject.object.isLocked = Game.Progress[RoomName][ObjectName].isLocked
             self.flag = RoomName..ObjectName.."set"
