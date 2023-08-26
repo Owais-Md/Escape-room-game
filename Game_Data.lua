@@ -123,6 +123,44 @@ local Game = {
                 flipped_vertical = false,
                 isLocked = false
             }
+        },
+        ["Hidden Room"] = {
+            ["chest 1"] = {
+                beginClosed = false,
+                flipped_horizontal = false,
+                flipped_vertical = false,
+                isLocked = false
+            },
+            ["chest 2"] = {
+                beginClosed = true,
+                flipped_horizontal = false,
+                flipped_vertical = false,
+                isLocked = true
+            },
+            ["redLever"] = {
+                beginClosed = true,
+                flipped_horizontal = false,
+                flipped_vertical = false,
+                isLocked = false
+            },
+            ["greenLever"] = {
+                beginClosed = true,
+                flipped_horizontal = false,
+                flipped_vertical = false,
+                isLocked = false
+            },
+            ["blueLever"] = {
+                beginClosed = true,
+                flipped_horizontal = false,
+                flipped_vertical = false,
+                isLocked = false
+            },
+            ["orangeLever"] = {
+                beginClosed = true,
+                flipped_horizontal = false,
+                flipped_vertical = false,
+                isLocked = false
+            }
         }
     },
     associatedDoors = {
@@ -170,7 +208,7 @@ local Game = {
         },
         ["Room 2"] = {
             ["text"] = {
-                elsetext = "Tip: Shouldn't you be closing doors behind yourself? :)"
+                elsetext = "Tip: There are different colored torches.. What is their purpose other than lighting the room?"
             },
             ["door"] = {
                 beginClosed = 'You can press "O" to open the door and "C" to close the door.',
@@ -194,7 +232,7 @@ local Game = {
         },
         ["Room 4"] = {
             ["text 1"] = {
-                elsetext = "Let the light guide the way.. But what is it that 3 levers can do that a single one can't? And why are these levers colored? Is that supposed to mean something?"
+                elsetext = "Let the light guide the way.. But what is it that 3 levers can do that a single one can't?"
             },
             ["redLever 1"] = {
                 isLocked = '"R" to move lever right and "L" to move it left',
@@ -254,6 +292,33 @@ local Game = {
                 beginClosed = '"O" to open and "C" to close the door',
                 elsetext = "The door is open."
             }
+        },
+        ["Hidden Room"] = {
+            ["redLever"] = {
+                isLocked = '"R" to move lever right and "L" to move it left',
+                beginClosed = '"R" to move lever right and "L" to move it left',
+                elsetext = '"R" to move lever right and "L" to move it left'
+            },
+            ["greenLever"] = {
+                isLocked = '"R" to move lever right and "L" to move it left',
+                beginClosed = '"R" to move lever right and "L" to move it left',
+                elsetext = '"R" to move lever right and "L" to move it left'
+            },
+            ["blueLever"] = {
+                isLocked = '"R" to move lever right and "L" to move it left',
+                beginClosed = '"R" to move lever right and "L" to move it left',
+                elsetext = '"R" to move lever right and "L" to move it left'
+            },
+            ["orangeLever"] = {
+                isLocked = '"R" to move lever right and "L" to move it left',
+                beginClosed = '"R" to move lever right and "L" to move it left',
+                elsetext = '"R" to move lever right and "L" to move it left'
+            },
+            ["chest 2"] = {
+                isLocked = "Locked",
+                beginClosed = 'Unlocked',
+                elsetext = 'hmm'
+            }
         }
     },
     Teleports = {
@@ -267,7 +332,7 @@ local Game = {
             ["Hidden Room teleport"] = {
                 currentRoomName = "Hidden Room",
                 x = 4*(5*16),
-                y = 6*(5*16),
+                y = 5*(5*16),
                 looking = "left"
             }
         },
@@ -353,6 +418,14 @@ local Game = {
                 x = 1*(5*16),
                 y = 1*(5*16),
                 looking = "up"
+            }
+        },
+        ["Hidden Room"] = {
+            ["Room 1 teleport"] = {
+                currentRoomName = "Room 1",
+                x = 1.25*(5*16),
+                y = 2*(5*16),
+                looking = "right"
             }
         }
     },
@@ -460,6 +533,9 @@ local Game = {
         },
         ["Room 7"] = {
             ["lockingDoor"] = nil
+        },
+        ["Hidden Room"] = {
+            ["chest 2"] = nil
         }
     },
     GeneralDialog = {

@@ -24,11 +24,16 @@
             }
         },
         "Hidden Room.tmx": {
+            "expandedObjectLayers": [
+                6,
+                4,
+                7
+            ],
             "scale": 5.5,
-            "selectedLayer": 1,
+            "selectedLayer": 5,
             "viewCenter": {
-                "x": 67.81818181818183,
-                "y": 64
+                "x": 75.0909090909091,
+                "y": 51.45454545454546
             }
         },
         "Menu Box.tmx": {
@@ -65,8 +70,8 @@
             "scale": 5.5,
             "selectedLayer": 4,
             "viewCenter": {
-                "x": 78.18181818181819,
-                "y": 52.727272727272734
+                "x": 78.00000000000001,
+                "y": 11.63636363636364
             }
         },
         "Room 1.tmx#basictiles": {
@@ -107,7 +112,7 @@
                 8
             ],
             "scale": 5.5,
-            "selectedLayer": 1,
+            "selectedLayer": 4,
             "viewCenter": {
                 "x": 78.00000000000001,
                 "y": 56.18181818181819
@@ -121,7 +126,7 @@
                 8
             ],
             "scale": 5.5,
-            "selectedLayer": 6,
+            "selectedLayer": 5,
             "viewCenter": {
                 "x": 47.63636363636363,
                 "y": 57.09090909090909
@@ -149,7 +154,7 @@
                 8
             ],
             "scale": 5.5,
-            "selectedLayer": 0,
+            "selectedLayer": 5,
             "viewCenter": {
                 "x": 72.90909090909092,
                 "y": 46.54545454545455
