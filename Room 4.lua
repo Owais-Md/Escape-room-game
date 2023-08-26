@@ -10,7 +10,7 @@ return {
   tilewidth = 16,
   tileheight = 16,
   nextlayerid = 9,
-  nextobjectid = 61,
+  nextobjectid = 72,
   properties = {},
   tilesets = {
     {
@@ -49,7 +49,7 @@ return {
         1, 74, 74, 74, 74, 74, 74, 74, 74, 74,
         1, 74, 74, 74, 74, 1, 1, 1, 1, 1,
         1, 74, 74, 74, 74, 1, 23, 23, 23, 23,
-        1, 74, 74, 74, 74, 1, 23, 23, 23, 23,
+        1, 1, 1, 18, 1, 1, 23, 23, 23, 23,
         1, 74, 74, 74, 74, 1, 23, 23, 23, 23
       }
     },
@@ -103,7 +103,7 @@ return {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 68, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0
       }
     },
@@ -211,6 +211,58 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
+        },
+        {
+          id = 61,
+          name = "",
+          type = "wall",
+          shape = "rectangle",
+          x = 16,
+          y = 80,
+          width = 28,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 62,
+          name = "",
+          type = "wall",
+          shape = "rectangle",
+          x = 68,
+          y = 80,
+          width = 12,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 63,
+          name = "",
+          type = "wall",
+          shape = "rectangle",
+          x = 44,
+          y = 84,
+          width = 4,
+          height = 8,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 64,
+          name = "",
+          type = "wall",
+          shape = "rectangle",
+          x = 64,
+          y = 84,
+          width = 4,
+          height = 8,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     },
@@ -261,6 +313,19 @@ return {
           shape = "rectangle",
           x = 64,
           y = 16,
+          width = 16,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 65,
+          name = "lockingDoor",
+          type = "draw",
+          shape = "rectangle",
+          x = 48,
+          y = 80,
           width = 16,
           height = 16,
           rotation = 0,
@@ -376,7 +441,7 @@ return {
         },
         {
           id = 46,
-          name = "text",
+          name = "text 1",
           type = "detect",
           shape = "rectangle",
           x = 112,
@@ -425,6 +490,71 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
+        },
+        {
+          id = 66,
+          name = "text 2",
+          type = "detect",
+          shape = "rectangle",
+          x = 16,
+          y = 84,
+          width = 16,
+          height = 12,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 67,
+          name = "wall",
+          type = "detect",
+          shape = "rectangle",
+          x = 16,
+          y = 80,
+          width = 16,
+          height = 4,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 68,
+          name = "wall",
+          type = "detect",
+          shape = "rectangle",
+          x = 32,
+          y = 80,
+          width = 12,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 69,
+          name = "wall",
+          type = "detect",
+          shape = "rectangle",
+          x = 68,
+          y = 80,
+          width = 12,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 70,
+          name = "lockingDoor",
+          type = "detect",
+          shape = "rectangle",
+          x = 44,
+          y = 80,
+          width = 24,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     },
@@ -441,7 +571,23 @@ return {
       parallaxx = 1,
       parallaxy = 1,
       properties = {},
-      objects = {}
+      objects = {
+        {
+          id = 71,
+          name = "lockingDoor",
+          type = "movingWall",
+          shape = "rectangle",
+          x = 48,
+          y = 84,
+          width = 16,
+          height = 8,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["Door-open"] = false
+          }
+        }
+      }
     }
   }
 }

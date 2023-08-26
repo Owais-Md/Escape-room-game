@@ -86,6 +86,12 @@ local Game = {
                 flipped_horizontal = false,
                 flipped_vertical = false,
                 isLocked = false
+            },
+            ["lockingDoor"] = {
+                beginClosed = true,
+                flipped_horizontal = true,
+                flipped_vertical = false,
+                isLocked = true
             }
         },
         ["Room 5"] = {
@@ -121,6 +127,12 @@ local Game = {
                 roomName = "Room 5",
                 doorName = "lockingDoor 1"
             }
+        },
+        ["Room 5"] = {
+            ["lockingDoor 1"] = {
+                roomName = "Room 3",
+                doorName = "lockingDoor"
+            }
         }
     },
     ProgressText = {
@@ -128,20 +140,21 @@ local Game = {
             ["chest"] = {
                 isLocked = "The chest appears to be locked.",
                 beginClosed = 'You can press "O" to open the chest and "C" to close the chest.',
-                elsetext = "There appears to be a piece of paper inside the chest that reads: Nice, you figured out how to open this chest!! Now forget about this chest, and pay closer attention to your surroundings, the next place you need to go is right in front of you!!."
+                elsetext = "There appears to be a piece of paper inside the chest that reads: Nice, you figured out how to open this chest!! Now forget about this chest, To GO AHEAD, you must first GO LEFT"
             },
             ["door"] = {
+                isLocked = "Did opening the chest somehow lock this door...?",
                 beginClosed = 'You can press "O" to open the door and "C" to close the door.',
                 elsetext = "The door is open."
             },
             ["wierdWall"] = {
-                beginClosed = "This wall appears to be different from the other wallls.",
-                elsetext = "Whoa!! This wall appears transparent!! Could i walk through this.?"
+                beginClosed = "This wall looks like any other wall.",
+                elsetext = "Whoa!! This wall appears transparent!! Could i walk through this...?"
             }
         },
         ["Room 2"] = {
             ["text"] = {
-                elsetext = "Shouldn't you be closing doors behind yourself? :)"
+                elsetext = "Tip: Shouldn't you be closing doors behind yourself? :)"
             },
             ["door"] = {
                 beginClosed = 'You can press "O" to open the door and "C" to close the door.',
@@ -150,12 +163,12 @@ local Game = {
         },
         ["Room 3"] = {
             ["text"] = {
-                elsetext = "The levers are not necessarily the only things controlling whether a particular door or chest is open or not:)"
+                elsetext = "Tip: The levers are not necessarily the only things controlling whether a particular object is locked or not"
             },
             ["orangeLever"] = {
                 isLocked = "The lever is not moving!",
                 beginClosed = 'You can press "R" to shift lever to right and "L" to move it back left.',
-                elsetext = "I wonder what this lever did.. The lever is colored orange.. Is that supposed to mean something.?"
+                elsetext = "I wonder what this lever did... did it unlock the door in this room??"
             },
             lockingDoor = {
                 isLocked = "The door appears to be locked.",
@@ -164,8 +177,8 @@ local Game = {
             }
         },
         ["Room 4"] = {
-            ["text"] = {
-                elsetext = "Let the light guide the way.. But what is it that 3 levers can do that a single one can't?"
+            ["text 1"] = {
+                elsetext = "Let the light guide the way.. But what is it that 3 levers can do that a single one can't? And why are these levers colored? Is that supposed to mean something?"
             },
             ["redLever 1"] = {
                 isLocked = '"R" to move lever right and "L" to move it left',
@@ -181,11 +194,16 @@ local Game = {
                 isLocked = '"R" to move lever right and "L" to move it left',
                 beginClosed = '"R" to move lever right and "L" to move it left',
                 elsetext = '"R" to move lever right and "L" to move it left'
+            },
+            lockingDoor = {
+                isLocked = "The door appears to be locked.",
+                beginClosed = 'Press "O" to open the door and "C" to close it.',
+                elsetext = "The door is open."
             }
         },
         ["Room 5"] = {
             ["text"] = {
-                elsetext = "Look closely.. you'll find the correct lever.."
+                elsetext = "Tip: Search every corner and every edge.. you'll know where to go"
             },
             ["lockingDoor 1"] = {
                 isLocked = "The door appears to be locked.",
@@ -284,7 +302,15 @@ local Game = {
                     }
                 }
             },
-            door = nil,
+            door = {
+                chest = {
+                    roomName = "Room 1",
+                    objectName = "chest",
+                    fields = {
+                        ["beginClosed"] = true
+                    }
+                }
+            },
             wierdWall = {
                 chest = {
                     roomName = "Room 1",
@@ -317,7 +343,29 @@ local Game = {
         },
         ["Room 5"] = {
             ["lockingDoor 1"] = nil,
-            ["lockingDoor 2"] = nil
+            ["lockingDoor 2"] = {
+                ["redLever 1"] = {
+                    roomName = "Room 4",
+                    objectName = "redLever 1",
+                    fields = {
+                        ["beginClosed"] = true
+                    }
+                },
+                ["redLever 2"] = {
+                    roomName = "Room 4",
+                    objectName = "redLever 2",
+                    fields = {
+                        ["beginClosed"] = false
+                    }
+                },
+                ["redLever 3"] = {
+                    roomName = "Room 4",
+                    objectName = "redLever 3",
+                    fields = {
+                        ["beginClosed"] = false
+                    }
+                }
+            },
         }
     },
     GeneralDialog = {

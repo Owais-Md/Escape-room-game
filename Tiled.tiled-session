@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "Room 3.tmx",
+    "activeFile": "Room 5.tmx",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -50,15 +50,15 @@
         "Room 1.tmx": {
             "expandedObjectLayers": [
                 6,
-                9,
+                2,
                 7,
-                2
+                9
             ],
             "scale": 5.5,
             "selectedLayer": 5,
             "viewCenter": {
-                "x": 78.54545454545455,
-                "y": 53.09090909090909
+                "x": 80.00000000000001,
+                "y": 56.00000000000001
             }
         },
         "Room 1.tmx#basictiles": {
@@ -71,16 +71,16 @@
         },
         "Room 2.tmx": {
             "expandedObjectLayers": [
+                3,
                 6,
                 9,
-                3,
                 8
             ],
             "scale": 5.5,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 84.00000000000001,
-                "y": 58.18181818181819
+                "x": 80.00000000000001,
+                "y": 56.00000000000001
             }
         },
         "Room 2.tmx#basictiles": {
@@ -93,30 +93,30 @@
         },
         "Room 3.tmx": {
             "expandedObjectLayers": [
-                5,
                 6,
+                5,
                 7,
                 8
             ],
             "scale": 5.5,
-            "selectedLayer": 6,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 78.36363636363636,
-                "y": 56.54545454545455
+                "x": 80.00000000000001,
+                "y": 56.00000000000001
             }
         },
         "Room 4.tmx": {
             "expandedObjectLayers": [
-                5,
                 6,
+                5,
                 7,
                 8
             ],
             "scale": 5.5,
-            "selectedLayer": 6,
+            "selectedLayer": 5,
             "viewCenter": {
-                "x": 48.000000000000014,
-                "y": 57.63636363636364
+                "x": 80.00000000000001,
+                "y": 56.00000000000001
             }
         },
         "Room 5.tmx": {
@@ -127,7 +127,7 @@
                 8
             ],
             "scale": 5.5,
-            "selectedLayer": 5,
+            "selectedLayer": 3,
             "viewCenter": {
                 "x": 79.45454545454545,
                 "y": 51.27272727272728
@@ -137,8 +137,8 @@
             "scale": 6.522767857142857,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 79.72075833276298,
-                "y": 55.804530832934084
+                "x": 80.02737663404284,
+                "y": 56.111149134213946
             }
         },
         "Room.tmx": {
@@ -187,23 +187,24 @@
     "map.tileWidth": 16,
     "map.width": 10,
     "openFiles": [
-        "Menu Box.tmx",
-        "Dialog Box.tmx",
         "Room 1.tmx",
+        "Room 6.tmx",
+        "Room 4.tmx",
         "Room 2.tmx",
-        "Room 3.tmx"
+        "Room 3.tmx",
+        "Room 5.tmx"
     ],
     "project": "Tiled.tiled-project",
     "property.type": "bool",
     "recentFiles": [
-        "Menu Box.tmx",
-        "Dialog Box.tmx",
         "Room 1.tmx",
+        "Room 6.tmx",
+        "Room 4.tmx",
         "Room 2.tmx",
         "Room 3.tmx",
-        "Room 6.tmx",
         "Room 5.tmx",
-        "Room 4.tmx",
+        "Menu Box.tmx",
+        "Dialog Box.tmx",
         "things.tsx",
         "Room.tmx",
         "Menu.tmx",
