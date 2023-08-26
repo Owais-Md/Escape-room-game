@@ -33,24 +33,31 @@ end
 
 function dialog:pushDialog(text)
     self.text = text or "nil"
-    local counter = 0
-    local newline = ""
-    for word in self.text:gmatch("%S+") do
-        if #word + counter < letterlimit then
-            if newline == "" then
-                newline = word
-            else
-                newline = newline .." ".. word
-            end
-            counter = counter + #word
-        else
-            counter = #word
-            table.insert(self.textTable, newline)
-            newline = word
-        end
+    self.textTable = {}
+    local lines = {}
+    for line in self.text:gmatch("[^\n]+") do
+        table.insert(lines, line)
     end
-    if counter ~= 0 then
-        table.insert(self.textTable, newline)
+    for _, line in ipairs(lines) do
+        local counter = 0
+        local newline = ""
+        for word in line:gmatch("%S+") do
+            if #word + counter < letterlimit then
+                if newline == "" then
+                    newline = word
+                else
+                    newline = newline .. " " .. word
+                end
+                counter = counter + #word
+            else
+                counter = #word
+                table.insert(self.textTable, newline)
+                newline = word
+            end
+        end
+        if counter ~= 0 then
+            table.insert(self.textTable, newline)
+        end
     end
 end
 
