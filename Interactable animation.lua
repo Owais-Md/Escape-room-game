@@ -126,7 +126,7 @@ function Animation:Open(dt)
 end
 
 function Animation:Close(dt)
-    if self.isClosed == false then
+    if self.isClosed == false and not self.isLocked then
         self.isClosing = true
         if self.frame ~= 0 then
             self.timer = self.timer - dt*self.animationSpeed

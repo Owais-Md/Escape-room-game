@@ -380,7 +380,16 @@ local Game = {
         ["Room 4"] = {
             ["redLever 1"] = nil,
             ["redLever 2"] = nil,
-            ["redLever 3"] = nil
+            ["redLever 3"] = nil,
+            lockingDoor = {
+                ["redLever 1"] = {
+                    roomName = "Room 4",
+                    objectName = "redLever 1",
+                    fields = {
+                        ["beginClosed"] = true
+                    }
+                }
+            }
         },
         ["Room 5"] = {
             ["lockingDoor 1"] = nil,
