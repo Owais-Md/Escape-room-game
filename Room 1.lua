@@ -10,7 +10,7 @@ return {
   tilewidth = 16,
   tileheight = 16,
   nextlayerid = 11,
-  nextobjectid = 60,
+  nextobjectid = 61,
   properties = {},
   tilesets = {
     {
@@ -339,7 +339,7 @@ return {
       id = 6,
       name = "Collision Regions",
       class = "",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -430,9 +430,9 @@ return {
           name = "Room 2 teleport",
           type = "detect",
           shape = "rectangle",
-          x = 96,
+          x = 92,
           y = -4,
-          width = 16,
+          width = 24,
           height = 4,
           rotation = 0,
           visible = true,
@@ -554,6 +554,19 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
+        },
+        {
+          id = 60,
+          name = "Hidden Room teleport",
+          type = "detect",
+          shape = "rectangle",
+          x = -4,
+          y = 28,
+          width = 4,
+          height = 20,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     },
@@ -563,7 +576,7 @@ return {
       id = 9,
       name = "Moving Walls",
       class = "",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,

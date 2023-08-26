@@ -156,7 +156,7 @@ local Game = {
             ["chest"] = {
                 isLocked = "The chest appears to be locked.",
                 beginClosed = 'You can press "O" to open the chest and "C" to close the chest.',
-                elsetext = "There appears to be a piece of paper inside the chest that reads: Nice, you figured out how to open this chest!! Now forget about this chest, To GO AHEAD, you must GO LEFT"
+                elsetext = "There appears to be a piece of paper inside the chest that reads: Nice, you figured out how to open this chest!!To GO AHEAD, you must GO LEFT"
             },
             ["door"] = {
                 isLocked = "Did opening the chest somehow lock this door...?",
@@ -263,6 +263,12 @@ local Game = {
                 x = 6*(5*16),
                 y = 5.75*(5*16),
                 looking = "up"
+            },
+            ["Hidden Room teleport"] = {
+                currentRoomName = "Hidden Room",
+                x = 4*(5*16),
+                y = 6*(5*16),
+                looking = "left"
             }
         },
         ["Room 2"] = {

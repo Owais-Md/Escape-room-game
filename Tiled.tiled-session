@@ -23,6 +23,14 @@
                 "y": 55.45454545454546
             }
         },
+        "Hidden Room.tmx": {
+            "scale": 5.5,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 67.81818181818183,
+                "y": 64
+            }
+        },
         "Menu Box.tmx": {
             "scale": 5.5,
             "selectedLayer": 1,
