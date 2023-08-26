@@ -60,7 +60,7 @@ return {
       width = 10,
       height = 7,
       id = 2,
-      name = "Torch Animation",
+      name = "Animations",
       class = "",
       visible = true,
       opacity = 1,

@@ -55,7 +55,7 @@
                 2
             ],
             "scale": 5.5,
-            "selectedLayer": 0,
+            "selectedLayer": 5,
             "viewCenter": {
                 "x": 78.54545454545455,
                 "y": 53.09090909090909
@@ -77,7 +77,7 @@
                 8
             ],
             "scale": 5.5,
-            "selectedLayer": 0,
+            "selectedLayer": 2,
             "viewCenter": {
                 "x": 84.00000000000001,
                 "y": 58.18181818181819
@@ -99,10 +99,10 @@
                 8
             ],
             "scale": 5.5,
-            "selectedLayer": 1,
+            "selectedLayer": 6,
             "viewCenter": {
-                "x": 78.54545454545455,
-                "y": 58.00000000000001
+                "x": 78.36363636363636,
+                "y": 56.54545454545455
             }
         },
         "Room 4.tmx": {
@@ -113,10 +113,32 @@
                 8
             ],
             "scale": 5.5,
-            "selectedLayer": 5,
+            "selectedLayer": 6,
             "viewCenter": {
                 "x": 48.000000000000014,
                 "y": 57.63636363636364
+            }
+        },
+        "Room 5.tmx": {
+            "expandedObjectLayers": [
+                6,
+                9,
+                3,
+                8
+            ],
+            "scale": 5.5,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 79.45454545454545,
+                "y": 51.27272727272728
+            }
+        },
+        "Room 6.tmx": {
+            "scale": 6.522767857142857,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 79.72075833276298,
+                "y": 55.804530832934084
             }
         },
         "Room.tmx": {
@@ -176,16 +198,16 @@
     "recentFiles": [
         "Menu Box.tmx",
         "Dialog Box.tmx",
-        "Room 4.tmx",
-        "Room 3.tmx",
-        "Room 2.tmx",
         "Room 1.tmx",
+        "Room 2.tmx",
+        "Room 3.tmx",
+        "Room 6.tmx",
+        "Room 5.tmx",
+        "Room 4.tmx",
         "things.tsx",
         "Room.tmx",
         "Menu.tmx",
-        "Option Box.tmx",
-        "basictiles.tsx",
-        "characters.tsx"
+        "Option Box.tmx"
     ],
     "tileset.embedInMap": false,
     "tileset.lastUsedFormat": "tsx",

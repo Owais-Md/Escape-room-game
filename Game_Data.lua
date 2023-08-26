@@ -40,11 +40,7 @@ local Game = {
                 beginClosed = true,
                 flipped_horizontal = true,
                 flipped_vertical = false,
-                isLocked = false,
-                associatedDoor = {
-                    roomName = "Room 2",
-                    doorName = "door"
-                }
+                isLocked = false
             },
             wierdWall = {
                 beginClosed = true
@@ -55,15 +51,11 @@ local Game = {
                 beginClosed = true,
                 flipped_horizontal = true,
                 flipped_vertical = false,
-                isLocked = false,
-                associatedDoor = {
-                    roomName = "Room 1",
-                    doorName = "door"
-                }
+                isLocked = false
             }
         },
         ["Room 3"] = {
-            ["lockingDoor 1"] = {
+            lockingDoor = {
                 beginClosed = true,
                 flipped_horizontal = true,
                 flipped_vertical = false,
@@ -94,12 +86,40 @@ local Game = {
                 flipped_horizontal = false,
                 flipped_vertical = false,
                 isLocked = false
-            },
-            ["redLever 4"] = {
+            }
+        },
+        ["Room 5"] = {
+            ["lockingDoor 1"] = {
                 beginClosed = true,
-                flipped_horizontal = false,
+                flipped_horizontal = true,
                 flipped_vertical = false,
                 isLocked = false
+            },
+            ["lockingDoor 2"] = {
+                beginClosed = true,
+                flipped_horizontal = true,
+                flipped_vertical = false,
+                isLocked = true
+            }
+        }
+    },
+    associatedDoors = {
+        ["Room 1"] = {
+            door = {
+                roomName = "Room 2",
+                doorName = "door"
+            }
+        },
+        ["Room 2"] = {
+            door = {
+                roomName = "Room 1",
+                doorName = "door"
+            }
+        },
+        ["Room 3"] = {
+            lockingDoor = {
+                roomName = "Room 5",
+                doorName = "lockingDoor 1"
             }
         }
     },
@@ -137,7 +157,7 @@ local Game = {
                 beginClosed = 'You can press "R" to shift lever to right and "L" to move it back left.',
                 elsetext = "I wonder what this lever did.. The lever is colored orange.. Is that supposed to mean something.?"
             },
-            ["lockingDoor 1"] = {
+            lockingDoor = {
                 isLocked = "The door appears to be locked.",
                 beginClosed = 'It appears that the lever has unlocked this door. You can press "O" to open the door and "C" to close the door.',
                 elsetext = "The door is open."
@@ -161,6 +181,21 @@ local Game = {
                 isLocked = '"R" to move lever right and "L" to move it left',
                 beginClosed = '"R" to move lever right and "L" to move it left',
                 elsetext = '"R" to move lever right and "L" to move it left'
+            }
+        },
+        ["Room 5"] = {
+            ["text"] = {
+                elsetext = "Look closely.. you'll find the correct lever.."
+            },
+            ["lockingDoor 1"] = {
+                isLocked = "The door appears to be locked.",
+                beginClosed = '"O" to open and "C" to close the door',
+                elsetext = "The door is open."
+            },
+            ["lockingDoor 2"] = {
+                isLocked = "The door appears to be locked.",
+                beginClosed = '"O" to open and "C" to close the door',
+                elsetext = "The door is open."
             }
         }
     },
@@ -200,12 +235,26 @@ local Game = {
                 y = nil,
                 looking = "left"
             },
+            ["Room 5 teleport"] = {
+                currentRoomName = "Room 5",
+                x = nil,
+                y = 0.25*(5*16),
+                looking = "down"
+            }
         },
         ["Room 4"] = {
             ["Room 2 teleport"] = {
                 currentRoomName = "Room 2",
                 x = 0.25*(5*16),
                 y = nil,
+                looking = "right"
+            }
+        },
+        ["Room 5"] = {
+            ["Room 3 teleport"] = {
+                currentRoomName = "Room 3",
+                x = nil,
+                y = 5.25*(5*16),
                 looking = "right"
             },
         }
@@ -215,7 +264,7 @@ local Game = {
             chest = {
                 lockingDoor = {
                     roomName = "Room 3",
-                    objectName = "lockingDoor 1",
+                    objectName = "lockingDoor",
                     fields = {
                         ["beginClosed"] = true
                     }
@@ -250,7 +299,7 @@ local Game = {
             door = nil
         },
         ["Room 3"] = {
-            ["lockingDoor 1"] = {
+            lockingDoor = {
                 lever = {
                     roomName = "Room 3",
                     objectName = "orangeLever",
@@ -265,6 +314,10 @@ local Game = {
             ["redLever 1"] = nil,
             ["redLever 2"] = nil,
             ["redLever 3"] = nil
+        },
+        ["Room 5"] = {
+            ["lockingDoor 1"] = nil,
+            ["lockingDoor 2"] = nil
         }
     },
     GeneralDialog = {
@@ -465,7 +518,10 @@ function Game:Update(dt) -- could change isOpening/ isClosing directly from Game
         elseif (not string.find(self.activeObject.name, "Lever") and love.keyboard.isDown("c")) or (string.find(self.activeObject.name, "Lever") and love.keyboard.isDown("l")) or self.activeObject.object.isClosing then
             self.activeObject.object:Close(dt)
         end
-        local associatedDoor = Game.Progress[RoomName][self.activeObject.name].associatedDoor
+        local associatedDoor
+        if Game.associatedDoors[RoomName] and Game.associatedDoors[RoomName][self.activeObject.name] then
+            associatedDoor = Game.associatedDoors[RoomName][self.activeObject.name]
+        end
         if associatedDoor then
             Game.Progress[associatedDoor.roomName][associatedDoor.doorName].beginClosed = self.activeObject.object.isClosed
         end
