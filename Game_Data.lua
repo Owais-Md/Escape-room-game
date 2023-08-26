@@ -22,7 +22,7 @@ local justPopped
 
 local Game = {
     Progress = {
-        currentRoomName = "Room 1",
+        currentRoomName = "Room 6",
         player = {
             character = "Boy",
             x = nil,
@@ -196,17 +196,16 @@ local Game = {
                 beginClosed = 'You can press "O" to open the chest and "C" to close the chest.',
                 elsetext = [[There appears to be a piece of paper inside the chest that reads:
                 "Nice, you figured out how to open this chest!!"
-                To GO AHEAD, you must GO LEFT!!
-                ]]
+                To GO AHEAD, you must GO LEFT!!]]
             },
             ["door"] = {
                 isLocked = "Did opening the chest somehow lock this door...?",
-                beginClosed = 'You can press "O" to open the door and "C" to close the door.',
+                beginClosed = 'Press "O" to open the door and "C" to close the door.',
                 elsetext = "The door is open."
             },
             ["wierdWall"] = {
                 beginClosed = "This wall looks like any other wall.",
-                elsetext = "Whoa!! This wall looks like it just blurred out!! Could i walk through this...?"
+                elsetext = "Whoa!! This wall looks like it just blurred out!! Could I walk through this...?"
             }
         },
         ["Room 2"] = {
@@ -260,10 +259,14 @@ local Game = {
         },
         ["Room 5"] = {
             ["text 1"] = {
-                elsetext = "Tip: Search every corner and every edge.. you'll know where to go"
+                elsetext = "Tip: Search every corner and every edge.. you'll know where to go."
             },
             ["text 2"] = {
-                elsetext = "On the floor above, from the green tile, follow the footsteps of that brave king's bright knight clad in white on whose queen was showered gold. BEWARE! IF YOU STRAY FROM THE PATH, YOU WILL BE SENT BACK HERE!!    Tip: try moving forward first and then to the sides."
+                elsetext = [[On the floor above, from the green tile,
+                follow the footsteps of that brave king's bright knight clad in white on whose queen was showered gold.
+                BEWARE!!
+                IF YOU STRAY FROM THE PATH, YOU WILL BE SENT BACK HERE!!
+                Tip: try moving forward first and then to the sides.]]
             },
             ["lockingDoor 1"] = {
                 isLocked = "The door appears to be locked.",
@@ -281,7 +284,9 @@ local Game = {
         },
         ["Room 6"] = {
             ["text"] = {
-                elsetext = "Yay!! This is the last door! Unlock it and walk through, and you have won the game!!"
+                elsetext = [[Yay!!
+                This is the last door!!
+                When you unlock it and walk through, you will have won the game!!]]
             },
             ["lockingDoor"] = {
                 isLocked = "The door appears to be locked.",
