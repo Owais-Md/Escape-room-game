@@ -79,8 +79,8 @@
             "scale": 5.5,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 80.00000000000001,
-                "y": 56.00000000000001
+                "x": 84.00000000000001,
+                "y": 57.81818181818183
             }
         },
         "Room 2.tmx#basictiles": {
@@ -101,8 +101,8 @@
             "scale": 5.5,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 80.00000000000001,
-                "y": 56.00000000000001
+                "x": 78.00000000000001,
+                "y": 56.18181818181819
             }
         },
         "Room 4.tmx": {
@@ -115,30 +115,44 @@
             "scale": 5.5,
             "selectedLayer": 5,
             "viewCenter": {
-                "x": 80.00000000000001,
-                "y": 56.00000000000001
+                "x": 47.81818181818183,
+                "y": 57.27272727272728
             }
         },
         "Room 5.tmx": {
             "expandedObjectLayers": [
+                3,
                 6,
                 9,
-                3,
                 8
             ],
             "scale": 5.5,
-            "selectedLayer": 3,
+            "selectedLayer": 4,
             "viewCenter": {
-                "x": 79.45454545454545,
-                "y": 51.27272727272728
+                "x": 69.45454545454545,
+                "y": 62.727272727272734
             }
         },
         "Room 6.tmx": {
             "scale": 6.522767857142857,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 80.02737663404284,
-                "y": 56.111149134213946
+                "x": 79.26083088084319,
+                "y": 72.20860995140647
+            }
+        },
+        "Room 7.tmx": {
+            "expandedObjectLayers": [
+                3,
+                4,
+                9,
+                8
+            ],
+            "scale": 5.5,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 80.90909090909092,
+                "y": 47.27272727272728
             }
         },
         "Room.tmx": {
@@ -153,6 +167,17 @@
             "viewCenter": {
                 "x": 79.84203717573365,
                 "y": 53.53305644447472
+            }
+        },
+        "Stairs Walls.tmx": {
+            "expandedObjectLayers": [
+                2
+            ],
+            "scale": 5.5,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 6,
+                "y": 67.81818181818183
             }
         },
         "Tileset.tmx": {
@@ -197,12 +222,12 @@
     "project": "Tiled.tiled-project",
     "property.type": "bool",
     "recentFiles": [
+        "Room 5.tmx",
         "Room 1.tmx",
         "Room 6.tmx",
         "Room 4.tmx",
         "Room 2.tmx",
         "Room 3.tmx",
-        "Room 5.tmx",
         "Menu Box.tmx",
         "Dialog Box.tmx",
         "things.tsx",

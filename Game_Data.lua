@@ -6,7 +6,7 @@
 
 love.graphics.setDefaultFilter("nearest","nearest")
 love.mouse.setVisible(false)
-bigFont = love.graphics.newFont(32)
+bigFont = love.graphics.newFont(30)
 smallFont = love.graphics.newFont(16)
 
 local TableIO = require "TableIO"
@@ -107,6 +107,14 @@ local Game = {
                 flipped_vertical = false,
                 isLocked = true
             }
+        },
+        ["Room 7"] = {
+            ["lockingDoor"] = {
+                beginClosed = true,
+                flipped_horizontal = true,
+                flipped_vertical = false,
+                isLocked = false
+            }
         }
     },
     associatedDoors = {
@@ -202,8 +210,11 @@ local Game = {
             }
         },
         ["Room 5"] = {
-            ["text"] = {
+            ["text 1"] = {
                 elsetext = "Tip: Search every corner and every edge.. you'll know where to go"
+            },
+            ["text 2"] = {
+                elsetext = "On the floor above, from the green tile, follow the footsteps of that brave king's bright knight clad in white on whose queen was showered gold. BEWARE! IF YOU STRAY FROM THE PATH, YOU WILL BE SENT BACK HERE!!    Tip: try moving forward first and then to the sides."
             },
             ["lockingDoor 1"] = {
                 isLocked = "The door appears to be locked.",
@@ -211,6 +222,16 @@ local Game = {
                 elsetext = "The door is open."
             },
             ["lockingDoor 2"] = {
+                isLocked = "The door appears to be locked.",
+                beginClosed = '"O" to open and "C" to close the door',
+                elsetext = "The door is open."
+            },
+            ["stairs"] = {
+                elsetext = "The stairs are made of polished stone."
+            }
+        },
+        ["Room 7"] = {
+            ["lockingDoor"] = {
                 isLocked = "The door appears to be locked.",
                 beginClosed = '"O" to open and "C" to close the door',
                 elsetext = "The door is open."
@@ -275,6 +296,26 @@ local Game = {
                 y = 5.25*(5*16),
                 looking = "right"
             },
+            ["Room 7 teleport"] = {
+                currentRoomName = "Room 7",
+                x = 6*(5*16),
+                y = 6*(5*16),
+                looking = "left"
+            }
+        },
+        ["Room 7"] = {
+            ["Room 5 Stair teleport"] = {
+                currentRoomName = "Room 5",
+                x = 3*(5*16),
+                y = 2*(5*16),
+                looking = "right"
+            },
+            ["Room 5 Drop teleport"] = {
+                currentRoomName = "Room 5",
+                x = 1*(5*16),
+                y = 1*(5*16),
+                looking = "up"
+            }
         }
     },
     objectConditions = { -- if it is an interactable object, then the conditions are meant for isLocked, and if it is a movingWall, then the conditions are meant for beginClosed
@@ -366,6 +407,9 @@ local Game = {
                     }
                 }
             },
+        },
+        ["Room 7"] = {
+            ["lockingDoor"] = nil
         }
     },
     GeneralDialog = {
@@ -374,8 +418,6 @@ local Game = {
         fireplace = "The fireplace makes the room feel cozy. If not for this fireplace, the room would probably be pretty cold."
     }
 }
-
---TableIO.dump(Game.Settings, "settings")
 
 function Game:saveGame(savefilename)
     self.Progress.player.character = player.character
@@ -513,7 +555,7 @@ function Game:Update(dt) -- could change isOpening/ isClosing directly from Game
         Game.Progress.currentRoomName = teleport_details.currentRoomName
         Game.Progress.player.x = teleport_details.x or player.x
         Game.Progress.player.y = teleport_details.y or player.y
-        Game.Progress.player.looking = teleport_details.looking
+        Game.Progress.player.looking = teleport_details.looking or player.looking
         Game:reloadGame()
     end
     if self.activeObject then
@@ -540,7 +582,7 @@ function Game:Update(dt) -- could change isOpening/ isClosing directly from Game
                     end
                 end
             end
-        else -- working on non associated walls
+        else -- unassociated walls
             if self.enteredCollider and self.enteredCollider.name == movingWall.name then
                 if Game.Progress[RoomName][movingWall.name] then
                     local evaluation = Game:evaluateConditions(RoomName, movingWall.name)
