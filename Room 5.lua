@@ -72,7 +72,7 @@ return {
       encoding = "lua",
       data = {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 193, 0, 205, 0, 0, 205, 0,
+        0, 0, 0, 193, 0, 193, 0, 0, 193, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -113,7 +113,7 @@ return {
       id = 6,
       name = "Game Walls",
       class = "",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,

@@ -108,6 +108,14 @@ local Game = {
                 isLocked = true
             }
         },
+        ["Room 6"] = {
+            ["lockingDoor"] = {
+                beginClosed = true,
+                flipped_horizontal = true,
+                flipped_vertical = false,
+                isLocked = false
+            }
+        },
         ["Room 7"] = {
             ["lockingDoor"] = {
                 beginClosed = true,
@@ -148,7 +156,7 @@ local Game = {
             ["chest"] = {
                 isLocked = "The chest appears to be locked.",
                 beginClosed = 'You can press "O" to open the chest and "C" to close the chest.',
-                elsetext = "There appears to be a piece of paper inside the chest that reads: Nice, you figured out how to open this chest!! Now forget about this chest, To GO AHEAD, you must first GO LEFT"
+                elsetext = "There appears to be a piece of paper inside the chest that reads: Nice, you figured out how to open this chest!! Now forget about this chest, To GO AHEAD, you must GO LEFT"
             },
             ["door"] = {
                 isLocked = "Did opening the chest somehow lock this door...?",
@@ -157,7 +165,7 @@ local Game = {
             },
             ["wierdWall"] = {
                 beginClosed = "This wall looks like any other wall.",
-                elsetext = "Whoa!! This wall appears transparent!! Could i walk through this...?"
+                elsetext = "Whoa!! This wall looks like it just blurred out!! Could i walk through this...?"
             }
         },
         ["Room 2"] = {
@@ -230,6 +238,16 @@ local Game = {
                 elsetext = "The stairs are made of polished stone."
             }
         },
+        ["Room 6"] = {
+            ["text"] = {
+                elsetext = "Yay!! This is the last door! Unlock it and walk through, and you have won the game!!"
+            },
+            ["lockingDoor"] = {
+                isLocked = "The door appears to be locked.",
+                beginClosed = '"O" to open and "C" to close the door',
+                elsetext = "The door is open."
+            }
+        },
         ["Room 7"] = {
             ["lockingDoor"] = {
                 isLocked = "The door appears to be locked.",
@@ -243,7 +261,7 @@ local Game = {
             ["Room 2 teleport"] = {
                 currentRoomName = "Room 2",
                 x = 6*(5*16),
-                y = 5.25*(5*16),
+                y = 5.75*(5*16),
                 looking = "up"
             }
         },
@@ -287,13 +305,19 @@ local Game = {
                 x = 0.25*(5*16),
                 y = nil,
                 looking = "right"
+            },
+            ["Room 6 teleport"] = {
+                currentRoomName = "Room 6",
+                x = nil,
+                y = 0.25*(5*16),
+                looking = "down"
             }
         },
         ["Room 5"] = {
             ["Room 3 teleport"] = {
                 currentRoomName = "Room 3",
                 x = nil,
-                y = 5.25*(5*16),
+                y = 5.75*(5*16),
                 looking = "right"
             },
             ["Room 7 teleport"] = {
@@ -301,6 +325,14 @@ local Game = {
                 x = 6*(5*16),
                 y = 6*(5*16),
                 looking = "left"
+            }
+        },
+        ["Room 6"] = {
+            ["Room 4 teleport"] = {
+                currentRoomName = "Room 4",
+                x = nil,
+                y = 5.75*(5*16),
+                looking = "up"
             }
         },
         ["Room 7"] = {
@@ -416,6 +448,9 @@ local Game = {
                     }
                 }
             },
+        },
+        ["Room 6"] = {
+            ["lockingDoor"] = nil
         },
         ["Room 7"] = {
             ["lockingDoor"] = nil
