@@ -10,7 +10,7 @@ return {
   tilewidth = 16,
   tileheight = 16,
   nextlayerid = 10,
-  nextobjectid = 55,
+  nextobjectid = 56,
   properties = {},
   tilesets = {
     {
@@ -342,7 +342,7 @@ return {
       id = 8,
       name = "Draw",
       class = "",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -544,6 +544,19 @@ return {
           y = 0,
           width = 16,
           height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 55,
+          name = "Room 8 teleport",
+          type = "detect",
+          shape = "rectangle",
+          x = 64,
+          y = -4,
+          width = 16,
+          height = 4,
           rotation = 0,
           visible = true,
           properties = {}

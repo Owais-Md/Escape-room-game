@@ -22,7 +22,7 @@ local justPopped
 
 local Game = {
     Progress = {
-        currentRoomName = "Room 6",
+        currentRoomName = "Room 1",
         player = {
             character = "Boy",
             x = nil,
@@ -425,6 +425,12 @@ local Game = {
                 currentRoomName = "Room 5",
                 x = 1*(5*16),
                 y = 1*(5*16),
+                looking = "up"
+            },
+            ["Room 8 teleport"] = {
+                currentRoomName = "Room 8",
+                x = nil,
+                y = 5.75*(5*16),
                 looking = "up"
             }
         },
