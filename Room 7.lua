@@ -450,9 +450,9 @@ return {
           type = "detect",
           shape = "rectangle",
           x = 65,
-          y = 33,
+          y = 36,
           width = 16,
-          height = 9,
+          height = 6,
           rotation = 0,
           visible = true,
           properties = {}

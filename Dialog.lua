@@ -24,9 +24,9 @@ function dialog:getDialogBox()
 end
 
 function dialog:UpdateLine(key)
-    if key == "down" and #self.textTable>2 then
+    if (key == "down" or key == "s") and #self.textTable>2 then
         self.currentLine = math.min(self.currentLine + 1, #self.textTable - 1)
-    elseif love.keyboard.isDown("up") then
+    elseif (key == "up" or key == "w") then
         self.currentLine = math.max(self.currentLine - 1, 1)
     end
 end

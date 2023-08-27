@@ -233,12 +233,12 @@ local Game = {
         ["Room 1"] = {
             ["chest"] = {
                 isLocked = "The chest appears to be locked.",
-                beginClosed = 'You can press "O" to open the chest and "C" to close the chest.',
+                beginClosed = 'You can press "p" to open the chest and "o" to close the chest.',
                 elsetext = [[There appears to be a piece of paper inside the chest that reads:
                 "Nice, you figured out how to open this chest!!"]]
             },
             ["door"] = {
-                beginClosed = 'Press "O" to open the door and "C" to close the door.',
+                beginClosed = 'Press "p" to open the door and "o" to close the door.',
                 elsetext = "The door is open."
             },
             ["wierdWall"] = {
@@ -251,7 +251,7 @@ local Game = {
                 elsetext = "Tip: There are different colored torches.. What is their purpose other than lighting the rooms?"
             },
             ["door"] = {
-                beginClosed = 'You can press "O" to open the door and "C" to close the door.',
+                beginClosed = 'You can press "p" to open the door and "o" to close the door.',
                 elsetext = "The door is open."
             }
         },
@@ -262,12 +262,12 @@ local Game = {
             },
             ["greenLever"] = {
                 isLocked = "The lever is not moving!",
-                beginClosed = 'You can press "R" to shift lever to right and "L" to move it back left.',
+                beginClosed = 'You can press "p" to shift lever to right and "o" to move it back left.',
                 elsetext = "I wonder what this lever did... did it unlock the door in this room??"
             },
             lockingDoor = {
                 isLocked = "The door appears to be locked.",
-                beginClosed = 'It appears that the lever has unlocked this door. You can press "O" to open the door and "C" to close the door.',
+                beginClosed = 'It appears that the lever has unlocked this door. You can press "p" to open the door and "o" to close the door.',
                 elsetext = "The door is open."
             }
         },
@@ -276,27 +276,27 @@ local Game = {
                 elsetext = "Let the light guide the way.. But what is it that 3 levers can do that a single one can't?"
             },
             ["redLever 1"] = {
-                isLocked = '"R" to move lever right and "L" to move it left',
-                beginClosed = '"R" to move lever right and "L" to move it left',
-                elsetext = '"R" to move lever right and "L" to move it left'
+                isLocked = '"p" to move lever right and "o" to move it left',
+                beginClosed = '"p" to move lever right and "o" to move it left',
+                elsetext = '"p" to move lever right and "o" to move it left'
             },
             ["redLever 2"] = {
-                isLocked = '"R" to move lever right and "L" to move it left',
-                beginClosed = '"R" to move lever right and "L" to move it left',
-                elsetext = '"R" to move lever right and "L" to move it left'
+                isLocked = '"p" to move lever right and "o" to move it left',
+                beginClosed = '"p" to move lever right and "o" to move it left',
+                elsetext = '"p" to move lever right and "o" to move it left'
             },
             ["redLever 3"] = {
-                isLocked = '"R" to move lever right and "L" to move it left',
-                beginClosed = '"R" to move lever right and "L" to move it left',
-                elsetext = '"R" to move lever right and "L" to move it left'
+                isLocked = '"p" to move lever right and "o" to move it left',
+                beginClosed = '"p" to move lever right and "o" to move it left',
+                elsetext = '"p" to move lever right and "o" to move it left'
             },
             ["lockingDoor"] = {
                 isLocked = "The door appears to be locked.",
-                beginClosed = 'Press "O" to open the door and "C" to close it.',
+                beginClosed = 'Press "p" to open the door and "o" to close it.',
                 elsetext = "The door is open."
             },
             ["chest"] = {
-                beginClosed = 'Press "O" to open the door and "C" to close.',
+                beginClosed = 'Press "p" to open the door and "o" to close.',
                 elsetext = [[There is a paper that reads:
                 "The room ahead has the final door.
                 To find the levers that unlock it, you must first find the levers :)
@@ -315,17 +315,17 @@ local Game = {
             ["chest"] = {
                 isLocked = [[switch 5 unlocks the chest and switch 3 unlocks the door!!
                 Even with the right switching, the door here doesn't open if the chest is closed:)]],
-                beginClosed = 'You can press "O" to open the chest and "C" to close the chest.',
+                beginClosed = 'You can press "p" to open the chest and "o" to close the chest.',
                 elsetext = "switch 3 unlocks the door!!"
             },
             ["lockingDoor 1"] = {
                 isLocked = "The door appears to be locked.",
-                beginClosed = '"O" to open and "C" to close the door',
+                beginClosed = '"p" to open and "o" to close the door',
                 elsetext = "The door is open."
             },
             ["lockingDoor 2"] = {
                 isLocked = "The door appears to be locked.",
-                beginClosed = '"O" to open and "C" to close the door',
+                beginClosed = '"p" to open and "o" to close the door',
                 elsetext = "The door is open."
             },
             ["stairs"] = {
@@ -340,54 +340,54 @@ local Game = {
             },
             ["lockingDoor"] = {
                 isLocked = "The door appears to be locked.",
-                beginClosed = '"O" to open and "C" to close the door',
+                beginClosed = '"p" to open and "o" to close the door',
                 elsetext = "The door is open."
             }
         },
         ["Room 7"] = {
             ["door"] = {
                 isLocked = "The door appears to be locked.",
-                beginClosed = '"O" to open and "C" to close the door',
+                beginClosed = '"p" to open and "o" to close the door',
                 elsetext = "The door is open."
             }
         },
         ["Room 8"] = {
             ["chest"] = {
                 isLocked = "This chest unlocks itself and the green lever here when the other green lever is off.",
-                beginClosed = 'You can press "O" to open the chest and "C" to close the chest.',
+                beginClosed = 'You can press "p" to open the chest and "o" to close the chest.',
                 elsetext = [[There appears to be a piece of paper inside the chest that reads:
                 "If you get thrown from this floor, the green switch here turns back"]]
             },
             ["door"] = {
-                beginClosed = 'You can press "O" to open the door and "C" to close the door.',
+                beginClosed = 'You can press "p" to open the door and "o" to close the door.',
                 elsetext = "The door is open."
             },
             ["greenLever"] = {
                 isLocked = "The lever is not moving",
-                beginClosed = '"R" to move lever right and "L" to move it left',
-                elsetext = '"R" to move lever right and "L" to move it left'
+                beginClosed = '"p" to move lever right and "o" to move it left',
+                elsetext = '"p" to move lever right and "o" to move it left'
             }
         },
         ["Hidden Room"] = {
             ["redLever"] = {
-                isLocked = '"R" to move lever right and "L" to move it left',
-                beginClosed = '"R" to move lever right and "L" to move it left',
-                elsetext = '"R" to move lever right and "L" to move it left'
+                isLocked = '"p" to move lever right and "o" to move it left',
+                beginClosed = '"p" to move lever right and "o" to move it left',
+                elsetext = '"p" to move lever right and "o" to move it left'
             },
             ["greenLever"] = {
-                isLocked = '"R" to move lever right and "L" to move it left',
-                beginClosed = '"R" to move lever right and "L" to move it left',
-                elsetext = '"R" to move lever right and "L" to move it left'
+                isLocked = '"p" to move lever right and "o" to move it left',
+                beginClosed = '"p" to move lever right and "o" to move it left',
+                elsetext = '"p" to move lever right and "o" to move it left'
             },
             ["blueLever"] = {
-                isLocked = '"R" to move lever right and "L" to move it left',
-                beginClosed = '"R" to move lever right and "L" to move it left',
-                elsetext = '"R" to move lever right and "L" to move it left'
+                isLocked = '"p" to move lever right and "o" to move it left',
+                beginClosed = '"p" to move lever right and "o" to move it left',
+                elsetext = '"p" to move lever right and "o" to move it left'
             },
             ["orangeLever"] = {
-                isLocked = '"R" to move lever right and "L" to move it left',
-                beginClosed = '"R" to move lever right and "L" to move it left',
-                elsetext = '"R" to move lever right and "L" to move it left'
+                isLocked = '"p" to move lever right and "o" to move it left',
+                beginClosed = '"p" to move lever right and "o" to move it left',
+                elsetext = '"p" to move lever right and "o" to move it left'
             },
             ["chest 2"] = {
                 beginClosed = "The chest is not locked",
@@ -853,7 +853,7 @@ function Game:takeInput(key)
             end
             dialogBox:pushDialog(text)
         end
-        if key == "x" or key == "return" then
+        if key == "return" then
             if stateStack:Top() == "player" and #dialogBox.textTable > 0 then
                 stateStack:Push("dialogBox")
             elseif stateStack:Top() == "dialogBox" then
@@ -873,7 +873,7 @@ function Game:takeInput(key)
                     menu:MenuPush("midGame")
                 end
                 stateStack:Push("menu")
-            elseif stateStack:Top() == "menu" and menu:MenuTop() ~= "startScreen" then
+            elseif stateStack:Top() == "menu" and (menu:MenuTop() ~= "startScreen" and menu:MenuTop() ~= "GameWon") then
                 stateStack:Pop()
                 while menu:MenuPop() do end
                 menu.warningGiven = false
@@ -908,6 +908,9 @@ function Game:Update(dt) -- could change isOpening/ isClosing directly from Game
     local RoomName = Game.Progress.currentRoomName
     if self.enteredCollider and self.enteredCollider.name == "Room 5 Drop teleport" then
         Game.Progress["Room 8"]["greenLever"].beginClosed = true
+    end
+    if self.enteredCollider and self.enteredCollider.name == "Hidden Room teleport" then
+        Game.Progress["Hidden Room"]["chest 1"].beginClosed = Game.Progress["Room 1"]["chest"].beginClosed
     end
     if self.enteredCollider and self.enteredCollider.name == "Game Won" then
         Game.GameWon()
@@ -965,10 +968,12 @@ function Game:Update(dt) -- could change isOpening/ isClosing directly from Game
         end
     end
     if self.activeObject then
-        if (not string.find(self.activeObject.name, "Lever") and love.keyboard.isDown("o")) or (string.find(self.activeObject.name, "Lever") and love.keyboard.isDown("r")) or self.activeObject.object.isOpening then -- opens or closes activeObject
-            self.activeObject.object:Open(dt)
-        elseif (not string.find(self.activeObject.name, "Lever") and love.keyboard.isDown("c")) or (string.find(self.activeObject.name, "Lever") and love.keyboard.isDown("l")) or self.activeObject.object.isClosing then
-            self.activeObject.object:Close(dt)
+        if stateStack:Top() ~= "dialogBox" and stateStack:Top() ~= "menuDialogBox" then
+            if love.keyboard.isDown("p") or self.activeObject.object.isOpening then -- opens or closes activeObject
+                self.activeObject.object:Open(dt)
+            elseif love.keyboard.isDown("o") or self.activeObject.object.isClosing then
+                self.activeObject.object:Close(dt)
+            end
         end
         local associatedDoor
         if Game.associatedDoors[RoomName] and Game.associatedDoors[RoomName][self.activeObject.name] then

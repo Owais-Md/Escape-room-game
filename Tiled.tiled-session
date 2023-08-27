@@ -25,9 +25,9 @@
         },
         "Hidden Room.tmx": {
             "expandedObjectLayers": [
+                4,
                 7,
-                6,
-                4
+                6
             ],
             "scale": 5.5,
             "selectedLayer": 5,
@@ -62,16 +62,16 @@
         },
         "Room 1.tmx": {
             "expandedObjectLayers": [
-                7,
-                6,
                 9,
-                2
+                2,
+                7,
+                6
             ],
             "scale": 5.5,
             "selectedLayer": 5,
             "viewCenter": {
-                "x": 78.00000000000001,
-                "y": 51.27272727272728
+                "x": 80.00000000000001,
+                "y": 56.00000000000001
             }
         },
         "Room 1.tmx#basictiles": {
@@ -84,16 +84,16 @@
         },
         "Room 2.tmx": {
             "expandedObjectLayers": [
-                6,
-                3,
+                9,
                 8,
-                9
+                3,
+                6
             ],
             "scale": 5.5,
             "selectedLayer": 6,
             "viewCenter": {
-                "x": 84.00000000000001,
-                "y": 57.63636363636364
+                "x": 80.00000000000001,
+                "y": 56.00000000000001
             }
         },
         "Room 2.tmx#basictiles": {
@@ -106,69 +106,69 @@
         },
         "Room 3.tmx": {
             "expandedObjectLayers": [
-                7,
-                6,
                 5,
-                8
-            ],
-            "scale": 5.5,
-            "selectedLayer": 6,
-            "viewCenter": {
-                "x": 78.00000000000001,
-                "y": 55.81818181818183
-            }
-        },
-        "Room 4.tmx": {
-            "expandedObjectLayers": [
+                8,
                 7,
-                6,
-                5,
-                8
+                6
             ],
             "scale": 5.5,
             "selectedLayer": 6,
             "viewCenter": {
                 "x": 80.00000000000001,
-                "y": 56.54545454545455
+                "y": 56.00000000000001
+            }
+        },
+        "Room 4.tmx": {
+            "expandedObjectLayers": [
+                5,
+                8,
+                7,
+                6
+            ],
+            "scale": 5.5,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 80.00000000000001,
+                "y": 56.00000000000001
             }
         },
         "Room 5.tmx": {
             "expandedObjectLayers": [
-                6,
-                3,
+                9,
                 8,
-                9
+                3,
+                6
             ],
             "scale": 5.5,
             "selectedLayer": 6,
             "viewCenter": {
-                "x": 69.0909090909091,
-                "y": 62.00000000000001
+                "x": 80.00000000000001,
+                "y": 56.00000000000001
             }
         },
         "Room 6.tmx": {
             "expandedObjectLayers": [
-                7,
-                6,
                 5,
-                8
+                8,
+                7,
+                6
             ],
             "scale": 5.5,
             "selectedLayer": 6,
             "viewCenter": {
-                "x": 72.90909090909092,
-                "y": 66.18181818181819
+                "x": 80.00000000000001,
+                "y": 56.00000000000001
             }
         },
         "Room 7.tmx": {
             "expandedObjectLayers": [
-                3,
+                9,
                 4,
                 8,
-                9
+                3
             ],
             "scale": 5.5,
-            "selectedLayer": 4,
+            "selectedLayer": 3,
             "viewCenter": {
                 "x": 80.90909090909092,
                 "y": 46.727272727272734
@@ -176,10 +176,10 @@
         },
         "Room 8.tmx": {
             "expandedObjectLayers": [
-                6,
-                3,
+                5,
                 4,
-                5
+                3,
+                6
             ],
             "scale": 5.5,
             "selectedLayer": 5,
@@ -209,8 +209,8 @@
             "scale": 4,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 63.25,
-                "y": 44.75
+                "x": 80,
+                "y": 56
             }
         },
         "Tileset.tmx": {

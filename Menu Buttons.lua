@@ -29,14 +29,15 @@ local Buttons = {
                         menu:MenuPush("midGame")
                         stateStack:Push("background", "player", "tutorial")
                         dialogBox:pushDialog([[
-                            Player: you can use arrow keys or WASD to move the player around.
-                            Menu: opened and closed with escape key, navigation with mouse or arrow keys or WASD, selection with Enter key or mouseclick.
+                            All movement with arrow keys or WASD.
+                            DialogBox: Exits with Enter key.
+                            Player: Arrow keys or WASD to move player.
+                            Menu: Open/Close with escape key, Enter to select, or you could use mouse.
+                            Objects: Press Enter to interact.
                             You can change your sprite from Menu->Settings.
-                            DialogBox: Navigated using the arrow keys. exits with "x" or Enter key.
-                            You can go up to an object and press "x" or "Enter" to inspect the object, which will open a dialog box.
                             The objective of this game is to exit this house? building? or whatever this is..
                             This tutorial will pop-up everytime you start a new game.
-                            You can press "escape" to exit this tutorial.
+                            You can press "escape" to exit this tutorial. (All dialog boxes after this exit with Enter)
                         ]])
                     end
                 )
