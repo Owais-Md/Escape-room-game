@@ -10,7 +10,7 @@ return {
   tilewidth = 16,
   tileheight = 16,
   nextlayerid = 10,
-  nextobjectid = 81,
+  nextobjectid = 83,
   properties = {},
   tilesets = {
     {
@@ -237,6 +237,19 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
+        },
+        {
+          id = 82,
+          name = "",
+          type = "wall",
+          shape = "rectangle",
+          x = 92,
+          y = 116,
+          width = 24,
+          height = 4,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     },
@@ -246,7 +259,7 @@ return {
       id = 6,
       name = "Draw",
       class = "",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -421,6 +434,19 @@ return {
           x = 16,
           y = -4,
           width = 64,
+          height = 4,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 81,
+          name = "Game Won",
+          type = "detect",
+          shape = "rectangle",
+          x = 92,
+          y = 116,
+          width = 24,
           height = 4,
           rotation = 0,
           visible = true,

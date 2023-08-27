@@ -10,7 +10,7 @@ return {
   tilewidth = 16,
   tileheight = 16,
   nextlayerid = 8,
-  nextobjectid = 51,
+  nextobjectid = 53,
   properties = {},
   tilesets = {
     {
@@ -311,7 +311,7 @@ return {
       id = 6,
       name = "Draw",
       class = "",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -565,6 +565,32 @@ return {
           y = 80,
           width = 8,
           height = 8,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 51,
+          name = "wierdWall",
+          type = "detect",
+          shape = "rectangle",
+          x = 80,
+          y = 76,
+          width = 16,
+          height = 20,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 52,
+          name = "wall",
+          type = "detect",
+          shape = "rectangle",
+          x = 80,
+          y = 64,
+          width = 16,
+          height = 12,
           rotation = 0,
           visible = true,
           properties = {}

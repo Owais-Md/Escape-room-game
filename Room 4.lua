@@ -10,7 +10,7 @@ return {
   tilewidth = 16,
   tileheight = 16,
   nextlayerid = 9,
-  nextobjectid = 72,
+  nextobjectid = 75,
   properties = {},
   tilesets = {
     {
@@ -101,7 +101,7 @@ return {
         0, 0, 0, 0, 0, 0, 0, 68, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 68, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0
@@ -263,6 +263,19 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
+        },
+        {
+          id = 72,
+          name = "",
+          type = "wall",
+          shape = "rectangle",
+          x = 20,
+          y = 68,
+          width = 8,
+          height = 8,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     },
@@ -272,7 +285,7 @@ return {
       id = 6,
       name = "Draw",
       class = "",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -326,6 +339,19 @@ return {
           shape = "rectangle",
           x = 48,
           y = 48,
+          width = 16,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 73,
+          name = "chest",
+          type = "draw",
+          shape = "rectangle",
+          x = 16,
+          y = 64,
           width = 16,
           height = 16,
           rotation = 0,
@@ -441,7 +467,7 @@ return {
         },
         {
           id = 46,
-          name = "text 1",
+          name = "text",
           type = "detect",
           shape = "rectangle",
           x = 112,
@@ -492,39 +518,13 @@ return {
           properties = {}
         },
         {
-          id = 66,
-          name = "text 2",
-          type = "detect",
-          shape = "rectangle",
-          x = 16,
-          y = 52,
-          width = 16,
-          height = 12,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 67,
-          name = "wall",
-          type = "detect",
-          shape = "rectangle",
-          x = 16,
-          y = 48,
-          width = 16,
-          height = 4,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
           id = 68,
           name = "wall",
           type = "detect",
           shape = "rectangle",
-          x = 32,
+          x = 16,
           y = 48,
-          width = 12,
+          width = 28,
           height = 16,
           rotation = 0,
           visible = true,
@@ -551,6 +551,19 @@ return {
           x = 44,
           y = 48,
           width = 24,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 74,
+          name = "chest",
+          type = "detect",
+          shape = "rectangle",
+          x = 16,
+          y = 64,
+          width = 16,
           height = 16,
           rotation = 0,
           visible = true,

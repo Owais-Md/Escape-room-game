@@ -342,7 +342,7 @@ return {
       id = 8,
       name = "Draw",
       class = "",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -352,7 +352,7 @@ return {
       objects = {
         {
           id = 51,
-          name = "lockingDoor",
+          name = "door",
           type = "draw",
           shape = "rectangle",
           x = 64,
@@ -537,7 +537,7 @@ return {
         },
         {
           id = 52,
-          name = "lockingDoor",
+          name = "door",
           type = "detect",
           shape = "rectangle",
           x = 64,
@@ -579,13 +579,13 @@ return {
       objects = {
         {
           id = 54,
-          name = "lockingDoor",
+          name = "door",
           type = "movingWall",
           shape = "rectangle",
           x = 64,
           y = 0,
           width = 16,
-          height = 12,
+          height = 8,
           rotation = 0,
           visible = true,
           properties = {}

@@ -6,7 +6,7 @@
 
 love.graphics.setDefaultFilter("nearest","nearest")
 love.mouse.setVisible(false)
-bigFont = love.graphics.newFont(31)
+bigFont = love.graphics.newFont(30)
 smallFont = love.graphics.newFont(16)
 
 local TableIO = require "TableIO"
@@ -17,6 +17,8 @@ ww = love.graphics.getWidth()
 wh = love.graphics.getHeight()
 scale = math.min(ww/800, wh/560)
 wtranslate = {(ww-800*scale)/2,(wh-560*scale)/2}
+
+local won = false
 
 local justPopped
 
@@ -61,7 +63,7 @@ local Game = {
                 flipped_vertical = false,
                 isLocked = true
             },
-            orangeLever = {
+            greenLever = {
                 beginClosed = true,
                 flipped_horizontal = false,
                 flipped_vertical = false,
@@ -92,6 +94,12 @@ local Game = {
                 flipped_horizontal = true,
                 flipped_vertical = false,
                 isLocked = true
+            },
+            ["chest"] = {
+                beginClosed = true,
+                flipped_horizontal = false,
+                flipped_vertical = false,
+                isLocked = false
             }
         },
         ["Room 5"] = {
@@ -106,6 +114,12 @@ local Game = {
                 flipped_horizontal = true,
                 flipped_vertical = false,
                 isLocked = true
+            },
+            ["chest"] = {
+                beginClosed = true,
+                flipped_horizontal = false,
+                flipped_vertical = false,
+                isLocked = true
             }
         },
         ["Room 6"] = {
@@ -113,15 +127,35 @@ local Game = {
                 beginClosed = true,
                 flipped_horizontal = true,
                 flipped_vertical = false,
-                isLocked = false
+                isLocked = true
             }
         },
         ["Room 7"] = {
-            ["lockingDoor"] = {
+            ["door"] = {
                 beginClosed = true,
                 flipped_horizontal = true,
                 flipped_vertical = false,
                 isLocked = false
+            }
+        },
+        ["Room 8"]= {
+            ["door"] = {
+                beginClosed = true,
+                flipped_horizontal = true,
+                flipped_vertical = false,
+                isLocked = false
+            },
+            ["chest"] = {
+                beginClosed = true,
+                flipped_horizontal = false,
+                flipped_vertical = false,
+                isLocked = true
+            },
+            ["greenLever"] = {
+                beginClosed = true,
+                flipped_horizontal = false,
+                flipped_vertical = false,
+                isLocked = true
             }
         },
         ["Hidden Room"] = {
@@ -135,7 +169,7 @@ local Game = {
                 beginClosed = true,
                 flipped_horizontal = false,
                 flipped_vertical = false,
-                isLocked = true
+                isLocked = false
             },
             ["redLever"] = {
                 beginClosed = true,
@@ -187,6 +221,12 @@ local Game = {
                 roomName = "Room 3",
                 doorName = "lockingDoor"
             }
+        },
+        ["Room 7"] = {
+            ["door"] = {
+                roomName = "Room 8",
+                doorName = "door"
+            }
         }
     },
     ProgressText = {
@@ -195,11 +235,9 @@ local Game = {
                 isLocked = "The chest appears to be locked.",
                 beginClosed = 'You can press "O" to open the chest and "C" to close the chest.',
                 elsetext = [[There appears to be a piece of paper inside the chest that reads:
-                "Nice, you figured out how to open this chest!!"
-                To GO AHEAD, you must GO LEFT!!]]
+                "Nice, you figured out how to open this chest!!"]]
             },
             ["door"] = {
-                isLocked = "Did opening the chest somehow lock this door...?",
                 beginClosed = 'Press "O" to open the door and "C" to close the door.',
                 elsetext = "The door is open."
             },
@@ -210,7 +248,7 @@ local Game = {
         },
         ["Room 2"] = {
             ["text"] = {
-                elsetext = "Tip: There are different colored torches.. What is their purpose other than lighting the room?"
+                elsetext = "Tip: There are different colored torches.. What is their purpose other than lighting the rooms?"
             },
             ["door"] = {
                 beginClosed = 'You can press "O" to open the door and "C" to close the door.',
@@ -219,9 +257,10 @@ local Game = {
         },
         ["Room 3"] = {
             ["text"] = {
-                elsetext = "Tip: The levers are not necessarily the only things controlling whether a particular object is locked or not"
+                elsetext = [[Tip:
+                If an object is locked after it is opened, it can't be closed until unlocked again.]]
             },
-            ["orangeLever"] = {
+            ["greenLever"] = {
                 isLocked = "The lever is not moving!",
                 beginClosed = 'You can press "R" to shift lever to right and "L" to move it back left.',
                 elsetext = "I wonder what this lever did... did it unlock the door in this room??"
@@ -233,7 +272,7 @@ local Game = {
             }
         },
         ["Room 4"] = {
-            ["text 1"] = {
+            ["text"] = {
                 elsetext = "Let the light guide the way.. But what is it that 3 levers can do that a single one can't?"
             },
             ["redLever 1"] = {
@@ -251,22 +290,33 @@ local Game = {
                 beginClosed = '"R" to move lever right and "L" to move it left',
                 elsetext = '"R" to move lever right and "L" to move it left'
             },
-            lockingDoor = {
+            ["lockingDoor"] = {
                 isLocked = "The door appears to be locked.",
                 beginClosed = 'Press "O" to open the door and "C" to close it.',
                 elsetext = "The door is open."
+            },
+            ["chest"] = {
+                beginClosed = 'Press "O" to open the door and "C" to close.',
+                elsetext = [[There is a paper that reads:
+                "The room ahead has the final door.
+                To find the levers that unlock it, you must first find the levers :)
+                They are hidden from sight, and the hidden path only unlocks when all the levers you can see are turned right :)"]]
             }
         },
         ["Room 5"] = {
-            ["text 1"] = {
-                elsetext = "Tip: Search every corner and every edge.. you'll know where to go."
-            },
-            ["text 2"] = {
+            ["text"] = {
                 elsetext = [[On the floor above, from the green tile,
                 follow the footsteps of that brave king's bright knight clad in white on whose queen was showered gold.
                 BEWARE!!
                 IF YOU STRAY FROM THE PATH, YOU WILL BE SENT BACK HERE!!
-                Tip: try moving forward first and then to the sides.]]
+                Tip: try moving forward first and then to the sides.
+                Also, the tiles of the wrong paths are really sensitive :)]]
+            },
+            ["chest"] = {
+                isLocked = [[switch 5 unlocks the chest and switch 3 unlocks the door!!
+                Even with the right switching, the door here doesn't open if the chest is closed:)]],
+                beginClosed = 'You can press "O" to open the chest and "C" to close the chest.',
+                elsetext = "switch 3 unlocks the door!!"
             },
             ["lockingDoor 1"] = {
                 isLocked = "The door appears to be locked.",
@@ -286,7 +336,7 @@ local Game = {
             ["text"] = {
                 elsetext = [[Yay!!
                 This is the last door!!
-                When you unlock it and walk through, you will have won the game!!]]
+                Unlock it and walk through to win the game!!]]
             },
             ["lockingDoor"] = {
                 isLocked = "The door appears to be locked.",
@@ -295,10 +345,27 @@ local Game = {
             }
         },
         ["Room 7"] = {
-            ["lockingDoor"] = {
+            ["door"] = {
                 isLocked = "The door appears to be locked.",
                 beginClosed = '"O" to open and "C" to close the door',
                 elsetext = "The door is open."
+            }
+        },
+        ["Room 8"] = {
+            ["chest"] = {
+                isLocked = "This chest unlocks itself and the green lever here when the other green lever is off.",
+                beginClosed = 'You can press "O" to open the chest and "C" to close the chest.',
+                elsetext = [[There appears to be a piece of paper inside the chest that reads:
+                "If you get thrown from this floor, the green switch here turns back"]]
+            },
+            ["door"] = {
+                beginClosed = 'You can press "O" to open the door and "C" to close the door.',
+                elsetext = "The door is open."
+            },
+            ["greenLever"] = {
+                isLocked = "The lever is not moving",
+                beginClosed = '"R" to move lever right and "L" to move it left',
+                elsetext = '"R" to move lever right and "L" to move it left'
             }
         },
         ["Hidden Room"] = {
@@ -323,9 +390,11 @@ local Game = {
                 elsetext = '"R" to move lever right and "L" to move it left'
             },
             ["chest 2"] = {
-                isLocked = "Locked",
-                beginClosed = 'Unlocked',
-                elsetext = 'hmm'
+                beginClosed = "The chest is not locked",
+                elsetext = "Turn the levers to point in the direction where torches are placed in the floor above, and close all the doors behind you to open the last one :)"
+            },
+            ["wierdWall"] = {
+                elsetext = "This hidden door is pretty neat :)"
             }
         }
     },
@@ -434,6 +503,14 @@ local Game = {
                 looking = "up"
             }
         },
+        ["Room 8"] = {
+            ["Room 7 teleport"] = {
+                currentRoomName = "Room 7",
+                x = nil,
+                y = 0.25*(5*16),
+                looking = "down"
+            }
+        },
         ["Hidden Room"] = {
             ["Room 1 teleport"] = {
                 currentRoomName = "Room 1",
@@ -445,42 +522,40 @@ local Game = {
     },
     objectConditions = { -- if it is an interactable object, then the conditions are meant for isLocked, and if it is a movingWall, then the conditions are meant for beginClosed
         ["Room 1"] = {
-            chest = {
-                lockingDoor = {
+            chest = nil,
+            door = nil,
+            wierdWall = {
+                ["lever 1"] = {
                     roomName = "Room 3",
-                    objectName = "lockingDoor",
-                    fields = {
-                        ["beginClosed"] = true
-                    }
-                },
-                lever = {
-                    roomName = "Room 3",
-                    objectName = "orangeLever",
+                    objectName = "greenLever",
                     fields = {
                         ["beginClosed"] = false
                     }
                 },
-                ["first door"] = {
-                    roomName = "Room 1",
-                    objectName = "door",
+                ["lever 2"] = {
+                    roomName = "Room 4",
+                    objectName = "redLever 1",
                     fields = {
-                        ["beginClosed"] = true
+                        ["beginClosed"] = false
                     }
-                }
-            },
-            door = {
-                chest = {
-                    roomName = "Room 1",
-                    objectName = "chest",
+                },
+                ["lever 3"] = {
+                    roomName = "Room 4",
+                    objectName = "redLever 2",
                     fields = {
-                        ["beginClosed"] = true
+                        ["beginClosed"] = false
                     }
-                }
-            },
-            wierdWall = {
-                chest = {
-                    roomName = "Room 1",
-                    objectName = "chest",
+                },
+                ["lever 4"] = {
+                    roomName = "Room 4",
+                    objectName = "redLever 3",
+                    fields = {
+                        ["beginClosed"] = false
+                    }
+                },
+                ["lever 5"] = {
+                    roomName = "Room 8",
+                    objectName = "greenLever",
                     fields = {
                         ["beginClosed"] = false
                     }
@@ -494,27 +569,28 @@ local Game = {
             lockingDoor = {
                 lever = {
                     roomName = "Room 3",
-                    objectName = "orangeLever",
+                    objectName = "greenLever",
                     fields = {
                         ["beginClosed"] = false
                     }
                 }
             },
-            orangeLever = nil
+            greenLever = nil
         },
         ["Room 4"] = {
             ["redLever 1"] = nil,
             ["redLever 2"] = nil,
             ["redLever 3"] = nil,
-            lockingDoor = {
+            ["lockingDoor"] = {
                 ["redLever 1"] = {
-                    roomName = "Room 4",
-                    objectName = "redLever 1",
+                    roomName = "Room 8",
+                    objectName = "greenLever",
                     fields = {
-                        ["beginClosed"] = true
+                        ["beginClosed"] = false
                     }
                 }
-            }
+            },
+            ["chest"] = nil
         },
         ["Room 5"] = {
             ["lockingDoor 1"] = nil,
@@ -539,17 +615,144 @@ local Game = {
                     fields = {
                         ["beginClosed"] = false
                     }
+                },
+                ["chest"] = {
+                    roomName = "Room 5",
+                    objectName = "chest",
+                    fields = {
+                        ["beginClosed"] = false
+                    }
                 }
             },
+            ["chest"] = {
+                ["redLever 1"] = {
+                    roomName = "Room 4",
+                    objectName = "redLever 1",
+                    fields = {
+                        ["beginClosed"] = false
+                    }
+                },
+                ["redLever 2"] = {
+                    roomName = "Room 4",
+                    objectName = "redLever 2",
+                    fields = {
+                        ["beginClosed"] = true
+                    }
+                },
+                ["redLever 3"] = {
+                    roomName = "Room 4",
+                    objectName = "redLever 3",
+                    fields = {
+                        ["beginClosed"] = false
+                    }
+                }
+            }
         },
         ["Room 6"] = {
-            ["lockingDoor"] = nil
+            ["lockingDoor"] = {
+                ["lever 1"] = {
+                    roomName = "Hidden Room",
+                    objectName = "redLever",
+                    fields = {
+                        ["beginClosed"] = true
+                    }
+                },
+                ["lever 2"] = {
+                    roomName = "Hidden Room",
+                    objectName = "greenLever",
+                    fields = {
+                        ["beginClosed"] = false
+                    }
+                },
+                ["lever 3"] = {
+                    roomName = "Hidden Room",
+                    objectName = "blueLever",
+                    fields = {
+                        ["beginClosed"] = false
+                    }
+                },
+                ["lever 4"] = {
+                    roomName = "Hidden Room",
+                    objectName = "orangeLever",
+                    fields = {
+                        ["beginClosed"] = true
+                    }
+                },
+                ["door 1"] = {
+                    roomName = "Room 2",
+                    objectName = "door",
+                    fields = {
+                        ["beginClosed"] = true
+                    }
+                },
+                ["door 2"] = {
+                    roomName = "Room 3",
+                    objectName = "lockingDoor",
+                    fields = {
+                        ["beginClosed"] = true
+                    }
+                },
+                ["door 3"] = {
+                    roomName = "Room 4",
+                    objectName = "lockingDoor",
+                    fields = {
+                        ["beginClosed"] = true
+                    }
+                },
+                ["door 4"] = {
+                    roomName = "Room 5",
+                    objectName = "lockingDoor 1",
+                    fields = {
+                        ["beginClosed"] = true
+                    }
+                },
+                ["door 5"] = {
+                    roomName = "Room 5",
+                    objectName = "lockingDoor 2",
+                    fields = {
+                        ["beginClosed"] = true
+                    }
+                },
+                ["door 6"] = {
+                    roomName = "Room 7",
+                    objectName = "door",
+                    fields = {
+                        ["beginClosed"] = true
+                    }
+                }
+            }
         },
         ["Room 7"] = {
-            ["lockingDoor"] = nil
+            ["door"] = nil
+        },
+        ["Room 8"] = {
+            ["door"] = nil,
+            ["chest"] = {
+                ["greenLever"] = {
+                    roomName = "Room 3",
+                    objectName = "greenLever",
+                    fields = {
+                        ["beginClosed"] = true
+                    }
+                }
+            },
+            ["greenLever"] = {
+                ["chest"] = {
+                    roomName = "Room 3",
+                    objectName = "greenLever",
+                    fields = {
+                        ["beginClosed"] = true
+                    }
+                }
+            }
         },
         ["Hidden Room"] = {
-            ["chest 2"] = nil
+            ["chest 2"] = nil,
+            ["greenLever"] = nil,
+            ["redLever"] = nil,
+            ["blueLever"] = nil,
+            ["orangeLever"] = nil
+
         }
     },
     GeneralDialog = {
@@ -607,7 +810,7 @@ function Game:getProgressText(enteredCollider)
         if Game.Progress[Game.Progress.currentRoomName][enteredCollider.name] then 
             object = Game.Progress[Game.Progress.currentRoomName][enteredCollider.name]
         end
-        if object and object.isLocked then
+        if object and object.isLocked and object.isLocked then
             text = textTable.isLocked
         elseif object and object.beginClosed then
             text = textTable.beginClosed
@@ -688,8 +891,27 @@ function Game:takeInput(key)
     end
 end
 
+function Game.GameWon()
+    if not won then
+        won = true
+        while stateStack:Top() ~= nil do
+            stateStack:Pop()
+        end
+        while menu:MenuPop() do end
+        menu:MenuPush("GameWon")
+        stateStack:Push("menu","menuDialogBox")
+        menu.dialogBox:pushDialog("You have won the game :):):) !!!")
+    end
+end
+
 function Game:Update(dt) -- could change isOpening/ isClosing directly from Game:takeInput(key)
     local RoomName = Game.Progress.currentRoomName
+    if self.enteredCollider and self.enteredCollider.name == "Room 5 Drop teleport" then
+        Game.Progress["Room 8"]["greenLever"].beginClosed = true
+    end
+    if self.enteredCollider and self.enteredCollider.name == "Game Won" then
+        Game.GameWon()
+    end
     if self.enteredCollider and string.find(self.enteredCollider.name, "teleport") then
         local teleport_details = Game.Teleports[RoomName][self.enteredCollider.name]
         Game.Progress.currentRoomName = teleport_details.currentRoomName

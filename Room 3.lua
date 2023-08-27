@@ -72,11 +72,11 @@ return {
       encoding = "lua",
       data = {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 169, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 205, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 169, 0, 0, 0, 0, 0, 0, 169, 0,
+        0, 205, 0, 0, 0, 0, 0, 0, 205, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0
       }
     },
@@ -246,7 +246,7 @@ return {
       id = 6,
       name = "Draw",
       class = "",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -269,7 +269,7 @@ return {
         },
         {
           id = 48,
-          name = "orangeLever",
+          name = "greenLever",
           type = "draw",
           shape = "rectangle",
           x = 48,
@@ -428,7 +428,7 @@ return {
         },
         {
           id = 49,
-          name = "orangeLever",
+          name = "greenLever",
           type = "detect",
           shape = "rectangle",
           x = 52,

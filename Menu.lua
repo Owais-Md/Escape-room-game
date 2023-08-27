@@ -60,6 +60,10 @@ local menuList = {
         Buttons["Girl"],
         Buttons["Neutral"],
         Buttons["Skeleton"]
+    },
+    GameWon = {
+        Buttons["Credits"],
+        Buttons["Exit"]
     }
 }
 

@@ -10,7 +10,7 @@ return {
   tilewidth = 16,
   tileheight = 16,
   nextlayerid = 7,
-  nextobjectid = 13,
+  nextobjectid = 30,
   properties = {},
   tilesets = {
     {
@@ -86,7 +86,7 @@ return {
       id = 5,
       name = "Game Walls",
       class = "",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -179,7 +179,7 @@ return {
           shape = "rectangle",
           x = 16,
           y = 96,
-          width = 48,
+          width = 44,
           height = 16,
           rotation = 0,
           visible = true,
@@ -190,9 +190,9 @@ return {
           name = "",
           type = "wall",
           shape = "rectangle",
-          x = 80,
+          x = 84,
           y = 96,
-          width = 64,
+          width = 60,
           height = 16,
           rotation = 0,
           visible = true,
@@ -236,6 +236,32 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
+        },
+        {
+          id = 21,
+          name = "",
+          type = "wall",
+          shape = "rectangle",
+          x = 60,
+          y = 100,
+          width = 4,
+          height = 12,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 22,
+          name = "",
+          type = "wall",
+          shape = "rectangle",
+          x = 80,
+          y = 100,
+          width = 4,
+          height = 12,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     },
@@ -252,7 +278,47 @@ return {
       parallaxx = 1,
       parallaxy = 1,
       properties = {},
-      objects = {}
+      objects = {
+        {
+          id = 17,
+          name = "chest",
+          type = "draw",
+          shape = "rectangle",
+          x = 48,
+          y = 16,
+          width = 16,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 20,
+          name = "door",
+          type = "draw",
+          shape = "rectangle",
+          x = 64,
+          y = 96,
+          width = 16,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 28,
+          name = "greenLever",
+          type = "draw",
+          shape = "rectangle",
+          x = 96,
+          y = 16,
+          width = 16,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
+      }
     },
     {
       type = "objectgroup",
@@ -260,14 +326,67 @@ return {
       id = 4,
       name = "Collision Regions",
       class = "",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
       parallaxx = 1,
       parallaxy = 1,
       properties = {},
-      objects = {}
+      objects = {
+        {
+          id = 14,
+          name = "greenLever",
+          type = "detect",
+          shape = "rectangle",
+          x = 100,
+          y = 20,
+          width = 8,
+          height = 8,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 18,
+          name = "chest",
+          type = "detect",
+          shape = "rectangle",
+          x = 48,
+          y = 16,
+          width = 16,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 26,
+          name = "door",
+          type = "detect",
+          shape = "rectangle",
+          x = 60,
+          y = 96,
+          width = 24,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 29,
+          name = "Room 7 teleport",
+          type = "detect",
+          shape = "rectangle",
+          x = 64,
+          y = 112,
+          width = 16,
+          height = 4,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
+      }
     },
     {
       type = "objectgroup",
@@ -275,14 +394,28 @@ return {
       id = 6,
       name = "Moving Walls",
       class = "",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
       parallaxx = 1,
       parallaxy = 1,
       properties = {},
-      objects = {}
+      objects = {
+        {
+          id = 24,
+          name = "door",
+          type = "movingWall",
+          shape = "rectangle",
+          x = 64,
+          y = 100,
+          width = 16,
+          height = 12,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
+      }
     }
   }
 }
