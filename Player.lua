@@ -2,7 +2,7 @@
 --add that torch highlight thing
 --need to change player.x and player.y on the basis of teleport
 
-local anim8 = require 'libraries/anim8' --Could've done it without this library too, but had imported this when just started the project, so now can't remove
+local anim8 = require 'libraries.anim8' --Could've done it without this library too, but had imported this when just started the project, so now can't remove
 local wf = require "libraries.windfield" --FOSS library for game physics
 
 local spriteSheet = love.graphics.newImage("Sprites/Lanea Zimmerman's spritesheets/characters.png")
