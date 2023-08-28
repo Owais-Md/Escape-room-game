@@ -6,7 +6,7 @@
 
 The player has been sent to a room where the player is given instructions on how to interact with the game. The game gives the player multiple hints and multiple puzzles, so that after solving each puzzle the player can go ahead to a new room, and finally the player must find the hidden room, so that the player can solve the final puzzle, and then win the game.
 
-## Installation
+## How to Run
 
 Go to the [releases](https://github.com/Owais-Md/Escape-room-game/releases/tag/v1.0.0) section and download EscapeRoomGame.zip file.
 You can extract the file and run EscapeRoomGame.exe to start the game.
