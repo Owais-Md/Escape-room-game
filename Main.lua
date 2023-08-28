@@ -18,9 +18,6 @@ function love.load()
 end
 
 function love.keypressed(key)
-    if key == "f10" then
-        show_debugging = not show_debugging
-    end
     gameObjects:takeInput(key)
 end
 
