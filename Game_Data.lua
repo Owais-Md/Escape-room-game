@@ -296,7 +296,7 @@ local Game = {
                 elsetext = "The door is open."
             },
             ["chest"] = {
-                beginClosed = 'Press "p" to open the door and "o" to close.',
+                beginClosed = 'You can press "p" to open the chest and "o" to close the chest.',
                 elsetext = [[There is a paper that reads:
                 "The room ahead has the final door.
                 To find the levers that unlock it, you must first find the levers :)

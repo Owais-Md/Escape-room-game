@@ -10,7 +10,7 @@ return {
   tilewidth = 16,
   tileheight = 16,
   nextlayerid = 9,
-  nextobjectid = 75,
+  nextobjectid = 76,
   properties = {},
   tilesets = {
     {
@@ -276,6 +276,19 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
+        },
+        {
+          id = 75,
+          name = "",
+          type = "wall",
+          shape = "rectangle",
+          x = 68,
+          y = 64,
+          width = 8,
+          height = 8,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     },
@@ -285,7 +298,7 @@ return {
       id = 6,
       name = "Draw",
       class = "",
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
