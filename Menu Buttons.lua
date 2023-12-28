@@ -85,6 +85,8 @@ local Buttons = {
                         pushDialoginMenu([[
                             Spritesheets:
                             By Laena Zimmerman, from https://opengameart.org/content/ tiny-16-basic under the creative commons license CC BY 3.0.
+                            Creator:
+                            Mohammad Owais.
                         ]])
                     end
                 )
